@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Micron (MU) Research Dashboard – Preliminary Draft · © 2026 Hugo Tian</title>
 <meta name="author" content="Hugo Tian">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2300b4e6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2714%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27%2306142e%27%3EMU%3C/text%3E%3C/svg%3E">
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791391061"></script>
+<script src="data.js?v=1791393392"></script>
 <style>
 :root{--bg:#0a1630;--panel:#10224a;--panel2:#152b5c;--line:#23407a;--txt:#e6ecf8;--mut:#9fb0d0;--acc:#00b4e6;--acc2:#6fd3ff;--pos:#3ddc97;--neg:#ff6b6b;--warn:#ffc857;--plan:#4aa3ff;--np:#ff9f43;--tax:#b38cff}
 *{box-sizing:border-box}
@@ -58,6 +59,12 @@ tr.r-planned td:first-child{border-left:4px solid var(--plan)}tr.r-nonplan td:fi
 .countdown{font-size:26px;font-weight:800;color:var(--warn)}
 .callcard h4{margin:0 0 6px;font-size:15px}.callcard ul{margin:6px 0 0;padding-left:18px}.callcard li{margin:4px 0;line-height:1.35}
 .feed td{white-space:normal}.mut{color:var(--mut)}
+.hstat.live{min-width:300px;padding:2px 6px;position:relative}
+.hstat.live .tvq{height:76px;overflow:hidden}
+.hstat.live .cap{font-size:10px;color:var(--mut);padding:0 6px 3px}
+.tvchart{height:520px}
+.tvchart .tradingview-widget-container,.tvchart .tradingview-widget-container__widget{height:100%;width:100%}
+.tvfail{color:var(--warn);font-size:12px;padding:8px}
 footer{color:var(--mut);font-size:12px;padding:16px 22px;border-top:1px solid var(--line)}
 @media (max-width:700px){.g2{grid-template-columns:1fr}nav{top:0;position:relative}header{position:relative}}
 </style>
@@ -119,22 +126,52 @@ function chart(id,cfg){const el=document.getElementById(id); if(!el) return; if(
 const baseOpts=(extra={})=>Object.assign({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom'}}},extra);
 
 /* ---------- header ---------- */
+/* ---------- TradingView live widgets (client-side, keyless) ---------- */
+const TV_FRESHNESS='Delayed quote (TradingView marks NASDAQ:MU "Data is delayed"; Cboe One feed; free widgets cannot show real-time US stock data; checked 8 Oct 2026)';
+function tvEmbed(el,widget,cfg,onFail){
+  if(!el) return;
+  el.innerHTML='';
+  const box=document.createElement('div'); box.className='tradingview-widget-container'; box.style.height='100%';
+  const inner=document.createElement('div'); inner.className='tradingview-widget-container__widget'; inner.style.height='100%';
+  box.appendChild(inner);
+  const sc=document.createElement('script'); sc.type='text/javascript'; sc.async=true;
+  sc.src='https://s3.tradingview.com/external-embedding/embed-widget-'+widget+'.js';
+  sc.textContent=JSON.stringify(cfg);
+  let failed=false; const fail=why=>{if(failed) return; failed=true; onFail&&onFail(why);};
+  sc.onerror=()=>fail('script blocked or offline');
+  box.appendChild(sc); el.appendChild(box);
+  setTimeout(()=>{ if(!el.querySelector('iframe')) fail('widget did not load within 12 s'); },12000);
+}
+function liveQuote(){
+  const el=$('#tvq'); if(!el) return;
+  if(location.protocol==='file:'||navigator.onLine===false){ /* still try; TradingView loads from file:// when online */ }
+  tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'},why=>{
+    el.innerHTML=`<div class="tvfail" title="${esc(why)}">Live quote unavailable — showing build-time snapshot →</div>`; el.style.height='auto'; const hb=el.closest('.hstat'); if(hb) hb.style.minWidth='190px'; hb&&(hb.style.maxWidth='230px');
+    const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot price at right';
+    const st=$('#hs-static'); if(st) st.style.outline='1px solid var(--warn)';
+  });
+}
 function header(){
   const p=D.price,k=D.kpi;
   $('#updated').innerHTML=`Last updated: <b>${D.meta.built_sgt}</b> · Data through FQ4 FY26 (quarter ended 3 Sep 2026) · © 2026 Hugo Tian. All rights reserved.`;
   const chg=p.status==='ok'?((p.close/p.prev_close-1)*100):null;
   $('#hstats').innerHTML=[
-    p.status==='ok'?`<div class="hstat"><div class="l">MU last close (${p.close_date})</div><div class="v">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="s">${p.intraday?`Intraday $${fmt(p.intraday,2)} @ ${p.intraday_time}`:'Yahoo chart API at build time'}</div></div>`:`<div class="hstat"><div class="l">MU price</div><div class="v na">unavailable</div></div>`,
+    `<div class="hstat live"><div class="tvq" id="tvq"></div><div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div>`,
+    p.status==='ok'?`<div class="hstat" id="hs-static" title="Static snapshot from the Yahoo chart API at build time; used as fallback if the live widget is blocked"><div class="l">Snapshot · MU close (${p.close_date})</div><div class="v">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="s">${p.intraday?`Intraday $${fmt(p.intraday,2)} @ ${p.intraday_time} (build time)`:'Yahoo chart API at build time'}</div></div>`:`<div class="hstat"><div class="l">MU price</div><div class="v na">unavailable</div></div>`,
     `<div class="hstat"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">Not yet announced</div><div class="s">3rd-party est. ~23 Dec 2026 (unconfirmed)</div></div>`,
     `<div class="hstat"><div class="l">Buyback authorization left</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">of $10B (2018 program; implied)</div></div>`,
     `<div class="hstat"><div class="l">CHIPS step-up</div><div class="v" style="font-size:15px">9 Dec 2026</div><div class="s" id="cd1"></div></div>`].join('');
   const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-new Date())/864e5); $('#cd1').textContent=days>0?`${days} days away`:'in effect';
+  liveQuote();
 }
 /* ---------- overview ---------- */
 function overview(){
   const k=D.kpi,s=D.fin.series;
   const kp=(l,v,sub,cls='')=>`<div class="card kpi"><div class="l">${l}</div><div class="v ${cls}">${v}</div><div class="s">${sub}</div></div>`;
-  let h=`<h2>Overview</h2><div class="grid g4">
+  let h=`<h2>Overview</h2>
+  <div class="card" style="margin-bottom:14px"><h3 style="margin:0 0 6px">MU live price chart <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU via TradingView · ${TV_FRESHNESS}</span></h3>
+  <div class="tvchart" id="tvchart"></div></div>
+  <div class="grid g4">
   ${kp('FQ4 FY26 revenue',fB(k.rev_q),`+${k.rev_qoq.toFixed(0)}% QoQ · +${k.rev_yoy.toFixed(0)}% YoY (14-wk qtr)`)}
   ${kp('FQ4 FY26 gross margin',k.gm_gaap.toFixed(1)+'%',`GAAP · non-GAAP ${k.gm_ng}%`)}
   ${kp('FQ4 FY26 diluted EPS','$'+k.eps_gaap.toFixed(2),`GAAP · non-GAAP $${k.eps_ng}`)}
@@ -161,6 +198,9 @@ function overview(){
     <div class="tblwrap feed" style="max-height:300px">${feedTable(12)}</div></div>
   </div>`;
   $('#s-overview').innerHTML=h;
+  tvEmbed($('#tvchart'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',range:'12M',timezone:'Asia/Singapore',theme:'dark',style:'1',locale:'en',
+    backgroundColor:'rgba(16,34,74,1)',gridColor:'rgba(120,150,210,0.12)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
+    why=>{$('#tvchart').innerHTML=`<div class="tvfail">Live chart unavailable (${esc(why)}). The static 10-session chart below (build-time Yahoo data) still works.</div>`; $('#tvchart').style.height='auto';});
   chart('ovRev',{data:{labels:Q,datasets:[{type:'bar',label:'Revenue ($M)',data:s.rev,backgroundColor:C.dram,yAxisID:'y'},
     {type:'line',label:'Gross margin %',data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.g,yAxisID:'y1',tension:.25},
     {type:'line',label:'Operating margin %',data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1',tension:.25}]},
