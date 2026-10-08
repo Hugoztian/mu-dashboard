@@ -76,6 +76,9 @@ th:first-child{z-index:2}
 tr:hover td{background:var(--rowhover)}
 tr.sec td{background:var(--sec)!important;color:var(--txt);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-top:14px}
 td.wrap,.wrapt td{white-space:normal;text-align:left;min-width:160px;max-width:520px}
+/* short-code columns (Form, Code, Ticker, D/I…) shrink to content; space goes to dates/descriptions */
+table th.code,table td.code{width:1%;white-space:nowrap;min-width:0;max-width:none}
+table.c0tight th:first-child,table.c0tight td:first-child{min-width:0;width:1%;white-space:nowrap}
 .pos{color:var(--pos)}.neg{color:var(--neg)}.na{color:var(--mut2);font-style:italic}
 .notes{color:var(--mut);font-size:12.5px;margin:12px 0 0;padding-left:18px;line-height:1.5}.notes li{margin:4px 0}
 /* segmented control */
@@ -96,7 +99,7 @@ tr.r-planned td:first-child{box-shadow:inset 3px 0 0 var(--plan)}tr.r-nonplan td
 .phase .card.hot{box-shadow:0 0 0 2px var(--acc),var(--shadow)}
 .countdown{font-size:34px;font-weight:600;letter-spacing:-.03em;color:var(--acc)}
 .callcard h4{margin:0 0 8px;font-size:17px}.callcard ul{margin:6px 0 0;padding-left:18px}.callcard li{margin:5px 0;line-height:1.45}
-.feed td{white-space:normal}.mut{color:var(--mut)}
+.feed td{white-space:normal}.feed th,.feed td{text-align:left}.mut{color:var(--mut)}
 .tvchart{height:520px;border-radius:12px;overflow:hidden}
 .tvchart .tradingview-widget-container,.tvchart .tradingview-widget-container__widget{height:100%;width:100%}
 .tvfail{color:var(--warn);font-size:12px;padding:8px}
@@ -173,6 +176,22 @@ function sortable(root){root.querySelectorAll('table').forEach(tb=>{tb.querySele
   const dir=th.dataset.dir==='a'?'d':'a'; th.dataset.dir=dir;
   const val=r=>{const t=r.cells[i]?.innerText.replace(/[$,%+]/g,'')||'';const n=parseFloat(t);return isNaN(n)?t.toLowerCase():n};
   rows.sort((a,b)=>{const x=val(a),y=val(b);return (x>y?1:x<y?-1:0)*(dir==='a'?1:-1)});rows.forEach(r=>body.appendChild(r));}))})}
+/* shrink narrow code-like columns to fit their content (site-wide, incl. re-rendered/filtered tables) */
+const CODE_HDR=/^(form|form type|form 4|code|txn code|transaction code|ticker|symbol|tech|type|buy\/sell|d\/i|direct\/indirect|10b5-1|link)$/i;
+const NUMLIKE=/^[~≈<>$+\-−(]*[\d,.]+\s?[%BMKx×)]*$/i;
+function tightCols(root){ (root||document).querySelectorAll('table').forEach(tb=>{
+  const head=tb.tHead&&tb.tHead.rows[0]; if(!head) return; const n=head.cells.length;
+  const rows=[...(tb.tBodies[0]?.rows||[])].filter(r=>r.cells.length===n);
+  for(let i=0;i<n;i++){
+    const vals=rows.slice(0,400).map(r=>r.cells[i].textContent.trim()).filter(v=>v&&!/^(n\/a|n\/p|—|–|-)$/i.test(v));
+    const hdr=head.cells[i].textContent.trim();
+    let code=CODE_HDR.test(hdr);
+    if(!code&&vals.length){const mx=Math.max(...vals.map(v=>v.length)); const txt=vals.filter(v=>!NUMLIKE.test(v)&&/[A-Za-z]/.test(v)).length/vals.length; code=mx<=6&&txt>=0.5&&!vals.some(v=>/\s/.test(v));}
+    if(!code) continue;
+    head.cells[i].classList.add('code'); rows.forEach(r=>r.cells[i].classList.add('code')); if(i===0) tb.classList.add('c0tight');
+  }});}
+let _tcPending=false;
+new MutationObserver(()=>{ if(_tcPending) return; _tcPending=true; requestAnimationFrame(()=>{_tcPending=false; tightCols(document.querySelector('main'));}); }).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 const charts={};
 function chart(id,cfg){const el=document.getElementById(id); if(!el) return; if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg);}
 const baseOpts=(extra={})=>Object.assign({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom'}}},extra);
