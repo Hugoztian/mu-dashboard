@@ -1,10 +1,12 @@
-// micron-dashboard Worker: serves the static dashboard (assets) + GET /api/quote (live MU quote, keyless, CORS *).
+// micron-dashboard Worker: serves the static dashboard (assets) + GET /api/quote (live quote, keyless, CORS *).
+// ?symbol= optional: MU (default) or LMND (allowlist; anything else -> 400). Market hours/holidays: XNAS calendar for both.
 // Sources, in order: Robinhood public quotes (bounds=24_5: Nasdaq last sale + extended/overnight prints, no key),
-// then Yahoo Finance v8 chart (regular + pre/post), then Nasdaq.com quote API. Cached in-isolate ~12 s.
-const SYMBOL = 'MU';
+// then Nasdaq.com quote API. Cached in-isolate ~12 s.
+const SYMBOLS = { MU: { exchange: 'Nasdaq' }, LMND: { exchange: 'NYSE' } }; // allowlist
+const DEFAULT_SYMBOL = 'MU';
 const TTL_MS = 12000;
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
-let cache = { at: 0, body: null };
+const caches_ = {}; // symbol -> { at, body }
 let hoursCache = {}; // ET date -> {is_open}
 
 const CORS = {
@@ -53,7 +55,7 @@ async function sessionNow(now) {
 const num = v => (v === null || v === undefined || v === '' ? null : +v);
 const chg = (p, ref) => (p != null && ref ? { change: +(p - ref).toFixed(4), pct: +((p / ref - 1) * 100).toFixed(4) } : { change: null, pct: null });
 
-function shape({ now, session, regPrice, regTime, prevClose, prevCloseDate, ext, source, sourceNote, bid, ask }) {
+function shape({ symbol = DEFAULT_SYMBOL, now, session, regPrice, regTime, prevClose, prevCloseDate, ext, source, sourceNote, bid, ask }) {
   // reference close for extended prints = latest regular-session close
   // Reference close for change: during the regular session = previous close; otherwise = the latest regular-session
   // close (last regular trade), so extended/overnight moves read 'vs close'.
@@ -71,7 +73,7 @@ function shape({ now, session, regPrice, regTime, prevClose, prevCloseDate, ext,
   else main = { price: refClose, time: regTime, label: 'Last close', kind: 'close', change: null, pct: null };
   if (main.time) main.time_et = etParts(main.time).date + ' ' + etParts(main.time).time + ' ET';
   return {
-    ok: true, symbol: SYMBOL, session, session_label: LABEL[session], source, source_note: sourceNote,
+    ok: true, symbol, session, session_label: LABEL[session], source, source_note: sourceNote,
     main, ext: extOut,
     regular: { price: regPrice, time: regTime, time_et: regTime ? etParts(regTime).date + ' ' + etParts(regTime).time + ' ET' : null, ...chg(regPrice, prevClose) },
     prev_close: { price: prevClose, date: prevCloseDate },
@@ -81,8 +83,8 @@ function shape({ now, session, regPrice, regTime, prevClose, prevCloseDate, ext,
   };
 }
 
-async function fromRobinhood(now, session) {
-  const r = await fetch(`https://api.robinhood.com/marketdata/quotes/?symbols=${SYMBOL}&bounds=24_5`, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
+async function fromRobinhood(now, session, symbol) {
+  const r = await fetch(`https://api.robinhood.com/marketdata/quotes/?symbols=${symbol}&bounds=24_5`, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
   if (!r.ok) throw new Error('robinhood ' + r.status);
   const q = (await r.json()).results?.[0];
   if (!q || !q.last_trade_price) throw new Error('robinhood empty');
@@ -90,49 +92,35 @@ async function fromRobinhood(now, session) {
   const extP = num(q.last_non_reg_trade_price) ?? num(q.last_extended_hours_trade_price);
   const extT = q.venue_last_non_reg_trade_time ? Date.parse(q.venue_last_non_reg_trade_time) : null;
   const src = (q.last_non_reg_trade_price_source || '').toLowerCase();
+  if (q.symbol && q.symbol !== symbol) throw new Error('robinhood symbol mismatch');
   return shape({
-    now, session, regPrice: num(q.last_trade_price), regTime, prevClose: num(q.previous_close), prevCloseDate: q.previous_close_date,
+    symbol, now, session, regPrice: num(q.last_trade_price), regTime, prevClose: num(q.previous_close), prevCloseDate: q.previous_close_date,
     ext: extP && extT ? { price: extP, time: extT, venue: src === 'boats' ? 'Blue Ocean ATS' : (src ? src.toUpperCase() : null) } : null,
     bid: q.bid_price, ask: q.ask_price,
-    source: 'Robinhood public quote', sourceNote: 'real-time: Nasdaq last sale (regular) and Robinhood 24-hour feed (extended/overnight)',
+    source: 'Robinhood public quote', sourceNote: `real-time: ${symbol === 'MU' ? 'Nasdaq' : SYMBOLS[symbol].exchange} last sale (regular) and Robinhood 24-hour feed (extended/overnight)`,
   });
 }
-async function fromYahoo(now, session) {
-  let j = null, err;
-  for (const host of ['query1', 'query2']) {
-    try {
-      const r = await fetch(`https://${host}.finance.yahoo.com/v8/finance/chart/${SYMBOL}?interval=1m&range=1d&includePrePost=true`, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
-      if (r.ok) { j = await r.json(); break; } err = 'yahoo ' + r.status;
-    } catch (e) { err = String(e); }
-  }
-  if (!j) throw new Error(err || 'yahoo failed');
-  const res = j.chart.result[0], m = res.meta, ts = res.timestamp || [], cl = res.indicators?.quote?.[0]?.close || [];
-  const regTime = m.regularMarketTime * 1000;
-  let ext = null;
-  for (let i = ts.length - 1; i >= 0; i--) { if (cl[i] == null) continue; const t = ts[i] * 1000; if (t > regTime + 60000 && bucket(t) !== 'regular') ext = { price: cl[i], time: t, venue: null }; break; }
-  const pc = m.chartPreviousClose ?? m.previousClose;
-  return shape({ now, session, regPrice: m.regularMarketPrice, regTime, prevClose: pc, prevCloseDate: null, ext, source: 'Yahoo Finance v8 chart', sourceNote: 'Yahoo Finance (Nasdaq real-time; pre/post-market, no overnight)' });
-}
-async function fromNasdaq(now, session) {
-  const r = await fetch(`https://api.nasdaq.com/api/quote/${SYMBOL}/info?assetclass=stocks`, { headers: { 'User-Agent': UA, Accept: 'application/json, text/plain, */*', Origin: 'https://www.nasdaq.com', Referer: 'https://www.nasdaq.com/' } });
+async function fromNasdaq(now, session, symbol) {
+  const r = await fetch(`https://api.nasdaq.com/api/quote/${symbol}/info?assetclass=stocks`, { headers: { 'User-Agent': UA, Accept: 'application/json, text/plain, */*', Origin: 'https://www.nasdaq.com', Referer: 'https://www.nasdaq.com/' } });
   if (!r.ok) throw new Error('nasdaq ' + r.status);
-  const d = (await r.json()).data; const p = d.primaryData;
+  const d = (await r.json()).data; if (!d || !d.primaryData) throw new Error('nasdaq empty'); const p = d.primaryData;
   const price = +String(p.lastSalePrice).replace(/[$,]/g, ''), net = +String(p.netChange).replace(/[$,+]/g, '');
-  return shape({ now, session, regPrice: price, regTime: now, prevClose: price - net, prevCloseDate: null, ext: null, source: 'Nasdaq.com quote API', sourceNote: p.isRealTime ? 'Nasdaq real-time' : 'Nasdaq (may be delayed)' });
+  return shape({ symbol, now, session, regPrice: price, regTime: now, prevClose: price - net, prevCloseDate: null, ext: null, source: 'Nasdaq.com quote API', sourceNote: p.isRealTime ? 'Nasdaq real-time' : 'Nasdaq (may be delayed)' });
 }
 
-async function quote(only) {
+async function quote(only, symbol = DEFAULT_SYMBOL) {
   const now = Date.now();
+  const cache = caches_[symbol] || { at: 0, body: null };
   if (!only && cache.body && now - cache.at < TTL_MS) return { body: cache.body, age: now - cache.at };
   const session = await sessionNow(now);
   const errors = [];
-  const SRC = { robinhood: fromRobinhood, yahoo: fromYahoo, nasdaq: fromNasdaq };
-  for (const f of only && SRC[only] ? [SRC[only]] : [fromRobinhood, fromYahoo, fromNasdaq]) {
-    try { const b = await f(now, session); if (errors.length) b.fallback_errors = errors; if (!only) cache = { at: now, body: b }; return { body: b, age: 0 }; }
+  const SRC = { robinhood: fromRobinhood, nasdaq: fromNasdaq };
+  for (const f of only && SRC[only] ? [SRC[only]] : [fromRobinhood, fromNasdaq]) {
+    try { const b = await f(now, session, symbol); if (errors.length) b.fallback_errors = errors; if (!only) caches_[symbol] = { at: now, body: b }; return { body: b, age: 0 }; }
     catch (e) { errors.push(String(e).slice(0, 120)); }
   }
   if (cache.body) return { body: { ...cache.body, stale: true, errors }, age: now - cache.at };
-  return { body: { ok: false, errors, fetched_at: new Date(now).toISOString() }, age: 0, status: 502 };
+  return { body: { ok: false, symbol, errors, fetched_at: new Date(now).toISOString() }, age: 0, status: 502 };
 }
 
 export { shape, etParts, bucket };
@@ -141,7 +129,12 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/api/quote') {
       if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
-      const { body, age, status } = await quote(url.searchParams.get('source'));
+      const symbol = (url.searchParams.get('symbol') || DEFAULT_SYMBOL).trim().toUpperCase();
+      if (!Object.prototype.hasOwnProperty.call(SYMBOLS, symbol)) {
+        return new Response(JSON.stringify({ ok: false, error: 'symbol not allowed', allowed: Object.keys(SYMBOLS) }), {
+          status: 400, headers: { ...CORS, 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' } });
+      }
+      const { body, age, status } = await quote(url.searchParams.get('source'), symbol);
       return new Response(JSON.stringify({ ...body, cache_age_ms: age }), {
         status: status || 200,
         headers: { ...CORS, 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=10' },

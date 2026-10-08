@@ -9,7 +9,7 @@
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791470094"></script>
+<script src="data.js?v=1791473206"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -62,6 +62,7 @@ nav a.on{background:var(--txt);color:var(--bg);opacity:1}
 main{padding:24px 28px 40px;max-width:1280px;margin:0 auto}
 section{display:none}section.on{display:block}
 h2{font-size:40px;line-height:1.1;font-weight:700;letter-spacing:-.03em;margin:28px 0 24px}
+h2.sech{font-size:28px;margin:8px 0 18px;padding-top:14px;border-top:1px solid var(--line);scroll-margin-top:64px}
 h3{font-size:19px;font-weight:600;letter-spacing:-.02em;margin:34px 0 12px;color:var(--txt)}
 h4{font-weight:600;letter-spacing:-.015em}
 .grid{display:grid;gap:18px}.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(min(480px,100%),1fr))}
@@ -109,7 +110,6 @@ tr.r-planned td:first-child{box-shadow:inset 3px 0 0 var(--plan)}tr.r-nonplan td
 .tvchart{height:520px;border-radius:12px;overflow:hidden}
 .tvchart .tradingview-widget-container,.tvchart .tradingview-widget-container__widget{height:100%;width:100%}
 .tvfail{color:var(--warn);font-size:12px;padding:8px}
-/* live quote box */
 .lq{padding:4px 8px 2px}
 .lq-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--mut);font-weight:500}
 .lq-sess{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
@@ -128,6 +128,9 @@ tr.r-planned td:first-child{box-shadow:inset 3px 0 0 var(--plan)}tr.r-nonplan td
 .lq-sub{font-size:13px;color:var(--txt);font-variant-numeric:tabular-nums}
 .lq-cap{font-size:11px;color:var(--mut2);margin-top:4px;line-height:1.4}
 .lq.stale .lq-px{opacity:.6}
+.tvchart.tvchart-sm{height:300px}
+.nw{white-space:nowrap}
+/* live quote box */
 
 footer{color:var(--mut);font-size:12px;line-height:1.6;padding:22px 28px 34px;max-width:1280px;margin:0 auto;border-top:1px solid var(--hair)}
 footer b{color:var(--txt);font-weight:500}
@@ -148,8 +151,7 @@ footer b{color:var(--txt);font-weight:500}
 <section id="s-overview"></section>
 <section id="s-financials"></section>
 <section id="s-revenue"></section>
-<section id="s-capacity"></section>
-<section id="s-capex"></section>
+<section id="s-capacity-capex"></section>
 <section id="s-buybacks"></section>
 <section id="s-insiders"></section>
 <section id="s-calls"></section>
@@ -159,7 +161,7 @@ footer b{color:var(--txt);font-weight:500}
 <footer>Built from Micron SEC filings (10-Q/10-K/8-K/Form 4 via EDGAR), Micron IR materials and clearly-labelled third-party sources. Not investment advice. Unavailable items are marked n/a / n/p rather than estimated. Data is rebuilt on each scheduled scan (Tue–Sat 8:40 AM and weekdays 9:40 PM SGT).<br><b>© 2026 Hugo Tian. All rights reserved.</b></footer>
 <script>
 const D = window.MU_DATA, Q = D.meta.quarters;
-const TABS=[['overview','Overview'],['financials','Financials'],['revenue','Revenue & Pricing'],['capacity','Capacity'],['capex','Capex'],['buybacks','Buybacks & CHIPS'],['insiders','Insiders'],['calls','Earnings Calls'],['estimates','Wall Street Estimates'],['sources','Sources & Live feed']];
+const TABS=[['overview','Overview'],['financials','Financials'],['revenue','Revenue & Pricing'],['capacity-capex','Capacity & Capex'],['buybacks','Buybacks & CHIPS'],['insiders','Insiders'],['calls','Earnings Calls'],['estimates','Wall Street Estimates'],['sources','Sources & Live feed']];
 const $=s=>document.querySelector(s);
 const fmt=(v,d=0)=>v==null?'n/a':Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const fB=v=>v==null?'n/a':'$'+(v/1000).toFixed(1)+'B';
@@ -289,7 +291,7 @@ function renderQuote(q){
   const Y=D.price.ytd; if(Y&&Y.status==='ok'){ const rp=q.regular&&q.regular.price; if(rp){ const pct=(rp/Y.base-1)*100;
     const v=$('#ytd-v'); if(v) v.innerHTML=`<span class="${pct>=0?'pos':'neg'}">${pct>=0?'+':''}${pct.toFixed(1)}%</span>`;
     const e=q.ext&&!reg?q.ext:null; const s1=$('#ytd-s1');
-    if(s1) s1.textContent=`${usd(rp)} (${reg?'live':'regular close'} ${q.regular.time?tET(q.regular.time).slice(0,5)+' ET':''}) vs ${usd(Y.base)} close ${Y.base_date}`+(e?` · on ${e.label.toLowerCase()}: ${((e.price/Y.base-1)*100>=0?'+':'')}${((e.price/Y.base-1)*100).toFixed(1)}%`:'');
+    if(s1) s1.innerHTML=`${usd(rp)} (${reg?'live':'regular close'} ${q.regular.time?tET(q.regular.time).slice(0,5)+' ET':''}) vs ${usd(Y.base)} close <span class="nw">${esc(Y.base_date)}</span> (Nasdaq.com)`+(e?` · on ${e.label.toLowerCase()}: ${((e.price/Y.base-1)*100>=0?'+':'')}${((e.price/Y.base-1)*100).toFixed(1)}%`:'');
     const s2=$('#ytd-s2'); if(s2) s2.textContent=`live · updated ${tET(Date.now())} ET`; } }
 }
 async function pollQuote(){
@@ -321,9 +323,9 @@ function header(){
        <div class="half"><div id="lq" class="lq" aria-live="polite"><div class="lq-top"><span class="lq-sess" id="lq-sess"><i class="lq-dot"></i><span id="lq-sl">Connecting to live quote…</span></span><span class="lq-sym">MU · Nasdaq</span></div>
          <div class="lq-row"><span class="lq-k" id="lq-k"></span><span class="lq-px" id="lq-px">—</span><span class="lq-ch" id="lq-ch"></span></div>
          <div class="lq-sub" id="lq-sub"></div><div class="lq-cap" id="lq-cap"></div></div>
-       <div id="tvwrap" style="display:none"><div class="tag">Nasdaq · regular / extended (fallback widget)</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="Static snapshot from the Yahoo chart API at build time; shown only if the live widget fails"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">Snapshot close ${p.close_date} (build-time, Yahoo)</div></div>`:''}<div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div></div></div>`,
-    YT.status==='ok'?`<div class="hstat" title="YTD = latest regular-session price vs the ${YT.base_date} close (last trading day of 2025), unadjusted. Computed at build time; refreshed on every rebuild."><div class="l">MU year-to-date</div><div class="v" id="ytd-v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
-       <div class="s" id="ytd-s1">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close ${YT.base_date}${YT.pct_overnight!=null?` · on overnight: ${YT.pct_overnight>=0?'+':''}${YT.pct_overnight.toFixed(1)}%`:''}</div>
+       <div id="tvwrap" style="display:none"><div class="tag">Nasdaq · regular / extended (fallback widget)</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="Official close from Nasdaq.com at build time; shown only if the live quote and the TradingView fallback both fail"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">Official close ${p.close_date} (build-time, Nasdaq.com)</div></div>`:''}<div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div></div></div>`,
+    YT.status==='ok'?`<div class="hstat" title="YTD = live regular-session price (Robinhood feed via /api/quote) vs the ${YT.base_date} official close (last trading day of 2025, Nasdaq.com), unadjusted. Shows the build-time figure until the live quote arrives."><div class="l">MU year-to-date</div><div class="v" id="ytd-v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
+       <div class="s" id="ytd-s1">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close <span class="nw">${YT.base_date}</span> (Nasdaq.com official closes)</div>
        <div class="s" id="ytd-s2">as of build ${esc(D.meta.built_sgt)}</div>
        </div>`
      :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div></div>`,
@@ -352,7 +354,7 @@ function overview(){
   </div>
   <div class="grid g2" style="margin-top:14px">
    <div class="card"><h3 style="margin-top:0">Revenue & margins (8Q)</h3><div class="chartbox"><canvas id="ovRev"></canvas></div></div>
-   <div class="card"><h3 style="margin-top:0">MU daily close (last 10 sessions; last point = latest/intraday at build, Yahoo)</h3><div class="chartbox"><canvas id="ovPx"></canvas></div></div>
+   <div class="card"><h3 style="margin-top:0">MU daily candles (recent sessions) <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU via TradingView · delayed</span></h3><div class="tvchart tvchart-sm" id="tvchart2"></div></div>
   </div>
   <div class="grid g2" style="margin-top:14px">
    <div class="card"><h3 style="margin-top:0">Key takeaways</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
@@ -369,12 +371,14 @@ function overview(){
   $('#s-overview').innerHTML=h;
   tvEmbed($('#tvchart'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',range:'12M',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:'en',
     backgroundColor:DARK?'rgba(28,28,30,1)':'rgba(255,255,255,1)',gridColor:DARK?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
-    why=>{$('#tvchart').innerHTML=`<div class="tvfail">Live chart unavailable (${esc(why)}). The static 10-session chart below (build-time Yahoo data) still works.</div>`; $('#tvchart').style.height='auto';});
+    why=>{$('#tvchart').innerHTML=`<div class="tvfail">Live chart unavailable (${esc(why)}).${D.price.status==='ok'?` Last official close (Nasdaq.com, build-time): $${fmt(D.price.close,2)} on ${D.price.close_date}.`:''}</div>`; $('#tvchart').style.height='auto';});
+  tvEmbed($('#tvchart2'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:'en',
+    backgroundColor:DARK?'rgba(28,28,30,1)':'rgba(255,255,255,1)',gridColor:DARK?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
+    why=>{$('#tvchart2').innerHTML=`<div class="tvfail">Chart unavailable (${esc(why)}).${D.price.status==='ok'?` Last official close (Nasdaq.com, build-time): $${fmt(D.price.close,2)} on ${D.price.close_date}.`:''}</div>`; $('#tvchart2').style.height='auto';});
   chart('ovRev',{data:{labels:Q,datasets:[{type:'bar',label:'Revenue ($M)',data:s.rev,backgroundColor:C.dram,yAxisID:'y'},
     {type:'line',label:'Gross margin %',data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.g,yAxisID:'y1',tension:.25},
     {type:'line',label:'Operating margin %',data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1',tension:.25}]},
     options:baseOpts({scales:{y:{title:{display:true,text:'$M'}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false},title:{display:true,text:'%'}}}})});
-  if(D.price.status==='ok') chart('ovPx',{type:'line',data:{labels:D.price.spark.map(x=>x[0]),datasets:[{label:'MU close ($)',data:D.price.spark.map(x=>x[1]),borderColor:C.dram,fill:false,tension:.2}]},options:baseOpts()});
 }
 function feedTable(n){
   return `<table><thead><tr><th>Form</th><th>Filed</th><th>Report date</th><th>Description / items</th><th>Link</th></tr></thead><tbody>${D.filings.slice(0,n).map(f=>`<tr><td><b>${esc(f.form)}</b></td><td>${f.date}</td><td>${f.report||''}</td><td class="wrap">${esc(f.desc)} ${f.items?'<span class="mut">items '+esc(f.items)+'</span>':''}</td><td><a href="${f.url}" target="_blank">doc</a> · <a href="${f.index}" target="_blank">index</a></td></tr>`).join('')}</tbody></table>`;
@@ -416,10 +420,14 @@ function revenue(){
   chart('rvB',{type:'bar',data:{labels:Q,datasets:Object.entries(R.BU).map(([k,v])=>({label:k,data:v,backgroundColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Revenue by business unit ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
   chart('rvG',{type:'line',data:{labels:Q,datasets:Object.entries(R.BUGM).map(([k,v])=>({label:k+' GM %',data:v,borderColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Business-unit gross margin %'}}})});
 }
-/* ---------- capacity ---------- */
+/* ---------- capacity & capex (merged tab: Capacity first, then Capex) ---------- */
+function capacityCapex(){
+  $('#s-capacity-capex').innerHTML=`<h2>Capacity &amp; Capex</h2><div id="cc-capacity"></div><div id="cc-capex" style="margin-top:36px"></div>`;
+  capacity(); capex();
+}
 function capacity(){
   const T=D.cap.timeline;
-  $('#s-capacity').innerHTML=`<h2>Capacity</h2>
+  $('#cc-capacity').innerHTML=`<h2 class="sech" id="capacity">Capacity</h2>
   <div class="grid g2"><div class="card"><h3 style="margin-top:0">New capacity timeline</h3><div class="mut" style="font-size:12px;margin-bottom:10px">Blue = company statement · Amber = press/third-party report. Sorted by expected output.</div>
   <div class="tl">${T.map(t=>`<div class="tli ${t.reported?'rep':''}"><div class="w">${esc(t.output)}</div><div class="p">${esc(t.project)}</div><div class="mut">${esc(t.status)}${t.changes&&t.changes!=='—'?' · '+esc(t.changes):''}</div><div class="q">${esc(t.quote)}</div><div class="mut" style="font-size:11px">Source: ${linkify(t.source)}</div></div>`).join('')}</div></div>
   <div class="card"><h3 style="margin-top:0">Highlights</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
@@ -433,7 +441,7 @@ function capacity(){
 /* ---------- capex ---------- */
 function capex(){
   const s=D.fin.series;
-  $('#s-capex').innerHTML=`<h2>Capex</h2><div class="grid g2"><div class="card"><div class="chartbox"><canvas id="cxA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="cxB"></canvas></div></div></div>
+  $('#cc-capex').innerHTML=`<h2 class="sech" id="capex">Capex</h2><div class="grid g2"><div class="card"><div class="chartbox"><canvas id="cxA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="cxB"></canvas></div></div></div>
   ${tableHTML(D.capex.tbl)}${tableHTML(D.capex.guid,{wrap:true})}`;
   chart('cxA',{data:{labels:Q,datasets:[{type:'bar',label:'Gross capex',data:s.capex,backgroundColor:C.r},{type:'bar',label:'Government incentives',data:s.gov,backgroundColor:C.g},{type:'line',label:'Net capex',data:s.netcapex,borderColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Gross capex, incentives, net capex ($M)'}}})});
   chart('cxB',{type:'line',data:{labels:Q,datasets:[{label:'Net capex % of revenue',data:s.netcapex.map((v,i)=>v/s.rev[i]*100),borderColor:C.o},{label:'Net capex % of OCF',data:s.netcapex.map((v,i)=>v/s.ocf[i]*100),borderColor:C.b}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Capex intensity (%)'}}})});
@@ -499,58 +507,61 @@ function calls(){
 }
 /* ---------- Wall Street estimates ---------- */
 function estimates(){
-  const E=D.est, M=E.manual, Y=E.yahoo, G=M.guidance_fq1fy27, P=E.periods, T=E.targets;
-  const yAs = Y.status==='unavailable' ? 'Yahoo data unavailable' : `Yahoo Finance (S&P Global data) · ${Y.status==='live'?'fetched live':'SNAPSHOT (live fetch failed)'} ${Y.as_of_sgt} (${Y.as_of_et||''})`;
+  const E=D.est, M=E.manual, NS=E.nasdaq||{}, G=M.guidance_fq1fy27, T=E.targets||{}, MO=E.momentum||{}, RT=E.ratings||{};
+  const nAs = NS.status==='unavailable'||!NS.status ? 'Nasdaq.com / Zacks data unavailable' : `Nasdaq.com (Zacks Investment Research data) · ${NS.status==='live'?'fetched live':'SNAPSHOT (live fetch failed)'} ${NS.as_of_sgt||''}`;
   const n=(v,d=2)=>v==null?'<span class="mut">n/a</span>':fmt(v,d);
-  const B=v=>v==null?'<span class="mut">n/a</span>':'$'+(v/1e9).toFixed(2)+'B';
   const pc=(v,d=1)=>{if(v==null||!isFinite(v))return '<span class="mut">n/a</span>'; if(Math.abs(v)<0.5*Math.pow(10,-d)) return `<span class="mut">${(0).toFixed(d)}% (in line)</span>`; return `<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(d)}%</span>`;};
   const pp=(v)=>v==null?'<span class="mut">n/a</span>':`<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(2)}pp</span>`;
-  const q1=P.find(p=>p.label==='FQ1 FY27')||{rev:{},eps:{}};
+  const PER=[...(E.q||[]),...(E.y||[])], per=l=>PER.find(p=>p.label===l)||null;
+  const q1=per('FQ1 FY27')||{};
   const last=D.price.close, oc=M.other_consensus;
   const fs=oc.find(o=>o.gm!=null&&o.period==='FQ1 FY27');
+  const lseg=oc.find(o=>o.provider.startsWith('LSEG (via CNBC)')&&o.period==='FQ1 FY27');
   const raises=M.target_changes.filter(c=>c.action==='Raised'), lowers=M.target_changes.filter(c=>c.action==='Lowered');
-  const rt=E.rec_trend[0]||{};
+  const nAn=(T.buy??0)+(T.hold??0)+(T.sell??0);
   const kp=(t,v,s)=>`<div class="card kpi"><div class="l">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
   const src=(t,u)=>u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`:esc(t);
+  const NQE='https://www.nasdaq.com/market-activity/stocks/mu/earnings', NQA='https://www.nasdaq.com/market-activity/stocks/mu/analyst-research';
   // --- A: guide vs consensus FQ1 FY27
-  const qrev=q1.rev.avg, qeps=q1.eps.avg;
+  const qeps=q1.mean;
   const rowsA=[
-    ['Revenue ($B)', `$${G.rev_low.toFixed(1)}–${G.rev_high.toFixed(1)}B (mid $${G.rev_mid}B)`, qrev==null?'n/a':`$${(qrev/1e9).toFixed(2)}B`, q1.rev.low==null?'n/a':`$${(q1.rev.low/1e9).toFixed(1)}–${(q1.rev.high/1e9).toFixed(1)}B`, q1.rev.numberOfAnalysts??'n/a', qrev==null?'<span class="mut">n/a</span>':pc((qrev/1e9/G.rev_mid-1)*100,2)],
-    ['Non-GAAP gross margin (%)', `~${G.gm_ng}% (GAAP ~${G.gm_gaap}%)`, 'n/a (Yahoo has no GM)', '—', '—', fs?`${fs.gm}% FactSet pre-guide → guide ${pp(G.gm_ng-fs.gm)}`:'n/a'],
-    ['Non-GAAP diluted EPS ($)', `$${G.eps_low.toFixed(2)}–${G.eps_high.toFixed(2)} (mid $${G.eps_mid})`, qeps==null?'n/a':'$'+qeps.toFixed(2), q1.eps.low==null?'n/a':`$${q1.eps.low.toFixed(2)}–${q1.eps.high.toFixed(2)}`, q1.eps.numberOfAnalysts??'n/a', qeps==null?'<span class="mut">n/a</span>':pc((qeps/G.eps_mid-1)*100,2)]];
+    ['Revenue ($B)', `$${G.rev_low.toFixed(1)}–${G.rev_high.toFixed(1)}B (mid $${G.rev_mid}B)`, 'n/a (not in the Nasdaq.com/Zacks feed)', '—', '—', lseg?`$${lseg.rev_b.toFixed(1)}B LSEG pre-guide → guide ${pc((G.rev_mid/lseg.rev_b-1)*100,2)}`:'<span class="mut">n/a</span>'],
+    ['Non-GAAP gross margin (%)', `~${G.gm_ng}% (GAAP ~${G.gm_gaap}%)`, 'n/a (not in the Nasdaq.com/Zacks feed)', '—', '—', fs?`${fs.gm}% FactSet pre-guide → guide ${pp(G.gm_ng-fs.gm)}`:'n/a'],
+    ['Non-GAAP diluted EPS ($)', `$${G.eps_low.toFixed(2)}–${G.eps_high.toFixed(2)} (mid $${G.eps_mid})`, qeps==null?'n/a':'$'+qeps.toFixed(2), q1.low==null?'n/a':`$${q1.low.toFixed(2)}–${q1.high.toFixed(2)}`, q1.n??'n/a', qeps==null?'<span class="mut">n/a</span>':pc((qeps/G.eps_mid-1)*100,2)]];
   // --- B: consensus by period
-  const per=['FQ1 FY27','FQ2 FY27','FY27','FY28'].map(l=>P.find(p=>p.label===l)||null);
-  const z=l=>oc.find(o=>o.provider.startsWith('Zacks')&&o.period===l);
+  const cols=['FQ1 FY27','FQ2 FY27','FQ3 FY27','FQ4 FY27','FY27','FY28'];
+  const EA=D.calls.GUIDE.eps_act, yago=l=>{const m=l.match(/^FQ(\d) FY27$/); if(m) return EA[4+(+m[1])-1]; if(l==='FY27') return 75.52; if(l==='FY28') return null; return null;};
   const sp=l=>oc.find(o=>o.provider.startsWith('S&P')&&o.period===l);
-  const rowB=(lab,f)=>`<tr><td>${lab}</td>${per.map(p=>`<td>${p?f(p):'<span class="mut">n/a</span>'}</td>`).join('')}</tr>`;
-  const secB=t=>`<tr class="sec"><td colspan="5">${t}</td></tr>`;
-  const tblB=`<div class="tblwrap"><table><thead><tr><th>Yahoo consensus (as of ${esc(Y.as_of_sgt||'n/a')})</th>${['FQ1 FY27','FQ2 FY27','FY27','FY28'].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
-   ${secB('Revenue')}${rowB('Mean',p=>B(p.rev.avg))}${rowB('Low – high',p=>p.rev.low==null?'n/a':`${B(p.rev.low)} – ${B(p.rev.high)}`)}${rowB('# analysts',p=>p.rev.numberOfAnalysts??'n/a')}
-   ${rowB('Year-ago revenue',p=>B(p.rev.yearAgoRevenue))}${rowB('Growth y/y',p=>pc(p.rev.growth==null?null:p.rev.growth*100))}
-   ${secB('Non-GAAP EPS')}${rowB('Mean',p=>'$'+n(p.eps.avg))}${rowB('Low – high',p=>p.eps.low==null?'n/a':`$${n(p.eps.low)} – $${n(p.eps.high)}`)}${rowB('# analysts',p=>p.eps.numberOfAnalysts??'n/a')}
-   ${rowB('Year-ago EPS',p=>'$'+n(p.eps.yearAgoEps))}${rowB('Growth y/y',p=>pc(p.eps.growth==null?null:p.eps.growth*100))}
-   ${secB('Gross margin (other sources)')}${rowB('GM consensus',p=>{if(p.label==='FQ1 FY27'&&fs) return `${fs.gm}% (FactSet, pre-guide, ${fs.as_of})`; const s=sp(p.label); return s&&s.gm?`${s.gm}% (S&P Global, implied, ${s.as_of})`:'<span class="mut">n/a</span>';})}
-   ${secB('Cross-check: Zacks Consensus (as of 5 Oct 2026)')}${rowB('Revenue',p=>{const s=z(p.label);return s?`$${s.rev_b}B`:'<span class="mut">n/a</span>'})}${rowB('EPS',p=>{const s=z(p.label);return s?`$${s.eps}`:'<span class="mut">n/a</span>'})}
+  const rowB=(lab,f)=>`<tr><td>${lab}</td>${cols.map(l=>{const p=per(l);return `<td>${p?f(p,l):'<span class="mut">n/a</span>'}</td>`;}).join('')}</tr>`;
+  const secB=t=>`<tr class="sec"><td colspan="${cols.length+1}">${t}</td></tr>`;
+  const tblB=`<div class="tblwrap"><table><thead><tr><th>Nasdaq.com / Zacks consensus (as of ${esc(NS.as_of_sgt||'n/a')})</th>${cols.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
+   ${secB('Non-GAAP EPS')}${rowB('Mean',p=>'$'+n(p.mean))}${rowB('Low – high',p=>p.low==null?'n/a':`$${n(p.low)} – $${n(p.high)}`)}${rowB('# estimates',p=>p.n??'n/a')}
+   ${rowB('Revisions up / down (last 4 weeks)',p=>`${p.up4w??'n/a'} / ${p.down4w??'n/a'}`)}
+   ${rowB('Year-ago EPS (Micron non-GAAP actual)',(p,l)=>{const v=yago(l);return v==null?'<span class="mut">n/a</span>':'$'+n(v);})}${rowB('Growth y/y',(p,l)=>{const v=yago(l);return v==null||p.mean==null?'<span class="mut">n/a</span>':pc((p.mean/v-1)*100);})}
+   ${secB('Revenue (other sources; the Nasdaq.com/Zacks feed has no revenue consensus)')}${rowB('Revenue consensus',(p,l)=>{const s=sp(l); if(s&&s.rev_b) return `$${fmt(s.rev_b,2)}B (S&P Global, ${s.as_of})`; if(l==='FQ1 FY27'&&lseg) return `$${lseg.rev_b.toFixed(1)}B (LSEG pre-guide, ${lseg.as_of})`; return '<span class="mut">n/a</span>';})}
+   ${secB('Gross margin (other sources)')}${rowB('GM consensus',(p,l)=>{if(l==='FQ1 FY27'&&fs) return `${fs.gm}% (FactSet, pre-guide, ${fs.as_of})`; const s=sp(l); return s&&s.gm?`${s.gm}% (S&P Global, implied, ${s.as_of})`:'<span class="mut">n/a</span>';})}
    </tbody></table></div>`;
-  // --- C: revisions
-  const tr=['90daysAgo','60daysAgo','30daysAgo','7daysAgo','current'];
-  const tblC=`<div class="tblwrap"><table><thead><tr><th>EPS consensus trend (Yahoo)</th>${tr.map(t=>`<th>${t.replace('daysAgo',' days ago')}</th>`).join('')}<th>Δ vs 90d</th><th>Revisions up / down (7d)</th><th>Up / down (30d)</th></tr></thead><tbody>
-   ${P.map(p=>`<tr><td>${p.label}</td>${tr.map(t=>`<td>$${n(p.trend[t])}</td>`).join('')}<td>${pc((p.trend.current/p.trend['90daysAgo']-1)*100)}</td><td>${p.revisions.upLast7days??'n/a'} / ${p.revisions.downLast7Days??'n/a'}</td><td>${p.revisions.upLast30days??'n/a'} / ${p.revisions.downLast30days??'n/a'}</td></tr>`).join('')}
-   </tbody></table></div><div class="mut" style="font-size:12px">Revenue-estimate trend history is not exposed by Yahoo (n/a). Zacks reports 30-day EPS changes of +2% (FQ1 FY27), +4.7% (FY27), +0.4% (FY28) as of 5 Oct 2026.</div>`;
+  // --- C: revisions (Nasdaq.com estimate momentum)
+  const mrow=(lab,k,up,dn)=>{const a=MO.month&&MO.month[k], w=MO.week&&MO.week[k], c=MO.current&&MO.current[k];
+    return `<tr><td>${esc(lab||'n/a')}</td><td>$${n(a)}</td><td>$${n(w)}</td><td>$${n(c)}</td><td>${a&&c?pc((c/a-1)*100):'n/a'}</td><td>${w&&c?pc((c/w-1)*100,2):'n/a'}</td><td>${up??'n/a'} / ${dn??'n/a'}</td></tr>`;};
+  const tblC=`<div class="tblwrap"><table><thead><tr><th>EPS consensus trend (Nasdaq.com / Zacks)</th><th>1 month ago</th><th>1 week ago</th><th>Current</th><th>Δ vs 1 month</th><th>Δ vs 1 week</th><th>Raised / lowered (4 weeks)</th></tr></thead><tbody>
+   ${mrow(MO.q_label,'qtrMean',MO.q_up,MO.q_down)}${mrow(MO.y_label,'yrMean',MO.y_up,MO.y_down)}
+   </tbody></table></div><div class="mut" style="font-size:12px">Estimate momentum as published by ${src('Nasdaq.com',NQE)} (Zacks data): current fiscal quarter and fiscal year only. Revenue-estimate trend history is not in this feed (n/a). Per-period up/down revision counts are in the table above.</div>`;
   // --- D: price targets
   const up=v=>v==null||!last?'':` <span class="mut">(${((v/last-1)*100).toFixed(0)}% vs $${fmt(last,2)})</span>`;
-  const ptRows=[[`Yahoo Finance (S&P Global) — ${Y.status}`, Y.as_of_sgt||'n/a', T.targetMeanPrice, T.targetMedianPrice, T.targetHighPrice, T.targetLowPrice, T.numberOfAnalystOpinions, `${rt.strongBuy??'?'} Strong Buy / ${rt.buy??'?'} Buy / ${rt.hold??'?'} Hold / ${rt.sell??'?'} Sell / ${rt.strongSell??'?'} Strong Sell · mean ${T.recommendationMean?.toFixed(2)??'n/a'} (${T.recommendationKey||'n/a'})`, 'https://finance.yahoo.com/quote/MU/analysis']]
+  const ptRows=[[`Nasdaq.com (Zacks) — ${(T.status||{}).status||'n/a'}`, (T.status||{}).as_of_sgt||'n/a', T.priceTarget, null, T.highPriceTarget, T.lowPriceTarget, nAn||null, `${T.buy??'?'} Buy / ${T.hold??'?'} Hold / ${T.sell??'?'} Sell · consensus ${RT.mean||'n/a'}`, NQA]]
     .concat(M.price_target_providers.map(p=>[p.provider,p.as_of,p.mean,p.median,p.high,p.low,p.n,p.ratings,p.url]));
   const tblD=`<div class="tblwrap"><table class="wrapt"><thead><tr><th>Provider</th><th>As of</th><th>Mean PT</th><th>Median</th><th>High</th><th>Low</th><th># analysts</th><th>Ratings</th><th>Source</th></tr></thead><tbody>
     ${ptRows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${r[2]==null?'<span class="mut">n/a</span>':'$'+fmt(r[2],0)+up(r[2])}</td><td>${r[3]==null?'<span class="mut">n/a</span>':'$'+fmt(r[3],0)}</td><td>${r[4]==null?'<span class="mut">n/a</span>':'$'+fmt(r[4],0)}</td><td>${r[5]==null?'<span class="mut">n/a</span>':'$'+fmt(r[5],0)}</td><td>${r[6]??'n/a'}</td><td>${esc(r[7])}</td><td>${src('link',r[8])}</td></tr>`).join('')}
-    </tbody></table></div><div class="mut" style="font-size:12px">Providers differ in look-back window and in whether stale targets are dropped (e.g., MarketBeat low $300 and S&P low $361 are older targets; S&P/Yahoo high $2,200 predates D.A. Davidson's $3,000). Upside shown vs last close $${fmt(last,2)} (${D.price.close_date}).</div>`;
-  // --- E: target changes (curated) + Yahoo feed
+    </tbody></table></div><div class="mut" style="font-size:12px">Providers differ in look-back window and in whether stale targets are dropped (e.g., MarketBeat low $300 and S&P low $361 are older targets; the S&P high $2,200 predates D.A. Davidson's $3,000). Upside shown vs last official close $${fmt(last,2)} (${D.price.close_date}, Nasdaq.com).</div>`;
+  // --- E: target changes (curated) + Nasdaq.com feed
   const tblE=`<div class="tblwrap"><table class="wrapt" id="tcT"><thead><tr><th>Date (US)</th><th>Firm</th><th>Analyst</th><th>Action</th><th>Old → new target</th><th>Rating</th><th>Note</th><th>Source</th></tr></thead><tbody>
    ${M.target_changes.map(c=>`<tr><td>${c.date}</td><td>${esc(c.firm)}</td><td>${c.analyst?esc(c.analyst):'<span class="mut">not given</span>'}</td><td><span class="pill ${c.action==='Raised'?'buy':c.action==='Lowered'?'nonplan':'other'}">${esc(c.action)}</span></td><td>${c.old==null?'<span class="mut">n/a</span>':'$'+fmt(c.old)} → <b>$${fmt(c.new)}</b>${c.old&&c.new!==c.old?` <span class="${c.new>c.old?'pos':'neg'}">(${c.new>c.old?'+':''}${((c.new/c.old-1)*100).toFixed(0)}%)</span>`:''}</td><td>${esc(c.rating||'n/a')}</td><td class="mut">${esc(c.note||'')}</td><td>${src('src',c.url)}${c.url2?' · '+src('src2',c.url2):''}</td></tr>`).join('')}
    </tbody></table></div>`;
-  const tblY=`<div class="tblwrap"><table><thead><tr><th>Time (ET)</th><th>Firm</th><th>Rating from → to</th><th>Action</th><th>PT action</th><th>Prior → current PT</th></tr></thead><tbody>
-   ${E.yahoo_changes.length?E.yahoo_changes.map(c=>`<tr><td>${c.date_et}</td><td>${esc(c.firm)}</td><td>${esc(c.from)} → ${esc(c.to)}</td><td>${esc(c.action)}</td><td>${esc(c.pt_action)}</td><td>${c.old?'$'+fmt(c.old):'n/a'} → ${c.new?'$'+fmt(c.new):'n/a'}</td></tr>`).join(''):'<tr><td colspan="6" class="mut">none returned</td></tr>'}
-   </tbody></table></div>`;
+  const CH=RT.changes||[], chk=CH.length?Object.keys(CH[0]):[];
+  const tblY=`<div class="tblwrap"><table><thead><tr>${chk.length?chk.map(k=>`<th>${esc(k)}</th>`).join(''):'<th>Nasdaq.com upgrades / downgrades</th>'}</tr></thead><tbody>
+   ${CH.length?CH.map(c=>`<tr>${chk.map(k=>`<td>${esc(String(c[k]??''))}</td>`).join('')}</tr>`).join(''):'<tr><td class="mut">none listed by Nasdaq.com at this build</td></tr>'}
+   </tbody></table></div><div class="mut" style="font-size:12px">${esc(RT.summary||'')} Brokers listed: ${esc((RT.brokers||[]).join(', '))}.</div>`;
   // --- F: history beat/miss
   const H=E.hist;
   const hr=(lab,f)=>`<tr><td>${lab}</td>${H.map(h=>`<td>${f(h)}</td>`).join('')}</tr>`;
@@ -560,7 +571,7 @@ function estimates(){
    ${hr('Actual',h=>'$'+h.rev_act.toFixed(2))}${hr('LSEG consensus',h=>num(h.rev_cons)?'$'+h.rev_cons.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise',h=>num(h.rev_cons)?pc((h.rev_act/h.rev_cons-1)*100):'n/a')}
    <tr class="sec"><td colspan="9">Non-GAAP EPS ($)</td></tr>
    ${hr('Actual',h=>'$'+h.eps_act.toFixed(2))}${hr('LSEG consensus',h=>num(h.eps_cons)?'$'+h.eps_cons.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise vs LSEG',h=>num(h.eps_cons)?pc((h.eps_act/h.eps_cons-1)*100):'n/a')}
-   ${hr('Yahoo EPS estimate',h=>num(h.eps_yahoo)?'$'+h.eps_yahoo.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise vs Yahoo',h=>num(h.eps_yahoo)?pc((h.eps_act/h.eps_yahoo-1)*100):'<span class="mut">n/a</span>')}
+   ${hr('Zacks consensus (Nasdaq.com)',h=>num(h.eps_zacks)?'$'+h.eps_zacks.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise vs Zacks (Zacks-basis actual)',h=>num(h.zacks_surprise)?`${pc(h.zacks_surprise,2)} <span class="mut">(actual $${h.eps_zacks_act.toFixed(2)})</span>`:'<span class="mut">n/a</span>')}
    <tr class="sec"><td colspan="9">Next-quarter guide vs Street (LSEG) just before the guide</td></tr>
    ${hr('Guide midpoint revenue (next qtr)',h=>'$'+h.next_guide_rev.toFixed(2)+'B')}${hr('Street revenue (next qtr)',h=>num(h.next_rev_cons)?'$'+h.next_rev_cons.toFixed(2)+'B':'<span class="mut">n/a</span>')}${hr('Guide vs Street',h=>num(h.next_rev_cons)?pc((h.next_guide_rev/h.next_rev_cons-1)*100):'n/a')}
    ${hr('Guide midpoint EPS (next qtr)',h=>'$'+h.next_guide_eps.toFixed(2))}${hr('Street EPS (next qtr)',h=>num(h.next_eps_cons)?'$'+h.next_eps_cons.toFixed(2):'<span class="mut">n/a</span>')}${hr('Guide vs Street',h=>num(h.next_eps_cons)?pc((h.next_guide_eps/h.next_eps_cons-1)*100):'<span class="mut">n/a</span>')}
@@ -568,39 +579,40 @@ function estimates(){
    ${hr('Source',h=>src('CNBC',h.url))}
    </tbody></table></div>`;
   $('#s-estimates').innerHTML=`<h2>Wall Street estimates</h2>
-  <div class="mut" style="font-size:12px;margin:-4px 0 10px">Live block: ${esc(yAs)}. Curated third-party figures carry their own as-of date and source link. Consensus EPS is non-GAAP. Not investment advice.</div>
+  <div class="mut" style="font-size:12px;margin:-4px 0 10px">Live block: ${esc(nAs)}. Curated third-party figures carry their own as-of date and source link. Consensus EPS is non-GAAP. Not investment advice.</div>
   <div class="grid g4">
-   ${kp('FQ1 FY27 revenue: consensus vs guide', qrev==null?'n/a':`$${(qrev/1e9).toFixed(2)}B`, `guide $${G.rev_mid}B ± $1.5B · ${q1.rev.numberOfAnalysts??'?'} analysts (Yahoo)`)}
-   ${kp('FQ1 FY27 EPS: consensus vs guide', qeps==null?'n/a':'$'+qeps.toFixed(2), `guide $${G.eps_mid} ± $1.00 · LSEG pre-guide $35.40`)}
+   ${kp('FQ1 FY27 revenue: Street (pre-guide) vs guide', lseg?`$${lseg.rev_b.toFixed(1)}B`:'n/a', `LSEG pre-guide (CNBC, 30 Sep) · guide $${G.rev_mid}B ± $1.5B${lseg?` (${((G.rev_mid/lseg.rev_b-1)*100).toFixed(1)}% above)`:''}`)}
+   ${kp('FQ1 FY27 EPS: consensus vs guide', qeps==null?'n/a':'$'+qeps.toFixed(2), `guide $${G.eps_mid} ± $1.00 · ${q1.n??'?'} estimates (Nasdaq.com/Zacks) · LSEG pre-guide $35.40`)}
    ${kp('FQ1 FY27 gross margin', `~${G.gm_ng}%`, fs?`guide vs FactSet pre-guide ${fs.gm}% (${(G.gm_ng-fs.gm).toFixed(2)}pp)`:'consensus n/a')}
-   ${kp('Mean price target (Yahoo)', T.targetMeanPrice==null?'n/a':'$'+fmt(T.targetMeanPrice,0), `median $${fmt(T.targetMedianPrice,0)} · ${T.numberOfAnalystOpinions??'?'} analysts · ${last?((T.targetMeanPrice/last-1)*100).toFixed(0)+'% vs last close':''}`)}
-   ${kp('Ratings (Yahoo, current month)', `${(rt.strongBuy||0)+(rt.buy||0)} Buy`, `${rt.strongBuy??'?'} Strong Buy · ${rt.buy??'?'} Buy · ${rt.hold??'?'} Hold · ${(rt.sell||0)+(rt.strongSell||0)} Sell/Strong Sell`)}
+   ${kp('Mean price target (Nasdaq.com/Zacks)', T.priceTarget==null?'n/a':'$'+fmt(T.priceTarget,0), `range $${fmt(T.lowPriceTarget,0)}–$${fmt(T.highPriceTarget,0)} · ${nAn||'?'} analysts · ${last&&T.priceTarget?((T.priceTarget/last-1)*100).toFixed(0)+'% vs last close':''}`)}
+   ${kp('Ratings (Nasdaq.com/Zacks)', `${T.buy??'?'} Buy`, `${T.buy??'?'} Buy · ${T.hold??'?'} Hold · ${T.sell??'?'} Sell · consensus ${esc(RT.mean||'n/a')}`)}
    ${kp('Post-earnings target moves', `${raises.length} raised · ${lowers.length} lowered`, `since 30 Sep 2026 (curated list); Street-high $3,000 (D.A. Davidson, 7 Oct)`)}
   </div>
   <h3>FQ1 FY27: Micron guidance vs consensus</h3>
-  <div class="tblwrap"><table class="wrapt"><thead><tr><th>Metric</th><th>Micron guidance (30 Sep 2026)</th><th>Yahoo consensus mean</th><th>Low – high</th><th># analysts</th><th>Consensus vs guide midpoint</th></tr></thead><tbody>${rowsA.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
-  <div class="mut" style="font-size:12px">Guidance source: ${src('Micron FQ4 FY26 press release',G.url)}. Yahoo consensus as of ${esc(Y.as_of_sgt||'n/a')} — already updated for the guide. Pre-guide Street for FQ1 FY27: LSEG $57.0B / $35.40 EPS (CNBC, 30 Sep), Benzinga $57.24B, FactSet GM 86.31%.</div>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>Metric</th><th>Micron guidance (30 Sep 2026)</th><th>Nasdaq.com / Zacks consensus mean</th><th>Low – high</th><th># estimates</th><th>Consensus vs guide midpoint</th></tr></thead><tbody>${rowsA.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  <div class="mut" style="font-size:12px">Guidance source: ${src('Micron FQ4 FY26 press release',G.url)}. Nasdaq.com / Zacks consensus as of ${esc(NS.as_of_sgt||'n/a')} — already updated for the guide. Pre-guide Street for FQ1 FY27: LSEG $57.0B / $35.40 EPS (CNBC, 30 Sep), Benzinga $57.24B, FactSet GM 86.31%.</div>
   <div class="grid g2" style="margin-top:12px"><div class="card"><div class="chartbox"><canvas id="esA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="esB"></canvas></div></div></div>
-  <h3>Consensus by period (FQ1 FY27, FQ2 FY27, FY27, FY28)</h3>${tblB}
-  <div class="mut" style="font-size:12px">Fiscal periods identified from Yahoo's year-ago revenue (Yahoo's own period end dates for MU are offset by one quarter/year). FY27 EPS low $72.29 sits below FY26 actual non-GAAP EPS ($75.52), which suggests one stale estimate; shown as reported. No Micron guidance exists beyond FQ1 FY27.</div>
+  <h3>Consensus by period (FQ1–FQ4 FY27, FY27, FY28)</h3>${tblB}
+  <div class="mut" style="font-size:12px">Nasdaq.com lists periods by fiscal quarter-end month (Nov 2026 = FQ1 FY27, Feb 2027 = FQ2, May 2027 = FQ3, Aug 2027 = FQ4 and FY27). Zacks' EPS basis can differ slightly from Micron's non-GAAP EPS. FY26 non-GAAP EPS actual: $75.52. No Micron guidance exists beyond FQ1 FY27. Source: ${src('Nasdaq.com earnings forecast',NQE)}.</div>
   <h3>Estimate revisions</h3>${tblC}
   <h3>Price targets & ratings</h3>${tblD}
   <div class="grid g2" style="margin-top:12px"><div class="card"><div class="chartbox"><canvas id="esC"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="esD"></canvas></div></div></div>
   <h3>Broker target changes after the 30 Sep 2026 results (curated)</h3>${tblE}
-  <h3>Auto feed: Yahoo upgradeDowngradeHistory since ${E.last_earnings} (refreshes on rebuild)</h3>${tblY}
+  <h3>Auto feed: Nasdaq.com upgrades/downgrades (Zacks; refreshes on rebuild)</h3>${tblY}
   <h3>History: beat/miss vs consensus (8 quarters)</h3>
   <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="esE"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="esF"></canvas></div></div></div>
   ${tblF}
-  <ul class="notes"><li>Consensus values differ across providers (LSEG, FactSet, S&P Global/Yahoo, Zacks, Visible Alpha) and by date. Each figure here is labelled with its provider and as-of date; nothing is blended or estimated.</li>
-  <li>Yahoo EPS-estimate history exposes only a few quarters (FQ4 FY25, FQ2 FY26 and FQ4 FY26 at this build); the other quarters are n/a.</li>
-  <li>Historical revenue/EPS consensus = LSEG figures quoted by CNBC on each results day (links in the Source row). Some next-quarter EPS consensus figures were not reported (n/a).</li>
+  <ul class="notes"><li>Consensus values differ across providers (LSEG, FactSet, S&P Global, Zacks via Nasdaq.com, Visible Alpha) and by date. Each figure here is labelled with its provider and as-of date; nothing is blended or estimated.</li>
+  <li>The Nasdaq.com / Zacks earnings-surprise table covers only the last 4 quarters (FQ1–FQ4 FY26); earlier quarters are n/a. Zacks' "actual" EPS can differ from Micron's non-GAAP EPS (e.g., FQ4 FY26 $33.19 vs $33.42).</li>
+  <li>Historical revenue/EPS consensus = LSEG figures quoted by CNBC on each results day (links in the Source row). Some next-quarter EPS consensus figures were not reported (n/a). Next-day moves use Nasdaq.com official closes.</li>
   <li>Analyst names come from Benzinga, CNBC, MarketBeat, TipRanks and StreetInsider. Where the prior target was not stated, it is n/a.</li></ul>`;
   sortable($('#tcT').parentElement);
   // charts
-  chart('esA',{type:'bar',data:{labels:['Low','Mid / mean','High'],datasets:[{label:'Micron guide revenue ($B)',data:[G.rev_low,G.rev_mid,G.rev_high],backgroundColor:C.guide},{label:'Yahoo consensus revenue ($B)',data:[q1.rev.low,q1.rev.avg,q1.rev.high].map(v=>v==null?null:v/1e9),backgroundColor:C.dram}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'FQ1 FY27 revenue: guide vs consensus range ($B)'}},scales:{y:{min:50}}})});
-  chart('esB',{type:'line',data:{labels:['90d ago','60d ago','30d ago','7d ago','Current'],datasets:P.map((p,i)=>({label:p.label+' EPS (index, 90d=100)',data:tr.map(t=>p.trend[t]/p.trend['90daysAgo']*100),borderColor:[C.dram,C.nand,C.g,C.y][i]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'EPS consensus revisions (Yahoo; indexed to 90 days ago = 100)'}}})});
-  const RT=E.rec_trend.slice().reverse();
-  chart('esC',{type:'bar',data:{labels:RT.map(r=>({'0m':'Current','-1m':'1 mo ago','-2m':'2 mo ago','-3m':'3 mo ago'}[r.period]||r.period)),datasets:[['strongBuy','Strong Buy',C.up],['buy','Buy',C.up2],['hold','Hold',C.hold],['sell','Sell',C.dn2],['strongSell','Strong Sell',C.dn]].map(([k,l,c])=>({label:l,data:RT.map(r=>r[k]),backgroundColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Ratings distribution (Yahoo recommendationTrend)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+  chart('esA',{type:'bar',data:{labels:['Low','Mid / mean','High'],datasets:[{label:'Micron guide EPS ($)',data:[G.eps_low,G.eps_mid,G.eps_high],backgroundColor:C.guide},{label:'Nasdaq.com/Zacks consensus EPS ($)',data:[q1.low,q1.mean,q1.high],backgroundColor:C.dram}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'FQ1 FY27 non-GAAP EPS: guide vs consensus range ($)'}},scales:{y:{min:30}}})});
+  const mk=[['month','1 month ago'],['week','1 week ago'],['current','Current']];
+  chart('esB',{type:'line',data:{labels:mk.map(m=>m[1]),datasets:[['qtrMean',MO.q_label,C.dram],['yrMean',MO.y_label,C.g]].map(([k,l,c])=>({label:(l||k)+' EPS (index, 1 month ago = 100)',data:mk.map(m=>MO[m[0]]&&MO.month&&MO.month[k]?MO[m[0]][k]/MO.month[k]*100:null),borderColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'EPS consensus revisions (Nasdaq.com/Zacks; indexed to 1 month ago = 100)'}}})});
+  const RH=E.rating_hist||[];
+  chart('esC',{type:'bar',data:{labels:RH.map(r=>{const [m,d,y]=r.date.split('/');return new Date(Date.UTC(+y,+m-1,+d)).toLocaleDateString('en-US',{month:'short',year:'2-digit',timeZone:'UTC'});}),datasets:[['buy','Buy',C.up],['hold','Hold',C.hold],['sell','Sell',C.dn]].map(([k,l,c])=>({label:l,data:RH.map(r=>r[k]),backgroundColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Ratings distribution by month (Nasdaq.com / Zacks)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
   const TC=M.target_changes.filter(c=>c.new!=null).sort((a,b)=>b.new-a.new);
   chart('esD',{type:'bar',data:{labels:TC.map(c=>c.firm+(c.date==='2026-10-07'?' (7 Oct)':'')),datasets:[{label:'Prior target',data:TC.map(c=>c.old),backgroundColor:C.guide},{label:'New / current target',data:TC.map(c=>c.new),backgroundColor:TC.map(c=>c.action==='Raised'?C.up:C.b)}]},options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Post-earnings price targets ($): prior vs new'}}})});
   chart('esE',{type:'bar',data:{labels:Q,datasets:[{label:'Revenue surprise vs LSEG %',data:H.map(h=>num(h.rev_cons)?(h.rev_act/h.rev_cons-1)*100:null),backgroundColor:C.dram},{label:'EPS surprise vs LSEG %',data:H.map(h=>num(h.eps_cons)?(h.eps_act/h.eps_cons-1)*100:null),backgroundColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Actual vs consensus surprise (%)'}}})});
@@ -614,11 +626,12 @@ function sources(){
   <h3>Build log</h3><ul class="notes">${D.meta.build_log.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>`;
 }
 /* ---------- routing ---------- */
-const R={overview,financials,revenue,capacity,capex,buybacks,insiders,calls,estimates,sources}, done={};
-function route(){const [t,sub]=(location.hash.slice(1)||'overview').split('/');const tab=R[t]?t:'overview';
+const R={overview,financials,revenue,'capacity-capex':capacityCapex,buybacks,insiders,calls,estimates,sources}, done={};
+const ALIAS={capacity:'capacity-capex',capex:'capacity-capex'}; // old #capacity / #capex links land on the merged tab, at their section
+function route(){let [t,sub]=(location.hash.slice(1)||'overview').split('/');const anchor=ALIAS[t]?t:null; if(anchor){t=ALIAS[t]; history.replaceState(null,'','#'+t);} const tab=R[t]?t:'overview';
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+tab));
   document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.t===tab));
-  if(tab==='financials') financials(sub||'is'); else if(!done[tab]){R[tab]();done[tab]=1;} window.scrollTo(0,0);
+  if(tab==='financials') financials(sub||'is'); else if(!done[tab]){R[tab]();done[tab]=1;} window.scrollTo(0,0); if(anchor&&anchor!=='capacity'){const e=document.getElementById(anchor); if(e) e.scrollIntoView();}
   const nv=$('#nav'),o=nv&&nv.querySelector('a.on'); if(o){const d=o.getBoundingClientRect().left-nv.getBoundingClientRect().left; nv.scrollLeft+=d-(nv.clientWidth-o.offsetWidth)/2;}}
 $('#nav').innerHTML=TABS.map(([k,l])=>`<a href="#${k}" data-t="${k}">${l}</a>`).join('');
 header(); window.addEventListener('hashchange',route); route();
