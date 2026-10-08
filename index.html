@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Micron (MU) Research Dashboard – Preliminary Draft · © 2026 Hugo Tian</title>
+<title>Micron (MU) Research Dashboard · © 2026 Hugo Tian</title>
 <meta name="author" content="Hugo Tian">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2300b4e6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2714%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27%2306142e%27%3EMU%3C/text%3E%3C/svg%3E">
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791420223"></script>
+<script src="data.js?v=1791437916"></script>
 <style>
 :root{--bg:#0a1630;--panel:#10224a;--panel2:#152b5c;--line:#23407a;--txt:#e6ecf8;--mut:#9fb0d0;--acc:#00b4e6;--acc2:#6fd3ff;--pos:#3ddc97;--neg:#ff6b6b;--warn:#ffc857;--plan:#4aa3ff;--np:#ff9f43;--tax:#b38cff}
 *{box-sizing:border-box}
@@ -22,7 +22,6 @@ header{background:linear-gradient(90deg,#071027,#0d2457 60%,#0b3b73);padding:14p
 .hstats{display:flex;flex-wrap:wrap;gap:10px}
 .hstat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;padding:6px 12px;min-width:150px}
 .hstat .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.04em}.hstat .v{font-size:17px;font-weight:700}.hstat .s{font-size:11px;color:var(--mut)}
-.draft{background:var(--warn);color:#2a1d00;font-weight:700;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px}
 nav{display:flex;flex-wrap:wrap;gap:4px;padding:8px 22px;background:#0b1b3d;border-bottom:1px solid var(--line);position:sticky;top:67px;z-index:4}
 nav a{padding:7px 12px;border-radius:6px;text-decoration:none;color:var(--mut);font-weight:600}
 nav a.on,nav a:hover{background:var(--panel2);color:#fff}
@@ -60,6 +59,12 @@ tr.r-planned td:first-child{border-left:4px solid var(--plan)}tr.r-nonplan td:fi
 .callcard h4{margin:0 0 6px;font-size:15px}.callcard ul{margin:6px 0 0;padding-left:18px}.callcard li{margin:4px 0;line-height:1.35}
 .feed td{white-space:normal}.mut{color:var(--mut)}
 .hstat.live{min-width:300px;padding:2px 6px;position:relative}
+.hstat.live2{display:flex;gap:0;min-width:620px;padding:2px 4px}
+.hstat.live2>.half{flex:1;min-width:300px;padding:0 4px}
+.hstat.live2>.half+.half{border-left:1px solid var(--line)}
+.hstat .tag{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--acc2);padding:2px 6px 0}
+.hstat .tag b{color:var(--warn)}
+.hstat .snap{font-size:10.5px;color:var(--mut);margin-top:3px;padding:2px 4px;border-radius:4px}
 .hstat.live .tvq{height:76px;overflow:hidden}
 .hstat.live .cap{font-size:10px;color:var(--mut);padding:0 6px 3px}
 .tvchart{height:520px}
@@ -71,7 +76,7 @@ footer{color:var(--mut);font-size:12px;padding:16px 22px;border-top:1px solid va
 </head>
 <body>
 <header>
-  <div class="brand"><div class="logo">MU</div><div><h1>Micron Technology (MU) — Research Dashboard <span class="draft">PRELIMINARY DRAFT</span></h1>
+  <div class="brand"><div class="logo">MU</div><div><h1>Micron Technology (MU) — Research Dashboard</h1>
   <div class="sub" id="updated"></div></div></div>
   <div class="hstats" id="hstats"></div>
 </header>
@@ -142,22 +147,40 @@ function tvEmbed(el,widget,cfg,onFail){
   box.appendChild(sc); el.appendChild(box);
   setTimeout(()=>{ if(!el.querySelector('iframe')) fail('widget did not load within 12 s'); },12000);
 }
+function overnightOpen(){ // Blue Ocean ATS overnight session: Sun–Thu 20:00 → next day 04:00 ET
+  const et=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'})); const d=et.getDay(), h=et.getHours();
+  return (h>=20 && d>=0 && d<=4) || (h<4 && d>=1 && d<=5);
+}
 function liveQuote(){
-  const el=$('#tvq'); if(!el) return;
-  if(location.protocol==='file:'||navigator.onLine===false){ /* still try; TradingView loads from file:// when online */ }
-  tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'},why=>{
-    el.innerHTML=`<div class="tvfail" title="${esc(why)}">Live quote unavailable — showing build-time snapshot →</div>`; el.style.height='auto'; const hb=el.closest('.hstat'); if(hb) hb.style.minWidth='190px'; hb&&(hb.style.maxWidth='230px');
-    const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot price at right';
-    const st=$('#hs-static'); if(st) st.style.outline='1px solid var(--warn)';
+  const p=D.price, X=(p.ext||{}), O=X.overnight;
+  const el=$('#tvq');
+  if(el) tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'},why=>{
+    el.innerHTML=`<div class="tvfail" title="${esc(why)}">Live quote unavailable — see build-time snapshot in the YTD box →</div>`; el.style.height='auto';
+    const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot price (YTD box)';
+    const st=$('#hs-static'); if(st){st.style.outline='1px solid var(--warn)';st.style.color='var(--txt)';}
   });
+  const eo=$('#tvo');
+  if(eo) tvEmbed(eo,'single-quote',{symbol:'BOATS:MU',width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'},why=>{
+    eo.innerHTML=O?`<div style="padding:6px 6px 0"><div style="font-size:20px;font-weight:700">$${fmt(O.price,2)}</div><div class="mut" style="font-size:11px">last overnight trade @ ${esc(O.et)} (build-time; live widget unavailable)</div></div>`
+                  :`<div class="tvfail" title="${esc(why)}">Overnight quote unavailable</div>`; eo.style.height='auto';
+  });
+  const ss=$('#onsess'); if(ss) ss.innerHTML=overnightOpen()?'<b>session open</b>':'session closed · last overnight trade';
 }
 function header(){
   const p=D.price,k=D.kpi;
   $('#updated').innerHTML=`Last updated: <b>${D.meta.built_sgt}</b> · Data through FQ4 FY26 (quarter ended 3 Sep 2026) · © 2026 Hugo Tian. All rights reserved.`;
   const chg=p.status==='ok'?((p.close/p.prev_close-1)*100):null;
+  const X=p.ext||{}, ON=(X.overnight&&X.regular)?X.overnight:null, YT=p.ytd||{status:'n/a'};
   $('#hstats').innerHTML=[
-    `<div class="hstat live"><div class="tvq" id="tvq"></div><div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div>`,
-    p.status==='ok'?`<div class="hstat" id="hs-static" title="Static snapshot from the Yahoo chart API at build time; used as fallback if the live widget is blocked"><div class="l">Snapshot · MU close (${p.close_date})</div><div class="v">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="s">${p.intraday?`Intraday $${fmt(p.intraday,2)} @ ${p.intraday_time} (build time)`:'Yahoo chart API at build time'}</div></div>`:`<div class="hstat"><div class="l">MU price</div><div class="v na">unavailable</div></div>`,
+    `<div class="hstat live live2">
+       <div class="half"><div class="tag">Nasdaq · regular / extended</div><div class="tvq" id="tvq"></div><div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div>
+       <div class="half"><div class="tag">Overnight · Blue Ocean ATS (8pm–4am ET) · <span id="onsess"></span></div><div class="tvq" id="tvo"></div>
+         <div class="cap">${ON?`vs regular close $${fmt(X.regular.price,2)}: <span class="${ON.chg>=0?'pos':'neg'}">${ON.chg>=0?'+':'−'}$${fmt(Math.abs(ON.chg),2)} (${ON.pct>=0?'+':''}${ON.pct.toFixed(2)}%)</span> · $${fmt(ON.price,2)} @ ${ON.et.slice(5)} / ${ON.sgt.slice(11)} SGT (Yahoo, as of build)`:'Overnight vs regular close: n/a at build'} · widget: real-time (TradingView BOATS:MU); its % is vs the prior overnight session</div></div></div>`,
+    YT.status==='ok'?`<div class="hstat" title="YTD = latest regular-session price vs the ${YT.base_date} close (last trading day of 2025), unadjusted. Computed at build time; refreshed on every rebuild."><div class="l">MU year-to-date</div><div class="v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
+       <div class="s">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close ${YT.base_date}${YT.pct_overnight!=null?` · on overnight: ${YT.pct_overnight>=0?'+':''}${YT.pct_overnight.toFixed(1)}%`:''}</div>
+       <div class="s">as of build ${esc(D.meta.built_sgt)}</div>
+       ${p.status==='ok'?`<div class="snap" id="hs-static" title="Static snapshot from the Yahoo chart API at build time; fallback if the live widget is blocked">Snapshot close ${p.close_date}: $${fmt(p.close,2)} (${chg>=0?'+':''}${chg.toFixed(2)}%)</div>`:''}</div>`
+     :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div>${p.status==='ok'?`<div class="snap" id="hs-static">Snapshot close ${p.close_date}: $${fmt(p.close,2)}</div>`:''}</div>`,
     `<div class="hstat"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">Not yet announced</div><div class="s">3rd-party est. ~23 Dec 2026 (unconfirmed)</div></div>`,
     `<div class="hstat"><div class="l">Buyback authorization left</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">of $10B (2018 program; implied)</div></div>`,
     `<div class="hstat"><div class="l">CHIPS step-up</div><div class="v" style="font-size:15px">9 Dec 2026</div><div class="s" id="cd1"></div></div>`].join('');
@@ -186,7 +209,7 @@ function overview(){
    <div class="card"><h3 style="margin-top:0">MU daily close (last 10 sessions; last point = latest/intraday at build, Yahoo)</h3><div class="chartbox"><canvas id="ovPx"></canvas></div></div>
   </div>
   <div class="grid g2" style="margin-top:14px">
-   <div class="card"><h3 style="margin-top:0">Key takeaways (draft)</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
+   <div class="card"><h3 style="margin-top:0">Key takeaways</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
     <li>FY26 revenue $133.2B (+256% YoY), driven by price: DRAM/NAND ASPs rose 20–85% per quarter while bit shipments grew single digits.</li>
     <li>Price momentum is decelerating (DRAM ASP QoQ: mid-60s% → low-60s% → high-teens%); TrendForce sees +10–15% conventional DRAM contract prices in 4Q26.</li>
     <li>Balance sheet flipped from −$5.0B net debt (FQ1 FY25) to +$68.3B net cash; debt cut to $5.2B; rated BBB+ by all three agencies.</li>
