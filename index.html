@@ -9,7 +9,7 @@
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791437916"></script>
+<script src="data.js?v=1791440264"></script>
 <style>
 :root{--bg:#0a1630;--panel:#10224a;--panel2:#152b5c;--line:#23407a;--txt:#e6ecf8;--mut:#9fb0d0;--acc:#00b4e6;--acc2:#6fd3ff;--pos:#3ddc97;--neg:#ff6b6b;--warn:#ffc857;--plan:#4aa3ff;--np:#ff9f43;--tax:#b38cff}
 *{box-sizing:border-box}
@@ -155,9 +155,9 @@ function liveQuote(){
   const p=D.price, X=(p.ext||{}), O=X.overnight;
   const el=$('#tvq');
   if(el) tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'},why=>{
-    el.innerHTML=`<div class="tvfail" title="${esc(why)}">Live quote unavailable — see build-time snapshot in the YTD box →</div>`; el.style.height='auto';
-    const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot price (YTD box)';
-    const st=$('#hs-static'); if(st){st.style.outline='1px solid var(--warn)';st.style.color='var(--txt)';}
+    el.innerHTML=`<div class="tvfail" title="${esc(why)}" style="padding:4px 6px 0">Live quote unavailable — showing build-time snapshot</div>`; el.style.height='auto';
+    const st=$('#hs-static'); if(st){st.style.display='block';st.style.padding='0 6px 4px';}
+    const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot (not live)';
   });
   const eo=$('#tvo');
   if(eo) tvEmbed(eo,'single-quote',{symbol:'BOATS:MU',width:'100%',isTransparent:true,colorTheme:'dark',locale:'en'},why=>{
@@ -173,14 +173,14 @@ function header(){
   const X=p.ext||{}, ON=(X.overnight&&X.regular)?X.overnight:null, YT=p.ytd||{status:'n/a'};
   $('#hstats').innerHTML=[
     `<div class="hstat live live2">
-       <div class="half"><div class="tag">Nasdaq · regular / extended</div><div class="tvq" id="tvq"></div><div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div>
+       <div class="half"><div class="tag">Nasdaq · regular / extended</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="Static snapshot from the Yahoo chart API at build time; shown only if the live widget fails"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">Snapshot close ${p.close_date} (build-time, Yahoo)</div></div>`:''}<div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div>
        <div class="half"><div class="tag">Overnight · Blue Ocean ATS (8pm–4am ET) · <span id="onsess"></span></div><div class="tvq" id="tvo"></div>
          <div class="cap">${ON?`vs regular close $${fmt(X.regular.price,2)}: <span class="${ON.chg>=0?'pos':'neg'}">${ON.chg>=0?'+':'−'}$${fmt(Math.abs(ON.chg),2)} (${ON.pct>=0?'+':''}${ON.pct.toFixed(2)}%)</span> · $${fmt(ON.price,2)} @ ${ON.et.slice(5)} / ${ON.sgt.slice(11)} SGT (Yahoo, as of build)`:'Overnight vs regular close: n/a at build'} · widget: real-time (TradingView BOATS:MU); its % is vs the prior overnight session</div></div></div>`,
     YT.status==='ok'?`<div class="hstat" title="YTD = latest regular-session price vs the ${YT.base_date} close (last trading day of 2025), unadjusted. Computed at build time; refreshed on every rebuild."><div class="l">MU year-to-date</div><div class="v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
        <div class="s">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close ${YT.base_date}${YT.pct_overnight!=null?` · on overnight: ${YT.pct_overnight>=0?'+':''}${YT.pct_overnight.toFixed(1)}%`:''}</div>
        <div class="s">as of build ${esc(D.meta.built_sgt)}</div>
-       ${p.status==='ok'?`<div class="snap" id="hs-static" title="Static snapshot from the Yahoo chart API at build time; fallback if the live widget is blocked">Snapshot close ${p.close_date}: $${fmt(p.close,2)} (${chg>=0?'+':''}${chg.toFixed(2)}%)</div>`:''}</div>`
-     :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div>${p.status==='ok'?`<div class="snap" id="hs-static">Snapshot close ${p.close_date}: $${fmt(p.close,2)}</div>`:''}</div>`,
+       </div>`
+     :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div></div>`,
     `<div class="hstat"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">Not yet announced</div><div class="s">3rd-party est. ~23 Dec 2026 (unconfirmed)</div></div>`,
     `<div class="hstat"><div class="l">Buyback authorization left</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">of $10B (2018 program; implied)</div></div>`,
     `<div class="hstat"><div class="l">CHIPS step-up</div><div class="v" style="font-size:15px">9 Dec 2026</div><div class="s" id="cd1"></div></div>`].join('');
