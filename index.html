@@ -246,7 +246,7 @@ function overnightOpen(){ // Blue Ocean ATS overnight session: Sun–Thu 20:00 �
   return (h>=20 && d>=0 && d<=4) || (h<4 && d>=1 && d<=5);
 }
 /* ---------- live quote: own Cloudflare Worker endpoint (/api/quote), polled every 15 s while visible ---------- */
-const QUOTE_API=(new URLSearchParams(location.search).get('quoteapi'))||(/\.workers\.dev$/.test(location.hostname)?'/api/quote':'https://micron-dashboard.tiancapital.workers.dev/api/quote');
+const QUOTE_API=(new URLSearchParams(location.search).get('quoteapi'))||(/\.workers\.dev$/.test(location.hostname)?'/api/quote':'https://micron-dashboard.cashcache.workers.dev/api/quote');
 const LQ={timer:null,fails:0,ok:false,last:null,tv:false,prev:null};
 const usd=v=>'$'+fmt(v,2);
 const sgn=(v,d=2)=>(v>=0?'+':'−')+fmt(Math.abs(v),d);
