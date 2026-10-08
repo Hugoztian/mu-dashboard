@@ -1,0 +1,13 @@
+// Cloudflare Worker "micron-dashboard": static dashboard files (repo root) + /api/quote (worker.js).
+{
+  "name": "micron-dashboard",
+  "main": "worker.js",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "workers_dev": true,
+  "observability": { "enabled": true }
+}

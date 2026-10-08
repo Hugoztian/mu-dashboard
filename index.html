@@ -106,6 +106,26 @@ tr.r-planned td:first-child{box-shadow:inset 3px 0 0 var(--plan)}tr.r-nonplan td
 .tvchart{height:520px;border-radius:12px;overflow:hidden}
 .tvchart .tradingview-widget-container,.tvchart .tradingview-widget-container__widget{height:100%;width:100%}
 .tvfail{color:var(--warn);font-size:12px;padding:8px}
+/* live quote box */
+.lq{padding:4px 8px 2px}
+.lq-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--mut);font-weight:500}
+.lq-sess{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.lq-dot{width:7px;height:7px;border-radius:50%;background:var(--mut2);display:inline-block}
+.lq.reg .lq-dot{background:var(--acc);box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 50%,transparent);animation:lqpulse 2s infinite}
+@keyframes lqpulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 45%,transparent)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.lq-sym{white-space:nowrap}
+.lq-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:6px 0 2px}
+.lq-k{font-size:13px;font-weight:600;color:var(--txt)}
+.lq-k:empty{display:none}
+.lq-px{font-size:34px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;border-radius:6px;padding:0 2px;margin-left:-2px;white-space:nowrap}
+.lq-px.up{animation:lqup 1.2s}.lq-px.dn{animation:lqdn 1.2s}
+@keyframes lqup{0%{background:color-mix(in srgb,var(--pos) 22%,transparent)}100%{background:transparent}}
+@keyframes lqdn{0%{background:color-mix(in srgb,var(--neg) 22%,transparent)}100%{background:transparent}}
+.lq-ch{font-size:15px;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lq-sub{font-size:13px;color:var(--txt);font-variant-numeric:tabular-nums}
+.lq-cap{font-size:11px;color:var(--mut2);margin-top:4px;line-height:1.4}
+.lq.stale .lq-px{opacity:.6}
+
 footer{color:var(--mut);font-size:12px;line-height:1.6;padding:22px 28px 34px;max-width:1280px;margin:0 auto;border-top:1px solid var(--hair)}
 footer b{color:var(--txt);font-weight:500}
 @media (max-width:1000px){.hstats{grid-template-columns:repeat(2,minmax(0,1fr))}.hstat.live1{grid-column:1/-1}.bar{gap:12px}.brand .bn{display:none}}
@@ -225,14 +245,66 @@ function overnightOpen(){ // Blue Ocean ATS overnight session: Sun–Thu 20:00 �
   const et=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'})); const d=et.getDay(), h=et.getHours();
   return (h>=20 && d>=0 && d<=4) || (h<4 && d>=1 && d<=5);
 }
+/* ---------- live quote: own Cloudflare Worker endpoint (/api/quote), polled every 15 s while visible ---------- */
+const QUOTE_API=(new URLSearchParams(location.search).get('quoteapi'))||(/\.workers\.dev$/.test(location.hostname)?'/api/quote':'https://micron-dashboard.tiancapital.workers.dev/api/quote');
+const LQ={timer:null,fails:0,ok:false,last:null,tv:false,prev:null};
+const usd=v=>'$'+fmt(v,2);
+const sgn=(v,d=2)=>(v>=0?'+':'−')+fmt(Math.abs(v),d);
+const mdy=d=>{if(!d) return ''; const t=new Date(d+'T12:00:00Z'); return t.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});};
+const tET=ms=>new Date(ms).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false});
+const tSG=ms=>new Date(ms).toLocaleTimeString('en-GB',{timeZone:'Asia/Singapore',hour12:false});
+function tvFallback(on){
+  const w=$('#tvwrap'), lq=$('#lq'); if(!w||!lq) return;
+  w.style.display=on?'block':'none'; lq.style.display=on?'none':'block';
+  if(on&&!LQ.tv){ LQ.tv=true; const el=$('#tvq');
+    tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:DARK?'dark':'light',locale:'en'},why=>{
+      el.innerHTML=`<div class="tvfail" title="${esc(why)}" style="padding:4px 6px 0">Live quote unavailable — showing build-time snapshot</div>`; el.style.height='auto';
+      const st=$('#hs-static'); if(st){st.style.display='block';st.style.padding='0 6px 4px';}
+      const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot (not live)'; }); }
+}
+function renderQuote(q){
+  const m=q.main||{}, ref=q.ref_close||{}, reg=q.session==='regular';
+  const box=$('#lq'); box.classList.toggle('reg',reg); box.classList.toggle('stale',!!q.stale);
+  $('#lq-sl').textContent=reg?'Live · regular session':(q.session==='closed'?'Market closed':`${q.session_label} session`)+(q.session==='overnight'?' (8 PM–4 AM ET)':'');
+  $('#lq-k').textContent=m.kind==='regular'?'':(m.label||'');
+  const px=$('#lq-px'); const prevTxt=px.textContent; px.textContent=m.price!=null?usd(m.price):'n/a';
+  if(LQ.prev!=null&&m.price!=null&&m.price!==LQ.prev){px.classList.remove('up','dn'); void px.offsetWidth; px.classList.add(m.price>LQ.prev?'up':'dn');}
+  LQ.prev=m.price;
+  const ch=$('#lq-ch');
+  if(m.change!=null){ch.className='lq-ch '+(m.change>=0?'pos':'neg'); ch.textContent=`${sgn(m.change)} (${sgn(m.pct)}%)${reg?'':' vs close'}`;}
+  else {ch.className='lq-ch mut'; ch.textContent='';}
+  const pc=reg?q.prev_close:ref;
+  let sub=`Prev close ${usd(pc.price)}${pc.date?` · ${mdy(pc.date)}`:''}`;
+  if(!reg&&q.ext&&m.kind==='close') sub+=` · ${q.ext.label} ${usd(q.ext.price)} (${sgn(q.ext.pct)}%)`;
+  if(reg&&q.bid&&q.ask) sub+=` · Bid ${usd(q.bid)} / Ask ${usd(q.ask)}`;
+  $('#lq-sub').textContent=sub;
+  const RH=q.source==='Robinhood public quote';
+  const venue=m.kind==='regular'?(RH?'Nasdaq last sale via Robinhood':q.source):((q.ext&&q.ext.venue)?`${q.ext.venue} via Robinhood 24-hour feed`:(RH?'Robinhood extended-hours feed':q.source));
+  const fresh=q.source==='Nasdaq.com quote API'&&!/real-time/i.test(q.source_note||'')?'may be delayed':'real-time';
+  $('#lq-cap').textContent=(m.time?`as of ${tET(m.time)} ET (${tSG(m.time)} SGT)`:'')+` · ${venue} · ${fresh}`+(q.stale?' · last good update, retrying':` · refreshes every 15 s`);
+  // YTD box follows the live regular-session price
+  const Y=D.price.ytd; if(Y&&Y.status==='ok'){ const rp=q.regular&&q.regular.price; if(rp){ const pct=(rp/Y.base-1)*100;
+    const v=$('#ytd-v'); if(v) v.innerHTML=`<span class="${pct>=0?'pos':'neg'}">${pct>=0?'+':''}${pct.toFixed(1)}%</span>`;
+    const e=q.ext&&!reg?q.ext:null; const s1=$('#ytd-s1');
+    if(s1) s1.textContent=`${usd(rp)} (${reg?'live':'regular close'} ${q.regular.time?tET(q.regular.time).slice(0,5)+' ET':''}) vs ${usd(Y.base)} close ${Y.base_date}`+(e?` · on ${e.label.toLowerCase()}: ${((e.price/Y.base-1)*100>=0?'+':'')}${((e.price/Y.base-1)*100).toFixed(1)}%`:'');
+    const s2=$('#ytd-s2'); if(s2) s2.textContent=`live · updated ${tET(Date.now())} ET`; } }
+}
+async function pollQuote(){
+  if(document.visibilityState==='hidden') return;
+  try{
+    const ctl=new AbortController(); const to=setTimeout(()=>ctl.abort(),8000);
+    const r=await fetch(QUOTE_API+(QUOTE_API.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store',signal:ctl.signal}); clearTimeout(to);
+    const q=await r.json(); if(!q||!q.ok||!q.main) throw new Error('bad quote');
+    LQ.fails=0; LQ.ok=true; LQ.last=q; tvFallback(false); renderQuote(q);
+  }catch(e){
+    LQ.fails++;
+    if(!LQ.ok||LQ.fails>=4) tvFallback(true);
+    else if(LQ.last) renderQuote({...LQ.last,stale:true});
+  }
+}
 function liveQuote(){
-  const p=D.price, X=(p.ext||{}), O=X.overnight;
-  const el=$('#tvq');
-  if(el) tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:DARK?'dark':'light',locale:'en'},why=>{
-    el.innerHTML=`<div class="tvfail" title="${esc(why)}" style="padding:4px 6px 0">Live quote unavailable — showing build-time snapshot</div>`; el.style.height='auto';
-    const st=$('#hs-static'); if(st){st.style.display='block';st.style.padding='0 6px 4px';}
-    const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot (not live)';
-  });
+  pollQuote(); LQ.timer=setInterval(pollQuote,15000);
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pollQuote(); });
 }
 function header(){
   const p=D.price,k=D.kpi;
@@ -241,10 +313,13 @@ function header(){
   const X=p.ext||{}, ON=(X.overnight&&X.regular)?X.overnight:null, YT=p.ytd||{status:'n/a'};
   $('#hstats').innerHTML=[
     `<div class="hstat live live1">
-       <div class="half"><div class="tag">Nasdaq · regular / extended</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="Static snapshot from the Yahoo chart API at build time; shown only if the live widget fails"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">Snapshot close ${p.close_date} (build-time, Yahoo)</div></div>`:''}<div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div></div>`,
-    YT.status==='ok'?`<div class="hstat" title="YTD = latest regular-session price vs the ${YT.base_date} close (last trading day of 2025), unadjusted. Computed at build time; refreshed on every rebuild."><div class="l">MU year-to-date</div><div class="v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
-       <div class="s">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close ${YT.base_date}${YT.pct_overnight!=null?` · on overnight: ${YT.pct_overnight>=0?'+':''}${YT.pct_overnight.toFixed(1)}%`:''}</div>
-       <div class="s">as of build ${esc(D.meta.built_sgt)}</div>
+       <div class="half"><div id="lq" class="lq" aria-live="polite"><div class="lq-top"><span class="lq-sess" id="lq-sess"><i class="lq-dot"></i><span id="lq-sl">Connecting to live quote…</span></span><span class="lq-sym">MU · Nasdaq</span></div>
+         <div class="lq-row"><span class="lq-k" id="lq-k"></span><span class="lq-px" id="lq-px">—</span><span class="lq-ch" id="lq-ch"></span></div>
+         <div class="lq-sub" id="lq-sub"></div><div class="lq-cap" id="lq-cap"></div></div>
+       <div id="tvwrap" style="display:none"><div class="tag">Nasdaq · regular / extended (fallback widget)</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="Static snapshot from the Yahoo chart API at build time; shown only if the live widget fails"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">Snapshot close ${p.close_date} (build-time, Yahoo)</div></div>`:''}<div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div></div></div>`,
+    YT.status==='ok'?`<div class="hstat" title="YTD = latest regular-session price vs the ${YT.base_date} close (last trading day of 2025), unadjusted. Computed at build time; refreshed on every rebuild."><div class="l">MU year-to-date</div><div class="v" id="ytd-v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
+       <div class="s" id="ytd-s1">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close ${YT.base_date}${YT.pct_overnight!=null?` · on overnight: ${YT.pct_overnight>=0?'+':''}${YT.pct_overnight.toFixed(1)}%`:''}</div>
+       <div class="s" id="ytd-s2">as of build ${esc(D.meta.built_sgt)}</div>
        </div>`
      :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div></div>`,
     `<div class="hstat"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">Not yet announced</div><div class="s">3rd-party est. ~23 Dec 2026 (unconfirmed)</div></div>`,
