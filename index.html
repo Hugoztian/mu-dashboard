@@ -7,6 +7,7 @@
 <meta name="author" content="Hugo Tian">
 <link rel="icon" type="image/svg+xml" href="micron-favicon.svg"><link rel="icon" type="image/png" sizes="64x64" href="micron-favicon.png">
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
+<script>(function(){try{var t=localStorage.getItem('mu-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
 <script src="data.js?v=1791473206"></script>
@@ -15,9 +16,12 @@
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
  --acc:#0071e3;--acc2:#0066cc;--pos:#1d8a3a;--neg:#d70015;--warn:#b25000;--plan:#0071e3;--np:#b25000;--tax:#8944ab;
  --rowhover:#f5f5f7;--sec:#f5f5f7;--shadow:0 1px 2px rgba(0,0,0,.04),0 4px 18px rgba(0,0,0,.05);--glass:rgba(251,251,253,.72);--seg:#e8e8ed}
-@media (prefers-color-scheme:dark){:root{--bg:#000;--panel:#1c1c1e;--panel2:#232325;--line:rgba(255,255,255,.1);--hair:#3a3a3c;--txt:#f5f5f7;--mut:#a1a1a6;--mut2:#8e8e93;
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#000;--panel:#1c1c1e;--panel2:#232325;--line:rgba(255,255,255,.1);--hair:#3a3a3c;--txt:#f5f5f7;--mut:#a1a1a6;--mut2:#8e8e93;
  --acc:#2997ff;--acc2:#2997ff;--pos:#30d158;--neg:#ff453a;--warn:#ffb340;--plan:#2997ff;--np:#ffb340;--tax:#bf5af2;
  --rowhover:#2c2c2e;--sec:#232325;--shadow:0 0 0 1px rgba(255,255,255,.06);--glass:rgba(22,22,23,.72);--seg:#2c2c2e}}
+:root[data-theme=dark]{--bg:#000;--panel:#1c1c1e;--panel2:#232325;--line:rgba(255,255,255,.1);--hair:#3a3a3c;--txt:#f5f5f7;--mut:#a1a1a6;--mut2:#8e8e93;
+ --acc:#2997ff;--acc2:#2997ff;--pos:#30d158;--neg:#ff453a;--warn:#ffb340;--plan:#2997ff;--np:#ffb340;--tax:#bf5af2;
+ --rowhover:#2c2c2e;--sec:#232325;--shadow:0 0 0 1px rgba(255,255,255,.06);--glass:rgba(22,22,23,.72);--seg:#2c2c2e}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;font-family:var(--font);background:var(--bg);color:var(--txt);font-size:14px;line-height:1.47;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
@@ -32,10 +36,13 @@ header{position:sticky;top:0;z-index:20;background:var(--glass);-webkit-backdrop
 .logo{width:26px;height:26px;border-radius:7px;background:var(--txt);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:0}
 .brand .bn{font-size:12px;font-weight:500;color:var(--mut);white-space:nowrap}
 .mlogo{display:block;height:18px;width:auto}
-@media (prefers-color-scheme:dark){.mlogo{background:#fff;border-radius:5px;padding:2px 5px;box-sizing:content-box}}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .mlogo{background:#fff;border-radius:5px;padding:2px 5px;box-sizing:content-box}}
+:root[data-theme=dark] .mlogo{background:#fff;border-radius:5px;padding:2px 5px;box-sizing:content-box}
 @media (max-width:700px){.mlogo{height:15px}}
 nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:flex-end}
 nav::-webkit-scrollbar{display:none}
+.themebtn{flex:none;border:0;background:transparent;color:var(--mut);border-radius:980px;height:30px;padding:0 8px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.themebtn:hover{color:var(--acc)}
 nav a{padding:6px 11px;border-radius:980px;color:var(--txt);opacity:.8;font-size:12.5px;font-weight:400;white-space:nowrap;text-decoration:none!important}
 nav a:hover{opacity:1}
 nav a.on{background:var(--txt);color:var(--bg);opacity:1}
@@ -138,11 +145,11 @@ footer b{color:var(--txt);font-weight:500}
 @media (max-width:700px){.bar{padding:0 14px;height:48px}nav{justify-content:flex-start}.hero{padding:26px 16px 4px}.hero h1{font-size:32px}.hero .sub{font-size:13px}
  main{padding:12px 16px 30px}h2{font-size:30px;margin:18px 0 16px}h3{font-size:17px}.card{padding:16px;border-radius:16px}.hstat{border-radius:16px;padding:12px 14px}.hstat .v{font-size:22px}
  .hstat.live2>.half+.half{border-left:none;border-top:1px solid var(--line);padding-top:6px;margin-top:4px}.kpi .v{font-size:24px}
- td:first-child,th:first-child{min-width:150px}th,td{padding:8px 10px}.tvchart{height:380px}.chartbox{height:260px}footer{padding:20px 16px 30px}}
+ td:first-child,th:first-child{min-width:150px}th,td{padding:8px 10px}.tvchart{height:380px}.chartbox{height:260px}footer{padding:20px 16px 30px}.themebtn .tl2{display:none}}
 </style>
 </head>
 <body>
-<header><div class="bar"><a class="brand" href="#overview" aria-label="Micron dashboard home"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="65" height="18"><span class="bn">Dashboard</span></a><nav id="nav"></nav></div></header>
+<header><div class="bar"><a class="brand" href="#overview" aria-label="Micron dashboard home"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="65" height="18"><span class="bn">Dashboard</span></a><nav id="nav"></nav><button class="themebtn" id="themebtn" title="Theme: follows your system until you pick one"><span id="themeic">◐</span><span class="tl2" id="themelbl">Auto</span></button></div></header>
 <div class="hero"><h1>Micron Technology (MU) — Research Dashboard</h1>
   <div class="sub" id="updated"></div>
   <div class="hstats" id="hstats"></div>
@@ -167,9 +174,10 @@ const fmt=(v,d=0)=>v==null?'n/a':Number(v).toLocaleString('en-US',{minimumFracti
 const fB=v=>v==null?'n/a':'$'+(v/1000).toFixed(1)+'B';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const linkify=s=>esc(s).replace(/(https?:\/\/[^\s;,)]+)/g,'<a href="$1" target="_blank" rel="noopener">link</a>');
-const DARK=!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);
+const isDark=()=>{const t=document.documentElement.dataset.theme; return t?t==='dark':!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);};
+let DARK=isDark();
 /* Apple-style Chart.js theme: system font, thin lines, muted grid, no x-grid, circular legend markers */
-(function(){const d=Chart.defaults; d.font.family=getComputedStyle(document.documentElement).getPropertyValue('--font')||'-apple-system,BlinkMacSystemFont,Helvetica Neue,Arial,sans-serif';
+function chartTheme(){const d=Chart.defaults; d.font.family=getComputedStyle(document.documentElement).getPropertyValue('--font')||'-apple-system,BlinkMacSystemFont,Helvetica Neue,Arial,sans-serif';
  d.font.size=11.5; d.color=DARK?'#a1a1a6':'#6e6e73'; d.borderColor=DARK?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
  d.elements.line.borderWidth=1.75; d.elements.line.tension=.3; d.elements.point.radius=0; d.elements.point.hoverRadius=4; d.elements.point.hitRadius=8;
  d.elements.bar.borderRadius=3; d.elements.bar.borderSkipped=false; d.datasets.bar.maxBarThickness=34;
@@ -177,11 +185,12 @@ const DARK=!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matc
  d.plugins.title.font={size:13,weight:'600'}; d.plugins.title.color=DARK?'#f5f5f7':'#1d1d1f'; d.plugins.title.padding={top:2,bottom:12}; d.plugins.title.align='start';
  d.plugins.tooltip.backgroundColor=DARK?'rgba(44,44,46,.96)':'rgba(29,29,31,.92)'; d.plugins.tooltip.cornerRadius=10; d.plugins.tooltip.padding=10; d.plugins.tooltip.boxPadding=4; d.plugins.tooltip.usePointStyle=true;
  d.scale.border={display:false}; d.scale.ticks.padding=6; d.scales.category.grid={display:false};
- Chart.register({id:'autoLineBg',beforeInit(c){(c.data.datasets||[]).forEach(ds=>{const t=ds.type||c.config.type; if(t==='line'&&!ds.backgroundColor&&typeof ds.borderColor==='string') ds.backgroundColor=ds.borderColor;});}});
-})();
+}
+chartTheme();
+Chart.register({id:'autoLineBg',beforeInit(c){(c.data.datasets||[]).forEach(ds=>{const t=ds.type||c.config.type; if(t==='line'&&!ds.backgroundColor&&typeof ds.borderColor==='string') ds.backgroundColor=ds.borderColor;});}});
 /* restrained palette: one accent blue + neutrals; green/red (up/dn) reserved for up/down values */
-const C=DARK?{dram:'#2997ff',nand:'#7db8f5',oth:'#636366',g:'#e5e5ea',r:'#8e8e93',y:'#ffb340',o:'#a5a3ff',b:'#64d2ff',p:'#bf8fe6',up:'#30d158',up2:'#7ee09a',dn:'#ff453a',dn2:'#ff8a80',hold:'#8e8e93',guide:'rgba(142,142,147,.45)'}
-               :{dram:'#0071e3',nand:'#8ab6ea',oth:'#c7c7cc',g:'#3a3a3c',r:'#a1a1a6',y:'#e08a00',o:'#5e5ce6',b:'#32ade6',p:'#a77bd6',up:'#1d8a3a',up2:'#6cc183',dn:'#d70015',dn2:'#f08a8f',hold:'#aeaeb2',guide:'rgba(142,142,147,.40)'};
+const C={}; const palette=()=>Object.assign(C,DARK?{dram:'#2997ff',nand:'#7db8f5',oth:'#636366',g:'#e5e5ea',r:'#8e8e93',y:'#ffb340',o:'#a5a3ff',b:'#64d2ff',p:'#bf8fe6',up:'#30d158',up2:'#7ee09a',dn:'#ff453a',dn2:'#ff8a80',hold:'#8e8e93',guide:'rgba(142,142,147,.45)'}
+               :{dram:'#0071e3',nand:'#8ab6ea',oth:'#c7c7cc',g:'#3a3a3c',r:'#a1a1a6',y:'#e08a00',o:'#5e5ce6',b:'#32ade6',p:'#a77bd6',up:'#1d8a3a',up2:'#6cc183',dn:'#d70015',dn2:'#f08a8f',hold:'#aeaeb2',guide:'rgba(142,142,147,.40)'}); palette();
 
 function tableHTML(t,opt={}){
   let h='';
@@ -634,7 +643,23 @@ function route(){let [t,sub]=(location.hash.slice(1)||'overview').split('/');con
   if(tab==='financials') financials(sub||'is'); else if(!done[tab]){R[tab]();done[tab]=1;} window.scrollTo(0,0); if(anchor&&anchor!=='capacity'){const e=document.getElementById(anchor); if(e) e.scrollIntoView();}
   const nv=$('#nav'),o=nv&&nv.querySelector('a.on'); if(o){const d=o.getBoundingClientRect().left-nv.getBoundingClientRect().left; nv.scrollLeft+=d-(nv.clientWidth-o.offsetWidth)/2;}}
 $('#nav').innerHTML=TABS.map(([k,l])=>`<a href="#${k}" data-t="${k}">${l}</a>`).join('');
-header(); window.addEventListener('hashchange',route); route();
+/* ---------- theme: Auto (system) → Light → Dark; choice kept in localStorage 'mu-theme' ---------- */
+function applyTheme(rerender){
+  const t=document.documentElement.dataset.theme||'auto';
+  $('#themelbl').textContent=t==='auto'?'Auto':t==='dark'?'Dark':'Light'; $('#themeic').textContent=t==='auto'?'◐':t==='dark'?'☾':'☀';
+  $('#themebtn').title=`Theme: ${t==='auto'?'follows your system':t} · click to switch`;
+  if(!rerender) return;
+  DARK=isDark(); chartTheme(); palette();
+  Object.keys(charts).forEach(k=>{try{charts[k].destroy();}catch(e){} delete charts[k];});
+  // header: the live box follows CSS variables; re-embed the TradingView fallback quote if it is showing
+  const showing=$('#tvwrap')&&$('#tvwrap').style.display==='block'; LQ.tv=false; if(showing) tvFallback(true);
+  for(const k in done) delete done[k]; const y=scrollY; route(); window.scrollTo(0,y);
+}
+$('#themebtn').onclick=()=>{const cur=document.documentElement.dataset.theme||'auto'; const nx=cur==='auto'?'light':cur==='light'?'dark':'auto';
+  if(nx==='auto'){delete document.documentElement.dataset.theme; try{localStorage.removeItem('mu-theme');}catch(e){}} else {document.documentElement.dataset.theme=nx; try{localStorage.setItem('mu-theme',nx);}catch(e){}}
+  applyTheme(true);};
+if(window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!document.documentElement.dataset.theme) applyTheme(true);});
+applyTheme(false); header(); window.addEventListener('hashchange',route); route();
 </script>
 </body>
 </html>
