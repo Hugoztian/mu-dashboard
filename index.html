@@ -9,7 +9,7 @@
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791440903"></script>
+<script src="data.js?v=1791443098"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -22,7 +22,8 @@
 html{-webkit-text-size-adjust:100%}
 body{margin:0;font-family:var(--font);background:var(--bg);color:var(--txt);font-size:14px;line-height:1.47;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 a{color:var(--acc2);text-decoration:none}a:hover{text-decoration:underline}
-main a,.notes,.card{overflow-wrap:anywhere}
+main a,.notes{overflow-wrap:anywhere}
+table td:not(.wrap) a{overflow-wrap:normal}
 code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:.92em}
 /* frosted sticky bar */
 header{position:sticky;top:0;z-index:20;background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
@@ -78,6 +79,8 @@ tr.sec td{background:var(--sec)!important;color:var(--txt);font-weight:600;font-
 td.wrap,.wrapt td{white-space:normal;text-align:left;min-width:160px;max-width:520px}
 /* short-code columns (Form, Code, Ticker, D/I…) shrink to content; space goes to dates/descriptions */
 table th.code,table td.code{width:1%;white-space:nowrap;min-width:0;max-width:none}
+/* dates, period labels and timestamps never wrap; narrow tables scroll inside their card instead */
+table th.dt,table td.dt{white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important}
 table.c0tight th:first-child,table.c0tight td:first-child{min-width:0;width:1%;white-space:nowrap}
 .pos{color:var(--pos)}.neg{color:var(--neg)}.na{color:var(--mut2);font-style:italic}
 .notes{color:var(--mut);font-size:12.5px;margin:12px 0 0;padding-left:18px;line-height:1.5}.notes li{margin:4px 0}
@@ -130,7 +133,7 @@ footer b{color:var(--txt);font-weight:500}
 <section id="s-estimates"></section>
 <section id="s-sources"></section>
 </main>
-<footer>Built from Micron SEC filings (10-Q/10-K/8-K/Form 4 via EDGAR), Micron IR materials and clearly-labelled third-party sources. Not investment advice. Unavailable items are marked n/a / n/p rather than estimated. Regenerate with <code>python3 build_data.py</code>.<br><b>© 2026 Hugo Tian. All rights reserved.</b></footer>
+<footer>Built from Micron SEC filings (10-Q/10-K/8-K/Form 4 via EDGAR), Micron IR materials and clearly-labelled third-party sources. Not investment advice. Unavailable items are marked n/a / n/p rather than estimated. Data is rebuilt on each scheduled scan (Tue–Sat 8:40 AM and weekdays 9:40 PM SGT).<br><b>© 2026 Hugo Tian. All rights reserved.</b></footer>
 <script>
 const D = window.MU_DATA, Q = D.meta.quarters;
 const TABS=[['overview','Overview'],['financials','Financials'],['revenue','Revenue & Pricing'],['capacity','Capacity'],['capex','Capex'],['buybacks','Buybacks & CHIPS'],['insiders','Insiders'],['calls','Earnings Calls'],['estimates','Wall Street Estimates'],['sources','Sources & Live feed']];
@@ -179,7 +182,11 @@ function sortable(root){root.querySelectorAll('table').forEach(tb=>{tb.querySele
 /* shrink narrow code-like columns to fit their content (site-wide, incl. re-rendered/filtered tables) */
 const CODE_HDR=/^(form|form type|form 4|code|txn code|transaction code|ticker|symbol|tech|type|buy\/sell|d\/i|direct\/indirect|10b5-1|link)$/i;
 const NUMLIKE=/^[~≈<>$+\-−(]*[\d,.]+\s?[%BMKx×)]*$/i;
-function tightCols(root){ (root||document).querySelectorAll('table').forEach(tb=>{
+const DATE_RES=[/^\d{4}-\d{2}-\d{2}(\s.{0,14})?$/,/^\d{2}-\d{2}\s\d{2}:\d{2}.{0,12}$/,/^[A-Z][a-z]{2}-\d{2}-\d{2,4}\*?$/,/^\d{1,2}\s[A-Z][a-z]{2,8}\.?\s\d{4}.{0,14}$/,/^[A-Z][a-z]{2,8}\.?\s\d{1,2},?\s\d{4}.{0,14}$/,
+  /^(FQ\d|Q\d|\dQ)\s?(FY)?\s?'?\d{2,4}\b.{0,26}$/,/^(FY|CY)\s?'?\d{2,4}\b.{0,16}$/,/^\d{1,2}\/\d{1,2}\/\d{2,4}$/,/^[A-Z][a-z]{2,8}[- ]\d{4}$/];
+const isDateLike=t=>{t=t.replace(/\s+/g,' ').trim(); return !!t&&t.length<=34&&DATE_RES.some(r=>r.test(t));};
+function markDates(root){ (root||document).querySelectorAll('table td:not(.dt),table th:not(.dt)').forEach(c=>{ if(isDateLike(c.textContent)) c.classList.add('dt'); }); }
+function tightCols(root){ markDates(root); (root||document).querySelectorAll('table').forEach(tb=>{
   const head=tb.tHead&&tb.tHead.rows[0]; if(!head) return; const n=head.cells.length;
   const rows=[...(tb.tBodies[0]?.rows||[])].filter(r=>r.cells.length===n);
   for(let i=0;i<n;i++){
@@ -192,6 +199,7 @@ function tightCols(root){ (root||document).querySelectorAll('table').forEach(tb=
   }});}
 let _tcPending=false;
 new MutationObserver(()=>{ if(_tcPending) return; _tcPending=true; requestAnimationFrame(()=>{_tcPending=false; tightCols(document.querySelector('main'));}); }).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
+const SCHED_NOTE='The list refreshes on each scheduled scan, Tue–Sat 8:40 AM and weekdays 9:40 PM SGT';
 const charts={};
 function chart(id,cfg){const el=document.getElementById(id); if(!el) return; if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg);}
 const baseOpts=(extra={})=>Object.assign({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom'}}},extra);
@@ -274,8 +282,8 @@ function overview(){
     <li>Capital return expected to step up from 9 Dec 2026 when CHIPS buyback limits move to the FCF-based test.</li>
     <li>New wafer capacity arrives mid-2027 (ID1, Tongluo) and late-2028 (ID2, Hiroshima, Singapore NAND); NY fab 1 in 2030.</li>
     <li>Insiders: no open-market buys in 12 months; CEO/CPO/CLO sales under 10b5-1 plans; 9 non-plan sale lines in last 6 months (~$31M).</li></ul></div>
-   <div class="card"><h3 style="margin-top:0">Live feed (placeholder) — latest SEC filings, CIK 723125</h3>
-    <div class="mut" style="font-size:12px;margin-bottom:6px">Fetched at build time (${esc(D.meta.feed_status)}). Hook for future real-time scanning.</div>
+   <div class="card"><h3 style="margin-top:0">Latest SEC filings (CIK 723125)</h3>
+    <div class="mut" style="font-size:12px;margin-bottom:6px">${SCHED_NOTE} · ${Math.min(12,D.filings.length)} most recent shown (all ${D.filings.length} on the Sources tab) · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).</div>
     <div class="tblwrap feed" style="max-height:300px">${feedTable(12)}</div></div>
   </div>`;
   $('#s-overview').innerHTML=h;
@@ -521,7 +529,7 @@ function estimates(){
 /* ---------- sources ---------- */
 function sources(){
   $('#s-sources').innerHTML=`<h2>Sources & live feed</h2>
-  <div class="card"><h3 style="margin-top:0">Live feed (placeholder) — latest ${D.filings.length} SEC filings for CIK 723125</h3><div class="mut" style="font-size:12px">Fetched from data.sec.gov submissions API at build time: ${esc(D.meta.feed_status)}. Next step: poll on a schedule and rebuild.</div><div class="tblwrap feed" style="max-height:420px">${feedTable(D.filings.length)}</div></div>
+  <div class="card"><h3 style="margin-top:0">Latest SEC filings (CIK 723125)</h3><div class="mut" style="font-size:12px">${SCHED_NOTE} · ${D.filings.length} most recent filings · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).</div><div class="tblwrap feed" style="max-height:420px">${feedTable(D.filings.length)}</div></div>
   <h3>Source documents</h3><div class="tblwrap"><table class="wrapt"><thead><tr><th>Source</th><th>URL</th></tr></thead><tbody>${D.sources.map(s=>`<tr><td>${esc(s[0])}</td><td><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[1])}</a></td></tr>`).join('')}</tbody></table></div>
   <h3>Build log</h3><ul class="notes">${D.meta.build_log.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>`;
 }
