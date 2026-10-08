@@ -10,7 +10,7 @@
 <script>(function(){try{var t=localStorage.getItem('mu-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791473206"></script>
+<script src="data.js?v=1791474836"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -479,14 +479,14 @@ function buybacks(){
 }
 /* ---------- insiders ---------- */
 function insiders(){
-  const I=D.ins, people=[...new Set(I.tx.map(t=>t.Insider))].sort();
+  const I=D.ins, people=[...new Map(I.tx.map(t=>[t.Insider,t.Name||t.Insider])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
   $('#s-insiders').innerHTML=`<h2>Insider activity (Form 4, 12 months: transaction dates ${esc(I.stats.window12.from)} – ${esc(I.stats.window12.to)})</h2>
   <div class="mut" style="font-size:12.5px">Legend: <span class="pill planned">10b5-1 planned sale</span> <span class="pill nonplan">non-plan sale</span> <span class="pill tax">tax withholding (F)</span> <span class="pill other">grants / conversions / gifts</span> <span class="pill buy">open-market purchase (P)</span> · ${esc(I.stats.buy_txt)}</div>
-  <div class="grid g2" style="margin-top:10px"><div class="card"><div class="chartbox"><canvas id="inA"></canvas></div></div><div class="card">${tableHTML(I.nonplan6,{wrap:false})}</div></div>
+  <div class="grid g2" style="margin-top:10px"><div class="card"><div class="chartbox" id="inAbox"><canvas id="inA"></canvas></div></div><div class="card">${tableHTML(I.nonplan6,{wrap:false})}</div></div>
   ${tableHTML(I.hold,{wrap:false})}<ul class="notes">${I.hold_notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
   ${tableHTML(I.summ)}
   <h3>All transactions (sortable / filterable)</h3>
-  <div class="filters"><input id="fq" placeholder="Search name, code, footnote…" size="30"><select id="fp"><option value="">All insiders</option>${people.map(p=>`<option>${esc(p)}</option>`).join('')}</select>
+  <div class="filters"><input id="fq" placeholder="Search name, code, footnote…" size="30"><select id="fp"><option value="">All insiders</option>${people.map(([v,n])=>`<option value="${esc(v)}">${esc(n)}</option>`).join('')}</select>
   <select id="fc"><option value="">All types</option><option value="planned">10b5-1 planned sales</option><option value="nonplan">Non-plan sales</option><option value="buy">Open-market purchases (P)</option><option value="tax">Tax withholding (F)</option><option value="other">Other (A/M/G…)</option></select>
   <label class="mut"><input type="checkbox" id="fs"> Sales only</label><span id="fcount" class="mut"></span></div>
   <div class="tblwrap" style="max-height:560px"><table id="txT"><thead><tr>${['Type','Insider','Role','Txn date','Code','Shares','Price','Value ($)','Owned after','D/I','10b5-1','Filed','Form 4'].map((c,i)=>`<th data-i="${i}">${c}</th>`).join('')}</tr></thead><tbody></tbody></table></div>
@@ -495,10 +495,18 @@ function insiders(){
   const draw=()=>{const q=$('#fq').value.toLowerCase(),p=$('#fp').value,c=$('#fc').value,so=$('#fs').checked;
     const rows=I.tx.filter(t=>(!p||t.Insider===p)&&(!c||t.class===c)&&(!so||t.Code==='S')&&(!q||JSON.stringify(t).toLowerCase().includes(q)));
     $('#fcount').textContent=`${rows.length} rows`;
-    $('#txT tbody').innerHTML=rows.map(t=>`<tr class="r-${t.class}" title="${esc(t.Footnotes||'')}"><td><span class="pill ${t.class}">${lab[t.class]}</span></td><td>${esc(t.Insider)}</td><td>${esc(t.Role)}</td><td>${t['Transaction date']||''}</td><td>${esc(t.Code)} <span class="mut">${esc(t['Code meaning']||'')}</span></td><td>${fmt(t.Shares)}</td><td>${t.Price?fmt(t.Price,2):''}</td><td>${t['Value ($)']?fmt(t['Value ($)']):''}</td><td>${fmt(t['Shares owned after'])}</td><td>${esc(t['Direct/Indirect'])}</td><td>${esc(t['10b5-1 plan'])}</td><td>${t['Filing date']||''}</td><td><a href="${t['Filing URL']}" target="_blank">xml</a></td></tr>`).join('');};
+    $('#txT tbody').innerHTML=rows.map(t=>`<tr class="r-${t.class}" title="${esc(t.Footnotes||'')}"><td><span class="pill ${t.class}">${lab[t.class]}</span></td><td>${esc(t.Name||t.Insider)}</td><td>${esc(t.Role)}</td><td>${t['Transaction date']||''}</td><td>${esc(t.Code)} <span class="mut">${esc(t['Code meaning']||'')}</span></td><td>${fmt(t.Shares)}</td><td>${t.Price?fmt(t.Price,2):''}</td><td>${t['Value ($)']?fmt(t['Value ($)']):''}</td><td>${fmt(t['Shares owned after'])}</td><td>${esc(t['Direct/Indirect'])}</td><td>${esc(t['10b5-1 plan'])}</td><td>${t['Filing date']||''}</td><td><a href="${t['Filing URL']}" target="_blank">xml</a></td></tr>`).join('');};
   ['#fq','#fp','#fc','#fs'].forEach(s=>$(s).addEventListener('input',draw)); draw(); sortable($('#s-insiders'));
-  const A=I.agg.slice(0,12);
-  chart('inA',{type:'bar',data:{labels:A.map(a=>a.name),datasets:[{label:'10b5-1 planned ($M)',data:A.map(a=>a.planned/1e6),backgroundColor:C.b},{label:'Non-plan ($M)',data:A.map(a=>a.nonplan/1e6),backgroundColor:C.o}]},options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Open-market sales by insider, 12 months ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+  const A=I.agg.slice(0,12), nm=a=>`${a.display||a.name}${a.role_short?` (${a.role_short})`:''}`, mob=innerWidth<=700;
+  // one row per insider (planned + non-plan stacked), every name shown, ~30px per bar (24px on phones)
+  $('#inAbox').style.height=(A.length*(mob?24:30)+(mob?96:90))+'px';
+  const M=v=>'$'+(v/1e6).toFixed(2)+'M';
+  chart('inA',{type:'bar',data:{labels:A.map(nm),datasets:[{label:'10b5-1 planned ($M)',data:A.map(a=>a.planned/1e6),backgroundColor:C.b},{label:'Non-plan ($M)',data:A.map(a=>a.nonplan/1e6),backgroundColor:C.o}]},
+    options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Open-market sales by insider, 12 months ($M)'},
+      tooltip:{callbacks:{title:it=>{const a=A[it[0].dataIndex];return a.display||a.name;},afterTitle:it=>A[it[0].dataIndex].role||'',
+        label:c=>`${c.dataset.label.replace(' ($M)','')}: ${M(c.dataset.label.startsWith('10b5')?A[c.dataIndex].planned:A[c.dataIndex].nonplan)}`,
+        footer:it=>{const a=A[it[0].dataIndex];return `Total: ${M(a.planned+a.nonplan)}`;}}}},
+      scales:{x:{stacked:true},y:{stacked:true,ticks:{autoSkip:false,font:{size:mob?10:11.5}}}}})});
 }
 /* ---------- calls ---------- */
 function calls(){
@@ -605,7 +613,7 @@ function estimates(){
   <div class="mut" style="font-size:12px">Nasdaq.com lists periods by fiscal quarter-end month (Nov 2026 = FQ1 FY27, Feb 2027 = FQ2, May 2027 = FQ3, Aug 2027 = FQ4 and FY27). Zacks' EPS basis can differ slightly from Micron's non-GAAP EPS. FY26 non-GAAP EPS actual: $75.52. No Micron guidance exists beyond FQ1 FY27. Source: ${src('Nasdaq.com earnings forecast',NQE)}.</div>
   <h3>Estimate revisions</h3>${tblC}
   <h3>Price targets & ratings</h3>${tblD}
-  <div class="grid g2" style="margin-top:12px"><div class="card"><div class="chartbox"><canvas id="esC"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="esD"></canvas></div></div></div>
+  <div class="grid g2" style="margin-top:12px"><div class="card"><div class="chartbox"><canvas id="esC"></canvas></div></div><div class="card"><div class="chartbox" id="esDbox"><canvas id="esD"></canvas></div></div></div>
   <h3>Broker target changes after the 30 Sep 2026 results (curated)</h3>${tblE}
   <h3>Auto feed: Nasdaq.com upgrades/downgrades (Zacks; refreshes on rebuild)</h3>${tblY}
   <h3>History: beat/miss vs consensus (8 quarters)</h3>
@@ -622,8 +630,9 @@ function estimates(){
   chart('esB',{type:'line',data:{labels:mk.map(m=>m[1]),datasets:[['qtrMean',MO.q_label,C.dram],['yrMean',MO.y_label,C.g]].map(([k,l,c])=>({label:(l||k)+' EPS (index, 1 month ago = 100)',data:mk.map(m=>MO[m[0]]&&MO.month&&MO.month[k]?MO[m[0]][k]/MO.month[k]*100:null),borderColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'EPS consensus revisions (Nasdaq.com/Zacks; indexed to 1 month ago = 100)'}}})});
   const RH=E.rating_hist||[];
   chart('esC',{type:'bar',data:{labels:RH.map(r=>{const [m,d,y]=r.date.split('/');return new Date(Date.UTC(+y,+m-1,+d)).toLocaleDateString('en-US',{month:'short',year:'2-digit',timeZone:'UTC'});}),datasets:[['buy','Buy',C.up],['hold','Hold',C.hold],['sell','Sell',C.dn]].map(([k,l,c])=>({label:l,data:RH.map(r=>r[k]),backgroundColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Ratings distribution by month (Nasdaq.com / Zacks)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
-  const TC=M.target_changes.filter(c=>c.new!=null).sort((a,b)=>b.new-a.new);
-  chart('esD',{type:'bar',data:{labels:TC.map(c=>c.firm+(c.date==='2026-10-07'?' (7 Oct)':'')),datasets:[{label:'Prior target',data:TC.map(c=>c.old),backgroundColor:C.guide},{label:'New / current target',data:TC.map(c=>c.new),backgroundColor:TC.map(c=>c.action==='Raised'?C.up:C.b)}]},options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Post-earnings price targets ($): prior vs new'}}})});
+  const TC=M.target_changes.filter(c=>c.new!=null).sort((a,b)=>b.new-a.new), mobD=innerWidth<=700;
+  $('#esDbox').style.height=(TC.length*(mobD?24:30)+(mobD?96:90))+'px';  // every firm label shown
+  chart('esD',{type:'bar',data:{labels:TC.map(c=>c.firm+(c.date==='2026-10-07'?' (7 Oct)':'')),datasets:[{label:'Prior target',data:TC.map(c=>c.old),backgroundColor:C.guide},{label:'New / current target',data:TC.map(c=>c.new),backgroundColor:TC.map(c=>c.action==='Raised'?C.up:C.b)}]},options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Post-earnings price targets ($): prior vs new'}},scales:{y:{ticks:{autoSkip:false,font:{size:mobD?10:11.5}}}}})});
   chart('esE',{type:'bar',data:{labels:Q,datasets:[{label:'Revenue surprise vs LSEG %',data:H.map(h=>num(h.rev_cons)?(h.rev_act/h.rev_cons-1)*100:null),backgroundColor:C.dram},{label:'EPS surprise vs LSEG %',data:H.map(h=>num(h.eps_cons)?(h.eps_act/h.eps_cons-1)*100:null),backgroundColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Actual vs consensus surprise (%)'}}})});
   chart('esF',{type:'bar',data:{labels:H.map(h=>h.q+'→next'),datasets:[{label:'Next-qtr revenue guide vs Street %',data:H.map(h=>num(h.next_rev_cons)?(h.next_guide_rev/h.next_rev_cons-1)*100:null),backgroundColor:C.nand},{label:'Next-day stock move %',data:H.map(h=>h.move*100),backgroundColor:H.map(h=>h.move>=0?C.up:C.dn)}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Guide vs Street (next quarter) and stock reaction (%)'}}})});
 }
