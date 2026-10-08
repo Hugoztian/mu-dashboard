@@ -303,8 +303,10 @@ async function pollQuote(){
   }
 }
 function liveQuote(){
-  pollQuote(); LQ.timer=setInterval(pollQuote,15000);
-  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pollQuote(); });
+  // 15 s while the endpoint answers; back off to 30–60 s while it is unreachable (TradingView fallback shown meanwhile)
+  const loop=async()=>{ await pollQuote(); const d=LQ.fails===0?15000:Math.min(60000,15000*2**Math.min(LQ.fails,2)); LQ.timer=setTimeout(loop,d); };
+  loop();
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ clearTimeout(LQ.timer); loop(); } });
 }
 function header(){
   const p=D.price,k=D.kpi;
