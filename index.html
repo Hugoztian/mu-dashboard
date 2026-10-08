@@ -9,7 +9,7 @@
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791467424"></script>
+<script src="data.js?v=1791470094"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -324,7 +324,7 @@ function header(){
        <div class="s" id="ytd-s2">as of build ${esc(D.meta.built_sgt)}</div>
        </div>`
      :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div></div>`,
-    `<div class="hstat"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">Not yet announced</div><div class="s">3rd-party est. ~23 Dec 2026 (unconfirmed)</div></div>`,
+    `<div class="hstat" title="${esc(k.next_earnings)}"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">${esc((k.next_earn||{}).company||'Not yet announced by Micron')}</div>${(k.next_earn||{}).third_party?`<div class="s">${esc(k.next_earn.short||k.next_earn.third_party)}</div>`:''}</div>`,
     `<div class="hstat"><div class="l">Buyback authorization left</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">of $10B (2018 program; implied)</div></div>`,
     `<div class="hstat"><div class="l">CHIPS step-up</div><div class="v" style="font-size:15px">9 Dec 2026</div><div class="s" id="cd1"></div></div>`].join('');
   const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-new Date())/864e5); $('#cd1').textContent=days>0?`${days} days away`:'in effect';
@@ -353,12 +353,12 @@ function overview(){
   </div>
   <div class="grid g2" style="margin-top:14px">
    <div class="card"><h3 style="margin-top:0">Key takeaways</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
-    <li>FY26 revenue $133.2B (+256% YoY), driven by price: DRAM/NAND ASPs rose 20–85% per quarter while bit shipments grew single digits.</li>
+    <li>FY26 revenue $133.2B (+256% YoY), driven by price: DRAM/NAND ASPs rose from mid-teens % to mid-80s % per quarter while bit shipments grew from slightly to ~10% per quarter.</li>
     <li>Price momentum is decelerating (DRAM ASP QoQ: mid-60s% → low-60s% → high-teens%); TrendForce sees +10–15% conventional DRAM contract prices in 4Q26.</li>
     <li>Balance sheet flipped from −$5.0B net debt (FQ1 FY25) to +$68.3B net cash; debt cut to $5.2B; rated BBB+ by all three agencies.</li>
     <li>Capital return expected to step up from 9 Dec 2026 when CHIPS buyback limits move to the FCF-based test.</li>
     <li>New wafer capacity arrives mid-2027 (ID1, Tongluo) and late-2028 (ID2, Hiroshima, Singapore NAND); NY fab 1 in 2030.</li>
-    <li>Insiders: no open-market buys in 12 months; CEO/CPO/CLO sales under 10b5-1 plans; 9 non-plan sale lines in last 6 months (~$31M).</li></ul></div>
+    <li>${esc(D.ins.stats.takeaway)}</li></ul></div>
    <div class="card"><h3 style="margin-top:0">Latest SEC filings (CIK 723125)</h3>
     <div class="mut" style="font-size:12px;margin-bottom:6px">${SCHED_NOTE} · ${Math.min(12,D.filings.length)} most recent shown (all ${D.filings.length} on the Sources tab) · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).</div>
     <div class="tblwrap feed" style="max-height:300px">${feedTable(12)}</div></div>
@@ -460,14 +460,14 @@ function buybacks(){
 /* ---------- insiders ---------- */
 function insiders(){
   const I=D.ins, people=[...new Set(I.tx.map(t=>t.Insider))].sort();
-  $('#s-insiders').innerHTML=`<h2>Insider activity (Form 4, 12 months)</h2>
-  <div class="mut" style="font-size:12.5px">Legend: <span class="pill planned">10b5-1 planned sale</span> <span class="pill nonplan">non-plan sale</span> <span class="pill tax">tax withholding (F)</span> <span class="pill other">grants / conversions / gifts</span> · No open-market purchases (P) in the window.</div>
+  $('#s-insiders').innerHTML=`<h2>Insider activity (Form 4, 12 months: transaction dates ${esc(I.stats.window12.from)} – ${esc(I.stats.window12.to)})</h2>
+  <div class="mut" style="font-size:12.5px">Legend: <span class="pill planned">10b5-1 planned sale</span> <span class="pill nonplan">non-plan sale</span> <span class="pill tax">tax withholding (F)</span> <span class="pill other">grants / conversions / gifts</span> <span class="pill buy">open-market purchase (P)</span> · ${esc(I.stats.buy_txt)}</div>
   <div class="grid g2" style="margin-top:10px"><div class="card"><div class="chartbox"><canvas id="inA"></canvas></div></div><div class="card">${tableHTML(I.nonplan6,{wrap:false})}</div></div>
   ${tableHTML(I.hold,{wrap:false})}<ul class="notes">${I.hold_notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
   ${tableHTML(I.summ)}
   <h3>All transactions (sortable / filterable)</h3>
   <div class="filters"><input id="fq" placeholder="Search name, code, footnote…" size="30"><select id="fp"><option value="">All insiders</option>${people.map(p=>`<option>${esc(p)}</option>`).join('')}</select>
-  <select id="fc"><option value="">All types</option><option value="planned">10b5-1 planned sales</option><option value="nonplan">Non-plan sales</option><option value="tax">Tax withholding (F)</option><option value="other">Other (A/M/G…)</option></select>
+  <select id="fc"><option value="">All types</option><option value="planned">10b5-1 planned sales</option><option value="nonplan">Non-plan sales</option><option value="buy">Open-market purchases (P)</option><option value="tax">Tax withholding (F)</option><option value="other">Other (A/M/G…)</option></select>
   <label class="mut"><input type="checkbox" id="fs"> Sales only</label><span id="fcount" class="mut"></span></div>
   <div class="tblwrap" style="max-height:560px"><table id="txT"><thead><tr>${['Type','Insider','Role','Txn date','Code','Shares','Price','Value ($)','Owned after','D/I','10b5-1','Filed','Form 4'].map((c,i)=>`<th data-i="${i}">${c}</th>`).join('')}</tr></thead><tbody></tbody></table></div>
   <ul class="notes">${I.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`;
