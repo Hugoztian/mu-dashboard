@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Micron (MU) Research Dashboard · © 2026 Hugo Tian</title>
 <meta name="author" content="Hugo Tian">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231d1d1f%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2714%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27%23ffffff%27%3EMU%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="micron-favicon.svg"><link rel="icon" type="image/png" sizes="64x64" href="micron-favicon.png">
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
@@ -32,7 +32,7 @@ header{position:sticky;top:0;z-index:20;background:var(--glass);-webkit-backdrop
 .logo{width:26px;height:26px;border-radius:7px;background:var(--txt);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:0}
 .brand .bn{font-size:17px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
 .mlogo{display:block;height:24px;width:auto}
-@media (prefers-color-scheme:dark){.mlogo{filter:invert(1)}}
+@media (prefers-color-scheme:dark){.mlogo{background:#fff;border-radius:6px;padding:3px 6px;box-sizing:content-box}}
 @media (max-width:600px){.mlogo{height:22px}}
 nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:flex-end}
 nav::-webkit-scrollbar{display:none}
@@ -139,7 +139,7 @@ footer b{color:var(--txt);font-weight:500}
 </style>
 </head>
 <body>
-<header><div class="bar"><div class="brand"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="112" height="24"></div><nav id="nav"></nav></div></header>
+<header><div class="bar"><div class="brand"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="87" height="24"></div><nav id="nav"></nav></div></header>
 <div class="hero"><h1>Micron Technology (MU) — Research Dashboard</h1>
   <div class="sub" id="updated"></div>
   <div class="hstats" id="hstats"></div>
