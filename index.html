@@ -12,7 +12,7 @@
  h.lang=l==='zh'?'zh-CN':'en'; h.dataset.lang=l; if(l==='zh') document.title='美光 (MU) 研究看板 · © 2026 Hugo Tian';})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791520635"></script>
+<script src="data.js?v=1791546907"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -122,6 +122,7 @@ tr.r-planned td:first-child{box-shadow:inset 3px 0 0 var(--plan)}tr.r-nonplan td
 .countdown{font-size:34px;font-weight:600;letter-spacing:-.03em;color:var(--acc)}
 .callcard h4{margin:0 0 8px;font-size:17px}.callcard ul{margin:6px 0 0;padding-left:18px}.callcard li{margin:5px 0;line-height:1.45}
 .feed td{white-space:normal}.feed th,.feed td{text-align:left}.mut{color:var(--mut)}
+.brd td{vertical-align:top}.brd td .sm{font-size:11.5px;line-height:1.45}.brd td:nth-child(1){min-width:150px}.brd td:nth-child(3){min-width:150px}.brd td:nth-child(9){min-width:220px}
 .tvchart{height:520px;border-radius:12px;overflow:hidden}
 .tvchart .tradingview-widget-container,.tvchart .tradingview-widget-container__widget{height:100%;width:100%}
 .tvfail{color:var(--warn);font-size:12px;padding:8px}
@@ -526,6 +527,7 @@ function insiders(){
   <div class="grid g2" style="margin-top:10px"><div class="card"><div class="chartbox" id="inAbox"><canvas id="inA"></canvas></div></div><div class="card">${tableHTML(I.nonplan6,{wrap:false})}</div></div>
   ${tableHTML(I.hold,{wrap:false})}<ul class="notes">${I.hold_notes.map(n=>`<li>${E(n)}</li>`).join('')}</ul>
   ${tableHTML(I.summ)}
+  ${boardHTML()}
   <h3>${L('All transactions (sortable / filterable)','全部交易（可排序 / 可筛选）')}</h3>
   <div class="filters"><input id="fq" placeholder="${L('Search name, code, footnote…','搜索姓名、代码、脚注…')}" size="30"><select id="fp"><option value="">${L('All insiders','全部内部人')}</option>${people.map(([v,n])=>`<option value="${esc(v)}">${esc(n)}</option>`).join('')}</select>
   <select id="fc"><option value="">${L('All types','全部类型')}</option><option value="planned">${L('10b5-1 planned sales','10b5-1 计划内卖出')}</option><option value="nonplan">${L('Non-plan sales','非计划卖出')}</option><option value="buy">${L('Open-market purchases (P)','公开市场买入（P）')}</option><option value="tax">${L('Tax withholding (F)','代扣税（F）')}</option><option value="other">${L('Other (A/M/G…)','其他（A/M/G…）')}</option></select>
@@ -548,6 +550,54 @@ function insiders(){
         label:c=>`${c.dataset._k==='p'?LP:LN}: ${M(c.dataset._k==='p'?A[c.dataIndex].planned:A[c.dataIndex].nonplan)}`,
         footer:it=>{const a=A[it[0].dataIndex];return `${L('Total','合计')}: ${M(a.planned+a.nonplan)}`;}}}},
       scales:{x:{stacked:true},y:{stacked:true,ticks:{autoSkip:false,font:{size:mob?10:11.5}}}}})});
+}
+/* ---------- board of directors (inside Insiders) ---------- */
+function boardHTML(){
+  const B=D.ins.board; if(!B||!B.rows) return `<h3 id="board">${L('Board of Directors','董事会')}</h3><p class="mut">${NA()}</p>`;
+  const nw=s=>`<span class="nw">${esc(s)}</span>`, lnk=(u,t)=>u?`<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:'';
+  const ROLE={chair_ceo:L('Chairman & CEO','董事长兼首席执行官'),lid:L('Lead Independent Director','首席独立董事'),ind:L('Independent director','独立董事')};
+  const COM={audit:L('Audit','审计'),comp:L('Compensation','薪酬'),fin:L('Finance','财务'),gov:L('Governance & Sustainability','治理与可持续发展'),sec:L('Security','安全')};
+  const NAT=n=>({'Trust':L('trust','信托'),'GRAT':L('GRAT','设保留年金信托 GRAT')}[n]||n||L('indirect','间接'));
+  const P=B.proxy, sh=v=>v==null?NA():fmt(v), M=v=>v==null?NA():'$'+(v/1e6).toFixed(2)+'M';
+  const pc=v=>v==null?NA():(v>0&&v<0.001?'<0.001%':v.toFixed(3)+'%');
+  const rows=B.rows.map(r=>{
+    const f=r.f4, a=r.awards;
+    const com=r.committees.length?r.committees.map(([c,ch,src])=>`<span class="nw">${COM[c]||esc(c)}${ch?`<b>${L(' (Chair)','（主席）')}</b>`:''}${src==='proxy_only'?'†':''}</span>`).join('<br>'):`<span class="mut">${L('None (management director)','无（管理层董事）')}</span>`;
+    let name=`<b>${esc(r.name)}</b>`;
+    if(r.joined) name+=`<br><span class="pill other">${L('Joined','加入')} ${nw(r.joined)} · ${L('after proxy','晚于委托书')}</span> ${lnk(r.joined_url,'8-K')}`;
+    let hold=NA();
+    if(f){ const ind=f.lines.filter(l=>l.di==='I');
+      hold=`<b>${fmt(f.shares)}</b>${ind.length?`<div class="sm mut">${ind.map(l=>L(`incl. ${fmt(l.shares)} indirect (${esc(NAT(l.nature))})`,`含间接持有 ${fmt(l.shares)} 股（${esc(NAT(l.nature))}）`)).join(L(', ','；'))}</div>`:''}<div class="sm mut">${L('as of','截至')} ${nw(f.date)} · Form ${esc(f.form)} ${L('filed','申报于')} ${nw(f.filed)} ${lnk(f.url,L('link','链接'))}</div>`; }
+    const pr=r.proxy?`${fmt(r.proxy.total)}${r.proxy.right?`<div class="sm mut">${L(`incl. ${fmt(r.proxy.right)} right to acquire`,`含 60 日内可取得的 ${fmt(r.proxy.right)} 股`)}</div>`:''}`:`<span class="mut">${NA()} — ${L('not in proxy (joined later)','委托书未列（其后加入）')}</span>`;
+    let aw=[];
+    if(r.awards_txt) aw.push(E(r.awards_txt));
+    if(a){
+      a.rs_unvested.forEach(x=>aw.push(L(`${fmt(x.shares)} restricted shares vest <span class="nw">${x.vest}</span> (counted in holdings)`,`${fmt(x.shares)} 股限制性股票于 <span class="nw">${x.vest}</span> 归属（已计入持股）`)));
+      if(a.rsu>0){ const u=a.rsu_unvested.reduce((s,x)=>s+x.shares,0), uv=a.rsu_unvested.map(x=>x.vest).sort()[0];
+        aw.push(L(`${fmt(a.rsu)} RSUs (not in holdings)`,`${fmt(a.rsu)} 个 RSU（未计入持股）`)+(u?L(`, of which ${fmt(u)} vest <span class="nw">${uv}</span>`,`，其中 ${fmt(u)} 个于 <span class="nw">${uv}</span> 归属`):'')+(a.rsu_deferred?L('; deferred: shares delivered after leaving the Board','；递延：离任董事会后交付股份'):'')); }
+      if(!aw.length) aw.push(`<span class="mut">${L('None open per Form 4','据 Form 4 无未归属/递延奖励')}</span>`);
+    }
+    return `<tr><td>${name}</td><td>${ROLE[r.role]||esc(r.role)}</td><td>${com}</td><td>${esc(r.since)}</td><td>${hold}</td><td>${pc(r.pct)}</td><td>${M(r.value)}</td><td>${pr}</td><td><div class="sm">${aw.join('<br>')}</div></td></tr>`;}).join('');
+  const hdr=LANG==='zh'?['姓名','董事会职务','委员会','任董事起始年',' 当前持股（股，Form 4）','占流通股比例',`市值（按 ${nw('$'+fmt(B.close,2))} 收盘价）`,`委托书实益持股（${nw(P.own_as_of)}）`,'未归属 / 递延奖励']
+    :['Name','Board role','Committees','Director since','Current holdings (shares, Form 4)','% of shares outstanding',`Value at ${nw('$'+fmt(B.close,2))} close`,`Proxy beneficial ownership (${nw(P.own_as_of)})`,'Unvested / deferred awards'];
+  const notes=[], so=B.so;
+  notes.push(L('Sorted: Chair & CEO first, then the other directors by current Form 4 holdings (largest first).','排序：董事长兼 CEO 居首，其余董事按当前 Form 4 持股由多到少排列。'));
+  notes.push(L(`Current holdings = shares of Common Stock owned after each director's most recent reported transaction or holding on Form 4, summed over direct and indirect lines (latest figure per line across all of the director's Form 4s; an indirect line not reported for over 400 days before their latest Form 4 is treated as closed). RSUs are shown separately and are not counted. Refreshed from SEC EDGAR on every build.`,`当前持股 = 各董事最近一次 Form 4 申报的交易后（或持有）普通股数，直接与间接持股合计（取该董事所有 Form 4 中每一持股类别的最新数字；若某间接持股类别在其最近一份 Form 4 之前超过 400 天未再申报，则视为已结清）。RSU 单独列示，不计入持股。每次生成时从 SEC EDGAR 刷新。`));
+  notes.push(so?L(`% of shares outstanding uses ${fmt(so.shares)} shares as of <span class="nw">${so.as_of}</span> (cover of Form ${esc(so.form)} filed <span class="nw">${so.filed}</span>) ${lnk(so.url,'link')}. Value = Form 4 holdings × Nasdaq close $${fmt(B.close,2)} on <span class="nw">${B.close_date}</span>.`,`占流通股比例按 <span class="nw">${so.as_of}</span> 的流通股 ${fmt(so.shares)} 股计算（Form ${esc(so.form)} 封面，申报于 <span class="nw">${so.filed}</span>）${lnk(so.url,'链接')}。市值 = Form 4 持股 × <span class="nw">${B.close_date}</span> 纳斯达克收盘价 $${fmt(B.close,2)}。`):L('Shares outstanding: n/a this build.','流通股数：本次生成暂无。'));
+  notes.push(L(`Proxy column: “Total beneficial ownership” from the <span class="nw">${P.filed}</span> DEF 14A (as of <span class="nw">${P.own_as_of}</span>; includes unvested restricted stock and shares the director could acquire within 60 days, e.g. deferred RSUs). All directors and the CEO each held less than 1% then. ${lnk(P.url,'DEF 14A')}`,`委托书列：取自 <span class="nw">${P.filed}</span> 的 DEF 14A“实益持股合计”（截至 <span class="nw">${P.own_as_of}</span>；包括未归属限制性股票及董事可于 60 日内取得的股份，如递延 RSU）。当时每位董事及 CEO 的持股比例均低于 1%。${lnk(P.url,'DEF 14A')}`));
+  notes.push(L(`† Security Committee: listed in the Nov 2025 proxy (Linnie M. Haynesworth, Chair; A. Christine Simons). micron.com's governance page (checked <span class="nw">${B.web_checked}</span>) lists only the Audit, Compensation, Finance and Governance & Sustainability committees, so its current status is n/a.`,`† 安全委员会：见于 2025 年 11 月委托书（Linnie M. Haynesworth 任主席；A. Christine Simons）。micron.com 治理页面（核查于 <span class="nw">${B.web_checked}</span>）仅列出审计、薪酬、财务及治理与可持续发展委员会，故其现状暂无。`));
+  notes.push(L(`Roles and committees: proxy, updated with micron.com's governance and leadership pages and 8-K filings since the proxy (curated review <span class="nw">${esc(B.reviewed_sgt)}</span>). ${lnk(B.governance_url,'Governance')} · ${lnk(B.leadership_url,'Leadership')}`,`职务与委员会：依据委托书，并按 micron.com 治理与领导层页面及委托书之后的 8-K 更新（人工核查于 <span class="nw">${esc(B.reviewed_sgt)}</span>）。${lnk(B.governance_url,'治理')} · ${lnk(B.leadership_url,'领导层')}`));
+  B.rows.filter(r=>r.note).forEach(r=>notes.push(`<b>${esc(r.name)}</b>${L(': ','：')}${E(r.note)}`));
+  notes.push(L(`Executive officers who are not directors (e.g. Manish Bhatia, Scott J. DeBoer, Mark J. Murphy) are covered in the insider tables above and the transaction list below.`,`非董事的执行官（如 Manish Bhatia、Scott J. DeBoer、Mark J. Murphy）见上方内部人表格及下方交易列表。`));
+  const chg=B.changes.map(c=>`<li><span class="nw">${c.date}</span> · ${E(c.en)} ${lnk(c.url,'8-K')}</li>`).join('')
+    +B.departed.map(d=>`<li>${L('Left the Board','卸任董事')} <span class="nw">${d.left}</span>${L(': ','：')}<b>${esc(d.name)}</b> — ${E(d.was)} ${lnk(d.url,'8-K')}</li>`).join('');
+  const FL={new_proxy:L('A newer DEF 14A proxy was filed — the roster/committees above need re-checking','已有更新的 DEF 14A 委托书——上表职务/委员会需复核'),unreviewed_8k:L('8-K with Item 5.02/5.07 not yet reviewed — board changes possible','含 5.02/5.07 项的 8-K 尚未审阅——董事会可能有变动'),unknown_director:L('Form 4 filed by a director not in this list','有不在本表中的董事申报 Form 4')};
+  const flags=(B.flags||[]).map(x=>`<li style="color:var(--warn)"><b>${FL[x.type]||esc(x.type)}</b>: <span class="nw">${x.date}</span>${x.name?' · '+esc(x.name):''} ${lnk(x.url,L('link','链接'))}</li>`).join('');
+  return `<h3 id="board">${L(`Board of Directors (${B.rows.length})`,`董事会（${B.rows.length} 人）`)}</h3>
+  <div class="tblwrap"><table class="feed brd"><thead><tr>${hdr.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
+  ${flags?`<ul class="notes">${flags}</ul>`:''}
+  <h4 style="margin:14px 0 4px">${L(`Changes since the proxy (filed ${P.filed})`,`委托书（${P.filed} 申报）之后的变动`)}</h4><ul class="notes" style="margin-top:4px">${chg}</ul>
+  <ul class="notes">${notes.map(n=>`<li>${n}</li>`).join('')}</ul>`;
 }
 /* ---------- calls ---------- */
 function calls(){
