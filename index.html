@@ -324,7 +324,7 @@ function liveQuote(){
 }
 function header(){
   const p=D.price,k=D.kpi;
-  $('#updated').innerHTML=`Last updated: <b>${D.meta.built_sgt}</b> · Data through FQ4 FY26 (quarter ended 3 Sep 2026) · © 2026 Hugo Tian. All rights reserved.`;
+  $('#updated').innerHTML=`© 2026 Hugo Tian. All rights reserved.`;
   const chg=p.status==='ok'?((p.close/p.prev_close-1)*100):null;
   const X=p.ext||{}, ON=(X.overnight&&X.regular)?X.overnight:null, YT=p.ytd||{status:'n/a'};
   $('#hstats').innerHTML=[
