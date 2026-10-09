@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Micron (MU) Research Dashboard · © 2026 HT</title>
+<title>Micron (MU) Research Dashboard · © 2026 Hugo Tian</title>
 <meta name="author" content="Hugo Tian">
 <link rel="icon" type="image/svg+xml" href="micron-favicon.svg"><link rel="icon" type="image/png" sizes="64x64" href="micron-favicon.png">
-<meta name="copyright" content="© 2026 HT. All rights reserved.">
+<meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
 <script>(function(){try{var t=localStorage.getItem('mu-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
@@ -165,7 +165,7 @@ footer b{color:var(--txt);font-weight:500}
 <section id="s-estimates"></section>
 <section id="s-sources"></section>
 </main>
-<footer>Built from Micron SEC filings (10-Q/10-K/8-K/Form 4 via EDGAR), Micron IR materials and clearly-labelled third-party sources. Not investment advice. Unavailable items are marked n/a / n/p rather than estimated. Data is rebuilt on each scheduled scan (Tue–Sat 8:40 AM and weekdays 9:40 PM SGT).<br><b>© 2026 HT. All rights reserved.</b></footer>
+<footer>Built from Micron SEC filings (10-Q/10-K/8-K/Form 4 via EDGAR), Micron IR materials and clearly-labelled third-party sources. Not investment advice. Unavailable items are marked n/a / n/p rather than estimated. Data is rebuilt on each scheduled scan (Tue–Sat 8:40 AM and weekdays 9:40 PM SGT).<br><b>© 2026 Hugo Tian. All rights reserved.</b></footer>
 <script>
 const D = window.MU_DATA, Q = D.meta.quarters;
 const TABS=[['overview','Overview'],['financials','Financials'],['revenue','Revenue & Pricing'],['capacity-capex','Capacity & Capex'],['buybacks','Buybacks & CHIPS'],['insiders','Insiders'],['calls','Earnings Calls'],['estimates','Wall Street Estimates'],['sources','Sources & Live feed']];
@@ -324,7 +324,7 @@ function liveQuote(){
 }
 function header(){
   const p=D.price,k=D.kpi;
-  $('#updated').innerHTML=`Last updated: <b>${D.meta.built_sgt}</b> · Data through FQ4 FY26 (quarter ended 3 Sep 2026) · © 2026 HT. All rights reserved.`;
+  $('#updated').innerHTML=`Last updated: <b>${D.meta.built_sgt}</b> · Data through FQ4 FY26 (quarter ended 3 Sep 2026) · © 2026 Hugo Tian. All rights reserved.`;
   const chg=p.status==='ok'?((p.close/p.prev_close-1)*100):null;
   const X=p.ext||{}, ON=(X.overnight&&X.regular)?X.overnight:null, YT=p.ytd||{status:'n/a'};
   $('#hstats').innerHTML=[
