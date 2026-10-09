@@ -7,10 +7,12 @@
 <meta name="author" content="Hugo Tian">
 <link rel="icon" type="image/svg+xml" href="micron-favicon.svg"><link rel="icon" type="image/png" sizes="64x64" href="micron-favicon.png">
 <meta name="copyright" content="© 2026 Hugo Tian. All rights reserved.">
-<script>(function(){try{var t=localStorage.getItem('mu-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){var h=document.documentElement;try{var t=localStorage.getItem('mu-theme');if(t==='light'||t==='dark')h.dataset.theme=t;}catch(e){}
+ var l=null;try{l=localStorage.getItem('mu-lang');}catch(e){} if(l!=='en'&&l!=='zh') l=/^zh/i.test(navigator.language||'')?'zh':'en';
+ h.lang=l==='zh'?'zh-CN':'en'; h.dataset.lang=l; if(l==='zh') document.title='美光 (MU) 研究看板 · © 2026 Hugo Tian';})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791474836"></script>
+<script src="data.js?v=1791520635"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -22,6 +24,8 @@
 :root[data-theme=dark]{--bg:#000;--panel:#1c1c1e;--panel2:#232325;--line:rgba(255,255,255,.1);--hair:#3a3a3c;--txt:#f5f5f7;--mut:#a1a1a6;--mut2:#8e8e93;
  --acc:#2997ff;--acc2:#2997ff;--pos:#30d158;--neg:#ff453a;--warn:#ffb340;--plan:#2997ff;--np:#ffb340;--tax:#bf5af2;
  --rowhover:#2c2c2e;--sec:#232325;--shadow:0 0 0 1px rgba(255,255,255,.06);--glass:rgba(22,22,23,.72);--seg:#2c2c2e}
+html[data-lang=zh]{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif}
+html[data-lang=zh] body{letter-spacing:0}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;font-family:var(--font);background:var(--bg);color:var(--txt);font-size:14px;line-height:1.47;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
@@ -43,6 +47,8 @@ nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;justify-con
 nav::-webkit-scrollbar{display:none}
 .themebtn{flex:none;border:0;background:transparent;color:var(--mut);border-radius:980px;height:30px;padding:0 8px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px}
 .themebtn:hover{color:var(--acc)}
+.hbtns{display:flex;align-items:center;gap:2px;flex:none}
+.langbtn .tl3{font-weight:500}
 nav a{padding:6px 11px;border-radius:980px;color:var(--txt);opacity:.8;font-size:12.5px;font-weight:400;white-space:nowrap;text-decoration:none!important}
 nav a:hover{opacity:1}
 nav a.on{background:var(--txt);color:var(--bg);opacity:1}
@@ -149,8 +155,8 @@ footer b{color:var(--txt);font-weight:500}
 </style>
 </head>
 <body>
-<header><div class="bar"><a class="brand" href="#overview" aria-label="Micron dashboard home"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="65" height="18"><span class="bn">Dashboard</span></a><nav id="nav"></nav><button class="themebtn" id="themebtn" title="Theme: follows your system until you pick one"><span id="themeic">◐</span><span class="tl2" id="themelbl">Auto</span></button></div></header>
-<div class="hero"><h1>Micron Technology (MU) — Research Dashboard</h1>
+<header><div class="bar"><a class="brand" href="#overview" aria-label="Micron dashboard home"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="65" height="18"><span class="bn" id="bn">Dashboard</span></a><nav id="nav"></nav><div class="hbtns"><button class="themebtn langbtn" id="langbtn" title="Language: English · click for 中文"><span id="langic">文</span><span class="tl3" id="langlbl">EN</span></button><button class="themebtn" id="themebtn" title="Theme: follows your system until you pick one"><span id="themeic">◐</span><span class="tl2" id="themelbl">Auto</span></button></div></div></header>
+<div class="hero"><h1 id="h1">Micron Technology (MU) — Research Dashboard</h1>
   <div class="sub" id="updated"></div>
   <div class="hstats" id="hstats"></div>
 </div>
@@ -168,12 +174,36 @@ footer b{color:var(--txt);font-weight:500}
 <footer>© 2026 Hugo Tian. All rights reserved.</footer>
 <script>
 const D = window.MU_DATA, Q = D.meta.quarters;
-const TABS=[['overview','Overview'],['financials','Financials'],['revenue','Revenue & Pricing'],['capacity-capex','Capacity & Capex'],['buybacks','Buybacks & CHIPS'],['insiders','Insiders'],['calls','Earnings Calls'],['estimates','Wall Street Estimates'],['sources','Sources & Live feed']];
+const TABS=[['overview','Overview','概览'],['financials','Financials','财务'],['revenue','Revenue & Pricing','营收与价格'],['capacity-capex','Capacity & Capex','产能与资本开支'],['buybacks','Buybacks & CHIPS','回购与 CHIPS'],['insiders','Insiders','内部人交易'],['calls','Earnings Calls','业绩电话会'],['estimates','Wall Street Estimates','华尔街预期'],['sources','Sources & Live feed','来源与实时数据']];
 const $=s=>document.querySelector(s);
 const fmt=(v,d=0)=>v==null?'n/a':Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const fB=v=>v==null?'n/a':'$'+(v/1000).toFixed(1)+'B';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const linkify=s=>esc(s).replace(/(https?:\/\/[^\s;,)]+)/g,'<a href="$1" target="_blank" rel="noopener">link</a>');
+const linkify=s=>esc(s).replace(/(https?:\/\/[^\s;,)，；）]+)/g,m=>`<a href="${m}" target="_blank" rel="noopener">${LANG==='zh'?'链接':'link'}</a>`);
+/* ---------- language: English ⇄ Simplified Chinese (localStorage 'mu-lang'; html[data-lang]) ----------
+   UI text in this file: L(english, chinese). Text that comes from data.js: tr(s), using the D.zh map that build_data.py
+   generates (English template with numbers as ⟦⟧ → Chinese template). Quotes keep the English original + "译文：" line. */
+let LANG=document.documentElement.dataset.lang==='zh'?'zh':'en';
+const L=(en,zh)=>LANG==='zh'?zh:en;
+const ZHT=D.zh||{}, TOKR=/\d+(?:[.,]\d+)*/g;
+const MON={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Sept:9,Oct:10,Nov:11,Dec:12}, MRX='(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)[a-z]*\\.?';
+const DRX=[ // English date forms → Chinese (only applied in Chinese mode)
+  [new RegExp('\\b(\\d{1,2})[–-](\\d{1,2}) '+MRX+' (\\d{4})\\b','g'),(m,a,b,mo,y)=>`${y}年${MON[mo]}月${a}–${b}日`],
+  [new RegExp('\\b(\\d{1,2})[- ]'+MRX+'[- ,]+(\\d{4})\\b','g'),(m,d,mo,y)=>`${y}年${MON[mo]}月${+d}日`],
+  [new RegExp('\\b'+MRX+' (\\d{1,2}),? (\\d{4})\\b','g'),(m,mo,d,y)=>`${y}年${MON[mo]}月${+d}日`],
+  [new RegExp('\\b'+MRX+'-(\\d{2})-(\\d{2})\\b','g'),(m,mo,d,y)=>`20${y}年${MON[mo]}月${+d}日`],
+  [new RegExp('\\b'+MRX+'[- ](\\d{4})\\b','g'),(m,mo,y)=>`${y}年${MON[mo]}月`],
+  [new RegExp('\\b'+MRX+"(?:-| ')(2\\d|3\\d)\\b",'g'),(m,mo,y)=>`20${y}年${MON[mo]}月`],
+  [new RegExp('\\b(\\d{1,2}) '+MRX+'(?![a-z])','g'),(m,d,mo)=>`${MON[mo]}月${+d}日`]];
+const zhDate=s=>DRX.reduce((a,[r,f])=>a.replace(r,f),s);
+function tr(s){ if(LANG!=='zh'||s==null) return s; s=String(s); const t=ZHT[s.replace(TOKR,'⟦⟧')]; if(t==null) return s;
+  const v=s.match(TOKR)||[], o=t.replace(/⟦(\d+)⟧/g,(m,i)=>v[+i]??'');
+  return o.startsWith(s)?s+zhDate(o.slice(s.length)):zhDate(o); }   // an English original kept in front of "译文：" is never altered
+const E=s=>esc(tr(s)).replace(/\n/g,'<br>');            // translated data text, escaped
+const H=s=>linkify(tr(s)).replace(/\n/g,'<br>');        // translated data text, escaped + links
+const NA=()=>L('n/a','暂无');
+const WQ={'Regular session':'常规交易时段','Pre-market':'盘前','After-hours':'盘后','Overnight':'夜盘','Market closed':'休市','Live':'实时','Last close':'最新收盘价'};
+const wq=s=>LANG==='zh'?(WQ[s]||s):s;
 const isDark=()=>{const t=document.documentElement.dataset.theme; return t?t==='dark':!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);};
 let DARK=isDark();
 /* Apple-style Chart.js theme: system font, thin lines, muted grid, no x-grid, circular legend markers */
@@ -194,18 +224,18 @@ const C={}; const palette=()=>Object.assign(C,DARK?{dram:'#2997ff',nand:'#7db8f5
 
 function tableHTML(t,opt={}){
   let h='';
-  if(t.title&&!opt.notitle) h+=`<h3>${esc(t.title)}</h3>`;
-  if(t.pre&&t.pre.length) h+=`<div class="mut" style="font-size:12px;margin-bottom:6px">${t.pre.map(esc).join('<br>')}</div>`;
-  h+=`<div class="tblwrap"><table class="${opt.wrap?'wrapt':''}"><thead><tr>${t.columns.map((c,i)=>`<th data-i="${i}">${esc(c).replace(/ \(/,'<br>(')}</th>`).join('')}</tr></thead><tbody>`;
+  if(t.title&&!opt.notitle) h+=`<h3>${E(t.title)}</h3>`;
+  if(t.pre&&t.pre.length) h+=`<div class="mut" style="font-size:12px;margin-bottom:6px">${t.pre.map(E).join('<br>')}</div>`;
+  h+=`<div class="tblwrap"><table class="${opt.wrap?'wrapt':''}"><thead><tr>${t.columns.map((c,i)=>`<th data-i="${i}">${E(c).replace(/ \(|（/,m=>'<br>'+(m==='（'?'（':'('))}</th>`).join('')}</tr></thead><tbody>`;
   for(const r of t.rows){
-    if(!Array.isArray(r)){h+=`<tr class="sec"><td colspan="${t.columns.length}">${esc(r.section)}</td>${''}</tr>`;continue;}
+    if(!Array.isArray(r)){h+=`<tr class="sec"><td colspan="${t.columns.length}">${E(r.section)}</td>${''}</tr>`;continue;}
     h+='<tr>'+r.map((c,i)=>{const [txt,cls]=Array.isArray(c)?c:[c,''];const s=String(txt??'');
       const w=(s.length>40||opt.wrap)?' wrap':'';
-      const body=/^https?:\/\//.test(s)?`<a href="${esc(s)}" target="_blank" rel="noopener">link</a>`:linkify(s);
+      const body=/^https?:\/\//.test(s)?`<a href="${esc(s)}" target="_blank" rel="noopener">${L('link','链接')}</a>`:H(s);
       return `<td class="${cls||''}${w}">${body}</td>`}).join('')+'</tr>';
   }
   h+='</tbody></table></div>';
-  if(t.notes&&t.notes.length) h+=`<ul class="notes">${t.notes.map(n=>`<li>${linkify(n)}</li>`).join('')}</ul>`;
+  if(t.notes&&t.notes.length) h+=`<ul class="notes">${t.notes.map(n=>`<li>${H(n)}</li>`).join('')}</ul>`;
   return h;
 }
 function sortable(root){root.querySelectorAll('table').forEach(tb=>{tb.querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{
@@ -214,10 +244,11 @@ function sortable(root){root.querySelectorAll('table').forEach(tb=>{tb.querySele
   const val=r=>{const t=r.cells[i]?.innerText.replace(/[$,%+]/g,'')||'';const n=parseFloat(t);return isNaN(n)?t.toLowerCase():n};
   rows.sort((a,b)=>{const x=val(a),y=val(b);return (x>y?1:x<y?-1:0)*(dir==='a'?1:-1)});rows.forEach(r=>body.appendChild(r));}))})}
 /* shrink narrow code-like columns to fit their content (site-wide, incl. re-rendered/filtered tables) */
-const CODE_HDR=/^(form|form type|form 4|code|txn code|transaction code|ticker|symbol|tech|type|buy\/sell|d\/i|direct\/indirect|10b5-1|link)$/i;
+const CODE_HDR=/^(form|form type|form 4|code|txn code|transaction code|ticker|symbol|tech|type|buy\/sell|d\/i|direct\/indirect|10b5-1|link|表格|代码|技术|类型|买入\/卖出|直接\/间接|链接)$/i;
 const NUMLIKE=/^[~≈<>$+\-−(]*[\d,.]+\s?[%BMKx×)]*$/i;
 const DATE_RES=[/^\d{4}-\d{2}-\d{2}(\s.{0,14})?$/,/^\d{2}-\d{2}\s\d{2}:\d{2}.{0,12}$/,/^[A-Z][a-z]{2}-\d{2}-\d{2,4}\*?$/,/^\d{1,2}\s[A-Z][a-z]{2,8}\.?\s\d{4}.{0,14}$/,/^[A-Z][a-z]{2,8}\.?\s\d{1,2},?\s\d{4}.{0,14}$/,
-  /^(FQ\d|Q\d|\dQ)\s?(FY)?\s?'?\d{2,4}\b.{0,26}$/,/^(FY|CY)\s?'?\d{2,4}\b.{0,16}$/,/^\d{1,2}\/\d{1,2}\/\d{2,4}$/,/^[A-Z][a-z]{2,8}[- ]\d{4}$/];
+  /^(FQ\d|Q\d|\dQ)\s?(FY)?\s?'?\d{2,4}\b.{0,26}$/,/^(FY|CY)\s?'?\d{2,4}\b.{0,16}$/,/^\d{1,2}\/\d{1,2}\/\d{2,4}$/,/^[A-Z][a-z]{2,8}[- ]\d{4}$/,
+  /^\d{4}年\d{1,2}月(\d{1,2}([–-]\d{1,2})?日)?.{0,14}$/,/^\d{1,2}月\d{1,2}日.{0,10}$/];
 const isDateLike=t=>{t=t.replace(/\s+/g,' ').trim(); return !!t&&t.length<=34&&DATE_RES.some(r=>r.test(t));};
 function markDates(root){ (root||document).querySelectorAll('table td:not(.dt),table th:not(.dt)').forEach(c=>{ if(isDateLike(c.textContent)) c.classList.add('dt'); }); }
 function tightCols(root){ markDates(root); (root||document).querySelectorAll('table').forEach(tb=>{
@@ -231,16 +262,21 @@ function tightCols(root){ markDates(root); (root||document).querySelectorAll('ta
     if(!code) continue;
     head.cells[i].classList.add('code'); rows.forEach(r=>r.cells[i].classList.add('code')); if(i===0) tb.classList.add('c0tight');
   }});}
+const ZDR=/\d{4}年\d{1,2}月(?:\d{1,2}(?:[–-]\d{1,2})?日)?|\d{1,2}月\d{1,2}(?:[–-]\d{1,2})?日/g;
+function nwZh(root){ if(LANG!=='zh'||!root) return; const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement; if(!p||p.closest('.nw,.dt,script,style,canvas,option,.tvchart,.tvq')) return NodeFilter.FILTER_REJECT; ZDR.lastIndex=0; return ZDR.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP;}});
+  const ns=[]; while(w.nextNode()) ns.push(w.currentNode);
+  ns.forEach(n=>{const f=document.createDocumentFragment(); let last=0, s=n.nodeValue; s.replace(ZDR,(m,i)=>{ if(i>last) f.appendChild(document.createTextNode(s.slice(last,i))); const sp=document.createElement('span'); sp.className='nw'; sp.textContent=m; f.appendChild(sp); last=i+m.length; return m;}); if(last<s.length) f.appendChild(document.createTextNode(s.slice(last))); n.parentNode.replaceChild(f,n);}); }
 let _tcPending=false;
-new MutationObserver(()=>{ if(_tcPending) return; _tcPending=true; requestAnimationFrame(()=>{_tcPending=false; tightCols(document.querySelector('main'));}); }).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
-const SCHED_NOTE='The list refreshes on each scheduled scan, Tue–Sat 8:40 AM and weekdays 9:40 PM SGT';
+new MutationObserver(()=>{ if(_tcPending) return; _tcPending=true; requestAnimationFrame(()=>{_tcPending=false; tightCols(document.querySelector('main')); nwZh(document.querySelector('main')); nwZh($('#hstats'));}); }).observe(document.body,{childList:true,subtree:true});
+const SCHED_NOTE=()=>L('The list refreshes on each scheduled scan, Tue–Sat 8:40 AM and weekdays 9:40 PM SGT','列表在每次定时扫描时刷新：周二至周六 8:40 AM 及工作日 9:40 PM SGT');
 const charts={};
 function chart(id,cfg){const el=document.getElementById(id); if(!el) return; if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg);}
 const baseOpts=(extra={})=>Object.assign({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom'}}},extra);
 
 /* ---------- header ---------- */
 /* ---------- TradingView live widgets (client-side, keyless) ---------- */
-const TV_FRESHNESS='Delayed quote (TradingView marks NASDAQ:MU "Data is delayed"; Cboe One feed; free widgets cannot show real-time US stock data; checked 8 Oct 2026)';
+const TV_FRESHNESS=()=>L('Delayed quote (TradingView marks NASDAQ:MU "Data is delayed"; Cboe One feed; free widgets cannot show real-time US stock data; checked 8 Oct 2026)','延迟行情（TradingView 将 NASDAQ:MU 标注为“Data is delayed”/数据延迟；Cboe One 数据源；免费小组件无法显示美股实时数据；核查于 2026年10月8日）');
+const TVLOC=()=>LANG==='zh'?'zh_CN':'en';
 function tvEmbed(el,widget,cfg,onFail){
   if(!el) return;
   el.innerHTML='';
@@ -264,44 +300,46 @@ const QUOTE_API=(new URLSearchParams(location.search).get('quoteapi'))||(/\.work
 const LQ={timer:null,fails:0,ok:false,last:null,tv:false,prev:null};
 const usd=v=>'$'+fmt(v,2);
 const sgn=(v,d=2)=>(v>=0?'+':'−')+fmt(Math.abs(v),d);
-const mdy=d=>{if(!d) return ''; const t=new Date(d+'T12:00:00Z'); return t.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});};
+const mdy=d=>{if(!d) return ''; const t=new Date(d+'T12:00:00Z'); return LANG==='zh'?`${t.getUTCMonth()+1}月${t.getUTCDate()}日`:t.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});};
 const tET=ms=>new Date(ms).toLocaleTimeString('en-US',{timeZone:'America/New_York',hour12:false});
 const tSG=ms=>new Date(ms).toLocaleTimeString('en-GB',{timeZone:'Asia/Singapore',hour12:false});
 function tvFallback(on){
   const w=$('#tvwrap'), lq=$('#lq'); if(!w||!lq) return;
   w.style.display=on?'block':'none'; lq.style.display=on?'none':'block';
   if(on&&!LQ.tv){ LQ.tv=true; const el=$('#tvq');
-    tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:DARK?'dark':'light',locale:'en'},why=>{
-      el.innerHTML=`<div class="tvfail" title="${esc(why)}" style="padding:4px 6px 0">Live quote unavailable — showing build-time snapshot</div>`; el.style.height='auto';
+    tvEmbed(el,'single-quote',{symbol:'NASDAQ:MU',width:'100%',isTransparent:true,colorTheme:DARK?'dark':'light',locale:TVLOC()},why=>{
+      el.innerHTML=`<div class="tvfail" title="${esc(why)}" style="padding:4px 6px 0">${L('Live quote unavailable — showing build-time snapshot','实时报价不可用——显示构建时快照')}</div>`; el.style.height='auto';
       const st=$('#hs-static'); if(st){st.style.display='block';st.style.padding='0 6px 4px';}
-      const c=$('#tvqcap'); if(c) c.textContent='Fallback: static snapshot (not live)'; }); }
+      const c=$('#tvqcap'); if(c) c.textContent=L('Fallback: static snapshot (not live)','备用：静态快照（非实时）'); }); }
 }
 function renderQuote(q){
   const m=q.main||{}, ref=q.ref_close||{}, reg=q.session==='regular';
   const box=$('#lq'); box.classList.toggle('reg',reg); box.classList.toggle('stale',!!q.stale);
-  $('#lq-sl').textContent=reg?'Live · regular session':(q.session==='closed'?'Market closed':`${q.session_label} session`)+(q.session==='overnight'?' (8 PM–4 AM ET)':'');
-  $('#lq-k').textContent=m.kind==='regular'?'':(m.label||'');
-  const px=$('#lq-px'); const prevTxt=px.textContent; px.textContent=m.price!=null?usd(m.price):'n/a';
+  $('#lq-sl').textContent=reg?L('Live · regular session','实时 · 常规交易时段'):(q.session==='closed'?L('Market closed','休市'):L(`${q.session_label} session`,wq(q.session_label)))+(q.session==='overnight'?L(' (8 PM–4 AM ET)','（美东 8 PM–4 AM）'):'');
+  $('#lq-k').textContent=m.kind==='regular'?'':wq(m.label||'');
+  const px=$('#lq-px'); px.textContent=m.price!=null?usd(m.price):NA();
   if(LQ.prev!=null&&m.price!=null&&m.price!==LQ.prev){px.classList.remove('up','dn'); void px.offsetWidth; px.classList.add(m.price>LQ.prev?'up':'dn');}
   LQ.prev=m.price;
   const ch=$('#lq-ch');
-  if(m.change!=null){ch.className='lq-ch '+(m.change>=0?'pos':'neg'); ch.textContent=`${sgn(m.change)} (${sgn(m.pct)}%)${reg?'':' vs close'}`;}
+  if(m.change!=null){ch.className='lq-ch '+(m.change>=0?'pos':'neg'); ch.textContent=`${sgn(m.change)} (${sgn(m.pct)}%)${reg?'':L(' vs close',' 较收盘')}`;}
   else {ch.className='lq-ch mut'; ch.textContent='';}
   const pc=reg?q.prev_close:ref;
-  let sub=`Prev close ${usd(pc.price)}${pc.date?` · ${mdy(pc.date)}`:''}`;
-  if(!reg&&q.ext&&m.kind==='close') sub+=` · ${q.ext.label} ${usd(q.ext.price)} (${sgn(q.ext.pct)}%)`;
-  if(reg&&q.bid&&q.ask) sub+=` · Bid ${usd(q.bid)} / Ask ${usd(q.ask)}`;
+  let sub=`${L('Prev close','前收盘')} ${usd(pc.price)}${pc.date?` · ${mdy(pc.date)}`:''}`;
+  if(!reg&&q.ext&&m.kind==='close') sub+=` · ${wq(q.ext.label)} ${usd(q.ext.price)} (${sgn(q.ext.pct)}%)`;
+  if(reg&&q.bid&&q.ask) sub+=` · ${L('Bid','买价')} ${usd(q.bid)} / ${L('Ask','卖价')} ${usd(q.ask)}`;
   $('#lq-sub').textContent=sub;
   const RH=q.source==='Robinhood public quote';
-  const venue=m.kind==='regular'?(RH?'Nasdaq last sale via Robinhood':q.source):((q.ext&&q.ext.venue)?`${q.ext.venue} via Robinhood 24-hour feed`:(RH?'Robinhood extended-hours feed':q.source));
-  const fresh=q.source==='Nasdaq.com quote API'&&!/real-time/i.test(q.source_note||'')?'may be delayed':'real-time';
-  $('#lq-cap').textContent=(m.time?`as of ${tET(m.time)} ET (${tSG(m.time)} SGT)`:'')+` · ${venue} · ${fresh}`+(q.stale?' · last good update, retrying':` · refreshes every 15 s`);
+  const venue=m.kind==='regular'?(RH?L('Nasdaq last sale via Robinhood','Nasdaq 最新成交价，经 Robinhood'):q.source):((q.ext&&q.ext.venue)?L(`${q.ext.venue} via Robinhood 24-hour feed`,`${q.ext.venue}，经 Robinhood 24 小时行情`):(RH?L('Robinhood extended-hours feed','Robinhood 延长交易时段行情'):q.source));
+  const fresh=q.source==='Nasdaq.com quote API'&&!/real-time/i.test(q.source_note||'')?L('may be delayed','可能延迟'):L('real-time','实时');
+  $('#lq-cap').textContent=(m.time?L(`as of ${tET(m.time)} ET (${tSG(m.time)} SGT)`,`截至美东 ${tET(m.time)}（新加坡 ${tSG(m.time)}）`):'')+` · ${venue} · ${fresh}`+(q.stale?L(' · last good update, retrying',' · 最近一次有效更新，正在重试'):L(` · refreshes every 15 s`,' · 每 15 秒刷新'));
   // YTD box follows the live regular-session price
   const Y=D.price.ytd; if(Y&&Y.status==='ok'){ const rp=q.regular&&q.regular.price; if(rp){ const pct=(rp/Y.base-1)*100;
     const v=$('#ytd-v'); if(v) v.innerHTML=`<span class="${pct>=0?'pos':'neg'}">${pct>=0?'+':''}${pct.toFixed(1)}%</span>`;
-    const e=q.ext&&!reg?q.ext:null; const s1=$('#ytd-s1');
-    if(s1) s1.innerHTML=`${usd(rp)} (${reg?'live':'regular close'} ${q.regular.time?tET(q.regular.time).slice(0,5)+' ET':''}) vs ${usd(Y.base)} close <span class="nw">${esc(Y.base_date)}</span> (Nasdaq.com)`+(e?` · on ${e.label.toLowerCase()}: ${((e.price/Y.base-1)*100>=0?'+':'')}${((e.price/Y.base-1)*100).toFixed(1)}%`:'');
-    const s2=$('#ytd-s2'); if(s2) s2.textContent=`live · updated ${tET(Date.now())} ET`; } }
+    const e=q.ext&&!reg?q.ext:null; const s1=$('#ytd-s1'); const tt=q.regular.time?tET(q.regular.time).slice(0,5):'';
+    if(s1) s1.innerHTML=L(`${usd(rp)} (${reg?'live':'regular close'} ${tt?tt+' ET':''}) vs ${usd(Y.base)} close <span class="nw">${esc(Y.base_date)}</span> (Nasdaq.com)`,
+                           `${usd(rp)}（${reg?'实时':'常规时段收盘'}${tt?' 美东 '+tt:''}）vs <span class="nw">${esc(Y.base_date)}</span> 收盘价 ${usd(Y.base)}（Nasdaq.com）`)
+      +(e?L(` · on ${e.label.toLowerCase()}: `,` · ${wq(e.label)}：`)+`${((e.price/Y.base-1)*100>=0?'+':'')}${((e.price/Y.base-1)*100).toFixed(1)}%`:'');
+    const s2=$('#ytd-s2'); if(s2) s2.textContent=L(`live · updated ${tET(Date.now())} ET`,`实时 · 更新于美东 ${tET(Date.now())}`); } }
 }
 async function pollQuote(){
   if(document.visibilityState==='hidden') return;
@@ -322,214 +360,219 @@ function liveQuote(){
   loop();
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ clearTimeout(LQ.timer); loop(); } });
 }
-function header(){
+function header(start){
   const p=D.price,k=D.kpi;
   $('#updated').innerHTML=`© 2026 Hugo Tian. All rights reserved.`;
   const chg=p.status==='ok'?((p.close/p.prev_close-1)*100):null;
   const X=p.ext||{}, ON=(X.overnight&&X.regular)?X.overnight:null, YT=p.ytd||{status:'n/a'};
   $('#hstats').innerHTML=[
     `<div class="hstat live live1">
-       <div class="half"><div id="lq" class="lq" aria-live="polite"><div class="lq-top"><span class="lq-sess" id="lq-sess"><i class="lq-dot"></i><span id="lq-sl">Connecting to live quote…</span></span><span class="lq-sym">MU · Nasdaq</span></div>
+       <div class="half"><div id="lq" class="lq" aria-live="polite"><div class="lq-top"><span class="lq-sess" id="lq-sess"><i class="lq-dot"></i><span id="lq-sl">${L('Connecting to live quote…','正在连接实时报价…')}</span></span><span class="lq-sym">MU · Nasdaq</span></div>
          <div class="lq-row"><span class="lq-k" id="lq-k"></span><span class="lq-px" id="lq-px">—</span><span class="lq-ch" id="lq-ch"></span></div>
          <div class="lq-sub" id="lq-sub"></div><div class="lq-cap" id="lq-cap"></div></div>
-       <div id="tvwrap" style="display:none"><div class="tag">Nasdaq · regular / extended (fallback widget)</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="Official close from Nasdaq.com at build time; shown only if the live quote and the TradingView fallback both fail"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">Official close ${p.close_date} (build-time, Nasdaq.com)</div></div>`:''}<div class="cap" id="tvqcap">Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One</div></div></div></div>`,
-    YT.status==='ok'?`<div class="hstat" title="YTD = live regular-session price (Robinhood feed via /api/quote) vs the ${YT.base_date} official close (last trading day of 2025, Nasdaq.com), unadjusted. Shows the build-time figure until the live quote arrives."><div class="l">MU year-to-date</div><div class="v" id="ytd-v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
-       <div class="s" id="ytd-s1">$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close <span class="nw">${YT.base_date}</span> (Nasdaq.com official closes)</div>
-       <div class="s" id="ytd-s2">as of build ${esc(D.meta.built_sgt)}</div>
+       <div id="tvwrap" style="display:none"><div class="tag">${L('Nasdaq · regular / extended (fallback widget)','Nasdaq · 常规 / 延长交易时段（备用小组件）')}</div><div class="tvq" id="tvq"></div>${p.status==='ok'?`<div class="snapfb" id="hs-static" style="display:none" title="${L('Official close from Nasdaq.com at build time; shown only if the live quote and the TradingView fallback both fail','构建时取自 Nasdaq.com 的官方收盘价；仅在实时报价和 TradingView 备用小组件均失败时显示')}"><div style="font-size:20px;font-weight:700">$${fmt(p.close,2)} <span class="${chg>=0?'pos':'neg'}" style="font-size:12px">${chg>=0?'+':''}${chg.toFixed(2)}%</span></div><div class="mut" style="font-size:11px">${L(`Official close ${p.close_date} (build-time, Nasdaq.com)`,`官方收盘价 ${p.close_date}（构建时，Nasdaq.com）`)}</div></div>`:''}<div class="cap" id="tvqcap">${L('Auto-updating · DELAYED (TradingView: “Data is delayed”) · Cboe One','自动更新 · 延迟（TradingView：“Data is delayed”/数据延迟）· Cboe One')}</div></div></div></div>`,
+    YT.status==='ok'?`<div class="hstat" title="${L(`YTD = live regular-session price (Robinhood feed via /api/quote) vs the ${YT.base_date} official close (last trading day of 2025, Nasdaq.com), unadjusted. Shows the build-time figure until the live quote arrives.`,`年初至今 = 常规交易时段实时价格（Robinhood 行情，经 /api/quote）对比 ${YT.base_date} 官方收盘价（2025 年最后一个交易日，Nasdaq.com），未复权。实时报价到达前显示构建时数据。`)}"><div class="l">${L('MU year-to-date','MU 年初至今')}</div><div class="v" id="ytd-v"><span class="${YT.pct>=0?'pos':'neg'}">${YT.pct>=0?'+':''}${YT.pct.toFixed(1)}%</span></div>
+       <div class="s" id="ytd-s1">${L(`$${fmt(YT.price,2)} (${esc((YT.asof.et||'').replace(/^2026-/,''))}) vs $${fmt(YT.base,2)} close <span class="nw">${YT.base_date}</span> (Nasdaq.com official closes)`,`$${fmt(YT.price,2)}（${esc((YT.asof.et||'').replace(/^2026-/,''))}）vs <span class="nw">${YT.base_date}</span> 收盘价 $${fmt(YT.base,2)}（Nasdaq.com 官方收盘价）`)}</div>
+       <div class="s" id="ytd-s2">${L('as of build','截至构建')} ${esc(D.meta.built_sgt)}</div>
        </div>`
-     :`<div class="hstat"><div class="l">MU year-to-date</div><div class="v na">n/a</div></div>`,
-    `<div class="hstat" title="${esc(k.next_earnings)}"><div class="l">Next earnings (FQ1 FY27)</div><div class="v" style="font-size:14px">${esc((k.next_earn||{}).company||'Not yet announced by Micron')}</div>${(k.next_earn||{}).third_party?`<div class="s">${esc(k.next_earn.short||k.next_earn.third_party)}</div>`:''}</div>`,
-    `<div class="hstat"><div class="l">Buyback authorization left</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">of $10B (2018 program; implied)</div></div>`,
-    `<div class="hstat"><div class="l">CHIPS step-up</div><div class="v" style="font-size:15px">9 Dec 2026</div><div class="s" id="cd1"></div></div>`].join('');
-  const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-new Date())/864e5); $('#cd1').textContent=days>0?`${days} days away`:'in effect';
-  liveQuote();
+     :`<div class="hstat"><div class="l">${L('MU year-to-date','MU 年初至今')}</div><div class="v na">${NA()}</div></div>`,
+    `<div class="hstat" title="${E(k.next_earnings)}"><div class="l">${L('Next earnings (FQ1 FY27)','下次财报（FQ1 FY27）')}</div><div class="v" style="font-size:14px">${E((k.next_earn||{}).company||'Not yet announced by Micron')}</div>${(k.next_earn||{}).third_party?`<div class="s">${E(k.next_earn.short||k.next_earn.third_party)}</div>`:''}</div>`,
+    `<div class="hstat"><div class="l">${L('Buyback authorization left','剩余回购授权')}</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">${L('of $10B (2018 program; implied)','$10B 中（2018 年计划；推算）')}</div></div>`,
+    `<div class="hstat"><div class="l">${L('CHIPS step-up','CHIPS 回购上限提升')}</div><div class="v" style="font-size:15px">${L('9 Dec 2026','2026年12月9日')}</div><div class="s" id="cd1"></div></div>`].join('');
+  const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-new Date())/864e5); $('#cd1').textContent=days>0?L(`${days} days away`,`还有 ${days} 天`):L('in effect','已生效');
+  if(start!==false) liveQuote(); else { if(LQ.tv){ LQ.tv=false; tvFallback(true); } else if(LQ.last&&LQ.ok) renderQuote(LQ.last); }
 }
 /* ---------- overview ---------- */
 function overview(){
   const k=D.kpi,s=D.fin.series;
   const kp=(l,v,sub,cls='')=>`<div class="card kpi"><div class="l">${l}</div><div class="v ${cls}">${v}</div><div class="s">${sub}</div></div>`;
-  let h=`<h2>Overview</h2>
-  <div class="card" style="margin-bottom:14px"><h3 style="margin:0 0 6px">MU live price chart <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU via TradingView · ${TV_FRESHNESS}</span></h3>
+  const tvd=L('delayed','延迟');
+  let h=`<h2>${L('Overview','概览')}</h2>
+  <div class="card" style="margin-bottom:14px"><h3 style="margin:0 0 6px">${L('MU live price chart','MU 实时价格图')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView','· 来自 TradingView')} · ${TV_FRESHNESS()}</span></h3>
   <div class="tvchart" id="tvchart"></div></div>
   <div class="grid g4">
-  ${kp('FQ4 FY26 revenue',fB(k.rev_q),`+${k.rev_qoq.toFixed(0)}% QoQ · +${k.rev_yoy.toFixed(0)}% YoY (14-wk qtr)`)}
-  ${kp('FQ4 FY26 gross margin',k.gm_gaap.toFixed(1)+'%',`GAAP · non-GAAP ${k.gm_ng}%`)}
-  ${kp('FQ4 FY26 diluted EPS','$'+k.eps_gaap.toFixed(2),`GAAP · non-GAAP $${k.eps_ng}`)}
-  ${kp('FY26 revenue / net income',fB(k.fy26_rev)+' / '+fB(k.fy26_ni),'53-week fiscal year')}
-  ${kp('Net cash (3 Sep 2026)',fB(k.netcash),'cash + ST/LT investments − debt','pos')}
-  ${kp('FY26 net capex / FCF',fB(k.fy26_netcapex)+' / '+fB(k.fy26_fcf),'Micron adjusted FCF')}
-  ${kp('FQ1 FY27 guidance','$'+k.guide_rev+'B ± 1.5B',`GM ~${k.guide_gm}% · EPS $${k.guide_eps} ± 1.00 (non-GAAP)`)}
-  ${kp('DRAM share of revenue (FQ4)',k.dram_share.toFixed(1)+'%','NAND 26.0% · Other 0.7%')}
+  ${kp(L('FQ4 FY26 revenue','FQ4 FY26 营收'),fB(k.rev_q),L(`+${k.rev_qoq.toFixed(0)}% QoQ · +${k.rev_yoy.toFixed(0)}% YoY (14-wk qtr)`,`环比 +${k.rev_qoq.toFixed(0)}% · 同比 +${k.rev_yoy.toFixed(0)}%（14 周季度）`))}
+  ${kp(L('FQ4 FY26 gross margin','FQ4 FY26 毛利率'),k.gm_gaap.toFixed(1)+'%',L(`GAAP · non-GAAP ${k.gm_ng}%`,`GAAP · 非 GAAP ${k.gm_ng}%`))}
+  ${kp(L('FQ4 FY26 diluted EPS','FQ4 FY26 稀释 EPS'),'$'+k.eps_gaap.toFixed(2),L(`GAAP · non-GAAP $${k.eps_ng}`,`GAAP · 非 GAAP $${k.eps_ng}`))}
+  ${kp(L('FY26 revenue / net income','FY26 营收 / 净利润'),fB(k.fy26_rev)+' / '+fB(k.fy26_ni),L('53-week fiscal year','53 周财年'))}
+  ${kp(L('Net cash (3 Sep 2026)','净现金（2026年9月3日）'),fB(k.netcash),L('cash + ST/LT investments − debt','现金 + 短期/长期投资 − 债务'),'pos')}
+  ${kp(L('FY26 net capex / FCF','FY26 净资本开支 / 自由现金流'),fB(k.fy26_netcapex)+' / '+fB(k.fy26_fcf),L('Micron adjusted FCF','美光调整后自由现金流'))}
+  ${kp(L('FQ1 FY27 guidance','FQ1 FY27 指引'),'$'+k.guide_rev+'B ± 1.5B',L(`GM ~${k.guide_gm}% · EPS $${k.guide_eps} ± 1.00 (non-GAAP)`,`毛利率约 ${k.guide_gm}% · EPS $${k.guide_eps} ± 1.00（非 GAAP）`))}
+  ${kp(L('DRAM share of revenue (FQ4)','DRAM 营收占比（FQ4）'),k.dram_share.toFixed(1)+'%',L('NAND 26.0% · Other 0.7%','NAND 26.0% · 其他 0.7%'))}
   </div>
   <div class="grid g2" style="margin-top:14px">
-   <div class="card"><h3 style="margin-top:0">Revenue & margins (8Q)</h3><div class="chartbox"><canvas id="ovRev"></canvas></div></div>
-   <div class="card"><h3 style="margin-top:0">MU daily candles (recent sessions) <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU via TradingView · delayed</span></h3><div class="tvchart tvchart-sm" id="tvchart2"></div></div>
+   <div class="card"><h3 style="margin-top:0">${L('Revenue & margins (8Q)','营收与利润率（8 个季度）')}</h3><div class="chartbox"><canvas id="ovRev"></canvas></div></div>
+   <div class="card"><h3 style="margin-top:0">${L('MU daily candles (recent sessions)','MU 日 K 线（近期交易日）')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView','· 来自 TradingView')} · ${tvd}</span></h3><div class="tvchart tvchart-sm" id="tvchart2"></div></div>
   </div>
   <div class="grid g2" style="margin-top:14px">
-   <div class="card"><h3 style="margin-top:0">Key takeaways</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
-    <li>FY26 revenue $133.2B (+256% YoY), driven by price: DRAM/NAND ASPs rose from mid-teens % to mid-80s % per quarter while bit shipments grew from slightly to ~10% per quarter.</li>
-    <li>Price momentum is decelerating (DRAM ASP QoQ: mid-60s% → low-60s% → high-teens%); TrendForce sees +10–15% conventional DRAM contract prices in 4Q26.</li>
-    <li>Balance sheet flipped from −$5.0B net debt (FQ1 FY25) to +$68.3B net cash; debt cut to $5.2B; rated BBB+ by all three agencies.</li>
-    <li>Capital return expected to step up from 9 Dec 2026 when CHIPS buyback limits move to the FCF-based test.</li>
-    <li>New wafer capacity arrives mid-2027 (ID1, Tongluo) and late-2028 (ID2, Hiroshima, Singapore NAND); NY fab 1 in 2030.</li>
-    <li>${esc(D.ins.stats.takeaway)}</li></ul></div>
-   <div class="card"><h3 style="margin-top:0">Latest SEC filings (CIK 723125)</h3>
-    <div class="mut" style="font-size:12px;margin-bottom:6px">${SCHED_NOTE} · ${Math.min(12,D.filings.length)} most recent shown (all ${D.filings.length} on the Sources tab) · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).</div>
+   <div class="card"><h3 style="margin-top:0">${L('Key takeaways','要点')}</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
+    <li>${L('FY26 revenue $133.2B (+256% YoY), driven by price: DRAM/NAND ASPs rose from mid-teens % to mid-80s % per quarter while bit shipments grew from slightly to ~10% per quarter.','FY26 营收 $133.2B（同比 +256%），主要由价格驱动：DRAM/NAND 平均售价每季度上涨幅度从十几个百分点的中段升至 80% 区间中段，而位元出货每季度增长从小幅到约 10%。')}</li>
+    <li>${L('Price momentum is decelerating (DRAM ASP QoQ: mid-60s% → low-60s% → high-teens%); TrendForce sees +10–15% conventional DRAM contract prices in 4Q26.','价格涨势正在放缓（DRAM ASP 环比：60% 区间中段 → 60% 区间低段 → 十几个百分点的高段）；TrendForce 预计 4Q26 常规 DRAM 合约价上涨 10–15%。')}</li>
+    <li>${L('Balance sheet flipped from −$5.0B net debt (FQ1 FY25) to +$68.3B net cash; debt cut to $5.2B; rated BBB+ by all three agencies.','资产负债表由净负债 −$5.0B（FQ1 FY25）转为净现金 +$68.3B；债务降至 $5.2B；三大评级机构均给予 BBB+。')}</li>
+    <li>${L('Capital return expected to step up from 9 Dec 2026 when CHIPS buyback limits move to the FCF-based test.','预计自 2026年12月9日起资本回报提升，届时 CHIPS 回购限制转为以自由现金流为基础的测试。')}</li>
+    <li>${L('New wafer capacity arrives mid-2027 (ID1, Tongluo) and late-2028 (ID2, Hiroshima, Singapore NAND); NY fab 1 in 2030.','新增晶圆产能于 2027 年年中（ID1、铜锣）和 2028 年底（ID2、广岛、新加坡 NAND）到位；纽约 1 号厂于 2030 年。')}</li>
+    <li>${E(D.ins.stats.takeaway)}</li></ul></div>
+   <div class="card"><h3 style="margin-top:0">${L('Latest SEC filings (CIK 723125)','最新 SEC 申报（CIK 723125）')}</h3>
+    <div class="mut" style="font-size:12px;margin-bottom:6px">${L(`${SCHED_NOTE()} · ${Math.min(12,D.filings.length)} most recent shown (all ${D.filings.length} on the Sources tab) · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).`,`${SCHED_NOTE()} · 显示最近 ${Math.min(12,D.filings.length)} 份（全部 ${D.filings.length} 份见“来源”页）· data.sec.gov submissions API，最近抓取 ${esc(D.meta.built_sgt)}（状态：${esc(D.meta.feed_status==='ok'?'正常':D.meta.feed_status)}）。`)}</div>
     <div class="tblwrap feed" style="max-height:300px">${feedTable(12)}</div></div>
   </div>`;
   $('#s-overview').innerHTML=h;
-  tvEmbed($('#tvchart'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',range:'12M',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:'en',
+  const unav=why=>L(`Live chart unavailable (${esc(why)}).`,`实时图表不可用（${esc(why)}）。`), lastc=()=>D.price.status==='ok'?L(` Last official close (Nasdaq.com, build-time): $${fmt(D.price.close,2)} on ${D.price.close_date}.`,` 最新官方收盘价（Nasdaq.com，构建时）：${D.price.close_date} $${fmt(D.price.close,2)}。`):'';
+  tvEmbed($('#tvchart'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',range:'12M',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:TVLOC(),
     backgroundColor:DARK?'rgba(28,28,30,1)':'rgba(255,255,255,1)',gridColor:DARK?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
-    why=>{$('#tvchart').innerHTML=`<div class="tvfail">Live chart unavailable (${esc(why)}).${D.price.status==='ok'?` Last official close (Nasdaq.com, build-time): $${fmt(D.price.close,2)} on ${D.price.close_date}.`:''}</div>`; $('#tvchart').style.height='auto';});
-  tvEmbed($('#tvchart2'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:'en',
+    why=>{$('#tvchart').innerHTML=`<div class="tvfail">${unav(why)}${lastc()}</div>`; $('#tvchart').style.height='auto';});
+  tvEmbed($('#tvchart2'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:TVLOC(),
     backgroundColor:DARK?'rgba(28,28,30,1)':'rgba(255,255,255,1)',gridColor:DARK?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
-    why=>{$('#tvchart2').innerHTML=`<div class="tvfail">Chart unavailable (${esc(why)}).${D.price.status==='ok'?` Last official close (Nasdaq.com, build-time): $${fmt(D.price.close,2)} on ${D.price.close_date}.`:''}</div>`; $('#tvchart2').style.height='auto';});
-  chart('ovRev',{data:{labels:Q,datasets:[{type:'bar',label:'Revenue ($M)',data:s.rev,backgroundColor:C.dram,yAxisID:'y'},
-    {type:'line',label:'Gross margin %',data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.g,yAxisID:'y1',tension:.25},
-    {type:'line',label:'Operating margin %',data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1',tension:.25}]},
+    why=>{$('#tvchart2').innerHTML=`<div class="tvfail">${L(`Chart unavailable (${esc(why)}).`,`图表不可用（${esc(why)}）。`)}${lastc()}</div>`; $('#tvchart2').style.height='auto';});
+  chart('ovRev',{data:{labels:Q,datasets:[{type:'bar',label:L('Revenue ($M)','营收（$M）'),data:s.rev,backgroundColor:C.dram,yAxisID:'y'},
+    {type:'line',label:L('Gross margin %','毛利率 %'),data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.g,yAxisID:'y1',tension:.25},
+    {type:'line',label:L('Operating margin %','营业利润率 %'),data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1',tension:.25}]},
     options:baseOpts({scales:{y:{title:{display:true,text:'$M'}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false},title:{display:true,text:'%'}}}})});
 }
 function feedTable(n){
-  return `<table><thead><tr><th>Form</th><th>Filed</th><th>Report date</th><th>Description / items</th><th>Link</th></tr></thead><tbody>${D.filings.slice(0,n).map(f=>`<tr><td><b>${esc(f.form)}</b></td><td>${f.date}</td><td>${f.report||''}</td><td class="wrap">${esc(f.desc)} ${f.items?'<span class="mut">items '+esc(f.items)+'</span>':''}</td><td><a href="${f.url}" target="_blank">doc</a> · <a href="${f.index}" target="_blank">index</a></td></tr>`).join('')}</tbody></table>`;
+  return `<table><thead><tr><th>${L('Form','表格')}</th><th>${L('Filed','申报日期')}</th><th>${L('Report date','报告期')}</th><th>${L('Description / items','说明 / 事项')}</th><th>${L('Link','链接')}</th></tr></thead><tbody>${D.filings.slice(0,n).map(f=>`<tr><td><b>${esc(f.form)}</b></td><td>${f.date}</td><td>${f.report||''}</td><td class="wrap">${E(f.desc)} ${f.items?'<span class="mut">'+L('items ','事项 ')+esc(f.items)+'</span>':''}</td><td><a href="${f.url}" target="_blank">${L('doc','文件')}</a> · <a href="${f.index}" target="_blank">${L('index','索引')}</a></td></tr>`).join('')}</tbody></table>`;
 }
 /* ---------- financials ---------- */
 function financials(sub='is'){
   const s=D.fin.series;
-  $('#s-financials').innerHTML=`<h2>Financials — 8 quarters (FQ1 FY25 – FQ4 FY26)</h2>
-  <div class="subtabs">${[['bs','Balance Sheet'],['is','Income Statement'],['cf','Cash Flow']].map(([k,l])=>`<button data-s="${k}" class="${k===sub?'on':''}">${l}</button>`).join('')}</div>
+  $('#s-financials').innerHTML=`<h2>${L('Financials — 8 quarters (FQ1 FY25 – FQ4 FY26)','财务数据——8 个季度（FQ1 FY25 – FQ4 FY26）')}</h2>
+  <div class="subtabs">${[['bs',L('Balance Sheet','资产负债表')],['is',L('Income Statement','利润表')],['cf',L('Cash Flow','现金流量表')]].map(([k,l])=>`<button data-s="${k}" class="${k===sub?'on':''}">${l}</button>`).join('')}</div>
   <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="finC1"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="finC2"></canvas></div></div></div>
   <div id="finT"></div>`;
   $('#s-financials').querySelectorAll('.subtabs button').forEach(b=>b.onclick=()=>{location.hash='financials/'+b.dataset.s});
   $('#finT').innerHTML=tableHTML(D.fin[sub]); sortable($('#finT'));
+  const T=(en,zh)=>({display:true,text:L(en,zh)});
   if(sub==='is'){
-    chart('finC1',{data:{labels:Q,datasets:[{type:'bar',label:'Revenue',data:s.rev,backgroundColor:C.dram,yAxisID:'y'},{type:'bar',label:'Net income',data:s.ni,backgroundColor:C.g,yAxisID:'y'},
-      {type:'line',label:'Gross margin %',data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1'},{type:'line',label:'Operating margin %',data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.o,yAxisID:'y1'}]},
-      options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Revenue, net income ($M) & margins'}},scales:{y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}})});
-    chart('finC2',{type:'bar',data:{labels:Q,datasets:[{label:'R&D',data:D.fin.is.rows.find(r=>r[0]==='Research & development').slice(1).map(x=>+String(x).replace(/,/g,'')),backgroundColor:C.p},{label:'SG&A',data:D.fin.is.rows.find(r=>r[0]==='Selling, general & administrative').slice(1).map(x=>+String(x).replace(/,/g,'')),backgroundColor:C.b}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Opex ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+    chart('finC1',{data:{labels:Q,datasets:[{type:'bar',label:L('Revenue','营收'),data:s.rev,backgroundColor:C.dram,yAxisID:'y'},{type:'bar',label:L('Net income','净利润'),data:s.ni,backgroundColor:C.g,yAxisID:'y'},
+      {type:'line',label:L('Gross margin %','毛利率 %'),data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1'},{type:'line',label:L('Operating margin %','营业利润率 %'),data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.o,yAxisID:'y1'}]},
+      options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue, net income ($M) & margins','营收、净利润（$M）与利润率')},scales:{y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}})});
+    chart('finC2',{type:'bar',data:{labels:Q,datasets:[{label:L('R&D','研发费用'),data:D.fin.is.rows.find(r=>r[0]==='Research & development').slice(1).map(x=>+String(x).replace(/,/g,'')),backgroundColor:C.p},{label:L('SG&A','销售、一般及管理费用'),data:D.fin.is.rows.find(r=>r[0]==='Selling, general & administrative').slice(1).map(x=>+String(x).replace(/,/g,'')),backgroundColor:C.b}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Opex ($M)','营业费用（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
   } else if(sub==='cf'){
-    chart('finC1',{type:'bar',data:{labels:Q,datasets:[{label:'Operating cash flow',data:s.ocf,backgroundColor:C.dram},{label:'Net capex',data:s.netcapex,backgroundColor:C.r},{label:'Free cash flow',data:s.fcf,backgroundColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'OCF vs net capex vs FCF ($M)'}}})});
-    chart('finC2',{type:'bar',data:{labels:Q,datasets:[{label:'Buybacks – program',data:s.bb_prog,backgroundColor:C.b},{label:'Buybacks – withholding',data:s.bb_wh,backgroundColor:C.p},{label:'Dividends',data:s.div,backgroundColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Shareholder returns ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+    chart('finC1',{type:'bar',data:{labels:Q,datasets:[{label:L('Operating cash flow','经营现金流'),data:s.ocf,backgroundColor:C.dram},{label:L('Net capex','净资本开支'),data:s.netcapex,backgroundColor:C.r},{label:L('Free cash flow','自由现金流'),data:s.fcf,backgroundColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('OCF vs net capex vs FCF ($M)','经营现金流 vs 净资本开支 vs 自由现金流（$M）')}})});
+    chart('finC2',{type:'bar',data:{labels:Q,datasets:[{label:L('Buybacks – program','回购——回购计划'),data:s.bb_prog,backgroundColor:C.b},{label:L('Buybacks – withholding','回购——代扣税'),data:s.bb_wh,backgroundColor:C.p},{label:L('Dividends','股息'),data:s.div,backgroundColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Shareholder returns ($M)','股东回报（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
   } else {
-    chart('finC1',{data:{labels:Q,datasets:[{type:'bar',label:'Cash + investments',data:s.cashinv,backgroundColor:C.dram},{type:'bar',label:'Total debt',data:s.debt,backgroundColor:C.r},{type:'line',label:'Net cash',data:s.netcash,borderColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Liquidity vs debt ($M)'}}})});
+    chart('finC1',{data:{labels:Q,datasets:[{type:'bar',label:L('Cash + investments','现金 + 投资'),data:s.cashinv,backgroundColor:C.dram},{type:'bar',label:L('Total debt','债务总额'),data:s.debt,backgroundColor:C.r},{type:'line',label:L('Net cash','净现金'),data:s.netcash,borderColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Liquidity vs debt ($M)','流动性 vs 债务（$M）')}})});
     const bsr=D.fin.bs.rows.filter(Array.isArray), g=l=>bsr.find(r=>r[0]===l).slice(1).map(x=>+String(x).replace(/,/g,''));
-    chart('finC2',{type:'bar',data:{labels:Q,datasets:[{label:'Receivables',data:g('Receivables'),backgroundColor:C.b},{label:'Inventories',data:g('Inventories'),backgroundColor:C.p},{label:"Shareholders' equity",data:g("Total shareholders' equity"),backgroundColor:C.g,type:'line',borderColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Working capital & equity ($M)'}}})});
+    chart('finC2',{type:'bar',data:{labels:Q,datasets:[{label:L('Receivables','应收账款'),data:g('Receivables'),backgroundColor:C.b},{label:L('Inventories','存货'),data:g('Inventories'),backgroundColor:C.p},{label:L("Shareholders' equity",'股东权益'),data:g("Total shareholders' equity"),backgroundColor:C.g,type:'line',borderColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Working capital & equity ($M)','营运资本与股东权益（$M）')}})});
   }
 }
 /* ---------- revenue ---------- */
 function revenue(){
-  const R=D.rev;
-  $('#s-revenue').innerHTML=`<h2>Revenue & Pricing</h2>
+  const R=D.rev, T=(en,zh)=>({display:true,text:L(en,zh)});
+  $('#s-revenue').innerHTML=`<h2>${L('Revenue & Pricing','营收与价格')}</h2>
   <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="rvP"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="rvB"></canvas></div></div></div>
   ${tableHTML(R.prod)}${tableHTML(R.bu)}
   <div class="card" style="margin-top:14px"><div class="chartbox" style="height:260px"><canvas id="rvG"></canvas></div></div>
   ${tableHTML(R.asp,{wrap:true})}${tableHTML(R.asp_tf,{wrap:true})}`;
   sortable($('#s-revenue'));
-  chart('rvP',{type:'bar',data:{labels:Q,datasets:[{label:'DRAM',data:R.PROD.DRAM,backgroundColor:C.dram},{label:'NAND',data:R.PROD.NAND,backgroundColor:C.nand},{label:'Other',data:R.PROD.Other,backgroundColor:C.oth}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Revenue by technology ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+  chart('rvP',{type:'bar',data:{labels:Q,datasets:[{label:'DRAM',data:R.PROD.DRAM,backgroundColor:C.dram},{label:'NAND',data:R.PROD.NAND,backgroundColor:C.nand},{label:L('Other','其他'),data:R.PROD.Other,backgroundColor:C.oth}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue by technology ($M)','按技术划分的营收（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
   const bc={CMBU:C.dram,CDBU:C.g,MCBU:C.nand,AEBU:C.y};
-  chart('rvB',{type:'bar',data:{labels:Q,datasets:Object.entries(R.BU).map(([k,v])=>({label:k,data:v,backgroundColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Revenue by business unit ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
-  chart('rvG',{type:'line',data:{labels:Q,datasets:Object.entries(R.BUGM).map(([k,v])=>({label:k+' GM %',data:v,borderColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Business-unit gross margin %'}}})});
+  chart('rvB',{type:'bar',data:{labels:Q,datasets:Object.entries(R.BU).map(([k,v])=>({label:k,data:v,backgroundColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue by business unit ($M)','按业务部门划分的营收（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
+  chart('rvG',{type:'line',data:{labels:Q,datasets:Object.entries(R.BUGM).map(([k,v])=>({label:k+L(' GM %',' 毛利率 %'),data:v,borderColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Business-unit gross margin %','业务部门毛利率 %')}})});
 }
 /* ---------- capacity & capex (merged tab: Capacity first, then Capex) ---------- */
 function capacityCapex(){
-  $('#s-capacity-capex').innerHTML=`<h2>Capacity &amp; Capex</h2><div id="cc-capacity"></div><div id="cc-capex" style="margin-top:36px"></div>`;
+  $('#s-capacity-capex').innerHTML=`<h2>${L('Capacity &amp; Capex','产能与资本开支')}</h2><div id="cc-capacity"></div><div id="cc-capex" style="margin-top:36px"></div>`;
   capacity(); capex();
 }
 function capacity(){
   const T=D.cap.timeline;
-  $('#cc-capacity').innerHTML=`<h2 class="sech" id="capacity">Capacity</h2>
-  <div class="grid g2"><div class="card"><h3 style="margin-top:0">New capacity timeline</h3><div class="mut" style="font-size:12px;margin-bottom:10px">Blue = company statement · Amber = press/third-party report. Sorted by expected output.</div>
-  <div class="tl">${T.map(t=>`<div class="tli ${t.reported?'rep':''}"><div class="w">${esc(t.output)}</div><div class="p">${esc(t.project)}</div><div class="mut">${esc(t.status)}${t.changes&&t.changes!=='—'?' · '+esc(t.changes):''}</div><div class="q">${esc(t.quote)}</div><div class="mut" style="font-size:11px">Source: ${linkify(t.source)}</div></div>`).join('')}</div></div>
-  <div class="card"><h3 style="margin-top:0">Highlights</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
-  <li>Micron does <b>not</b> disclose wafer starts per month by company or site — marked unavailable.</li>
-  <li>1γ DRAM and G9 NAND are now the largest production nodes; next-gen nodes (1δ with more EUV) in volume 2H CY2027.</li>
-  <li>All CY2026 HBM supply contracted; “vast majority” of CY2027 HBM bit supply contracted at significant YoY price increases.</li>
-  <li>CY26 industry DRAM bits +mid-20s% (Micron ~in line); NAND +low-20s% (Micron below). CY27–28 supply-constrained.</li>
-  <li>Third-party (labelled): Tongluo phase 1 >10% of Micron capacity (TrendForce); Hiroshima +25k wpm (Commercial Times; conflicts with company late-CY28 timing); HBM ~60k wpm late 2025 (Chosun).</li></ul></div></div>
+  $('#cc-capacity').innerHTML=`<h2 class="sech" id="capacity">${L('Capacity','产能')}</h2>
+  <div class="grid g2"><div class="card"><h3 style="margin-top:0">${L('New capacity timeline','新增产能时间表')}</h3><div class="mut" style="font-size:12px;margin-bottom:10px">${L('Blue = company statement · Amber = press/third-party report. Sorted by expected output.','蓝色 = 公司表述 · 琥珀色 = 媒体/第三方报道。按预期产出排序。')}</div>
+  <div class="tl">${T.map(t=>`<div class="tli ${t.reported?'rep':''}"><div class="w">${E(t.output)}</div><div class="p">${E(t.project)}</div><div class="mut">${E(t.status)}${t.changes&&t.changes!=='—'?' · '+E(t.changes):''}</div><div class="q">${E(t.quote)}</div><div class="mut" style="font-size:11px">${L('Source','来源')}: ${H(t.source)}</div></div>`).join('')}</div></div>
+  <div class="card"><h3 style="margin-top:0">${L('Highlights','要点')}</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
+  <li>${L('Micron does <b>not</b> disclose wafer starts per month by company or site — marked unavailable.','美光<b>不</b>按公司或厂区披露每月晶圆投片量——标记为无法获得。')}</li>
+  <li>${L('1γ DRAM and G9 NAND are now the largest production nodes; next-gen nodes (1δ with more EUV) in volume 2H CY2027.','1γ DRAM 和 G9 NAND 现为最大的生产制程；下一代制程（1δ，更多 EUV）于 2H CY2027 量产。')}</li>
+  <li>${L('All CY2026 HBM supply contracted; “vast majority” of CY2027 HBM bit supply contracted at significant YoY price increases.','CY2026 全部 HBM 供应已签约；CY2027 HBM 位元供应的 “vast majority”（译文：“绝大部分”）已以同比大幅上涨的价格签约。')}</li>
+  <li>${L('CY26 industry DRAM bits +mid-20s% (Micron ~in line); NAND +low-20s% (Micron below). CY27–28 supply-constrained.','CY26 行业 DRAM 位元增长 20% 区间中段（美光大致持平）；NAND 增长 20% 区间低段（美光低于行业）。CY27–28 供给受限。')}</li>
+  <li>${L('Third-party (labelled): Tongluo phase 1 >10% of Micron capacity (TrendForce); Hiroshima +25k wpm (Commercial Times; conflicts with company late-CY28 timing); HBM ~60k wpm late 2025 (Chosun).','第三方（已标注）：铜锣一期占美光产能 >10%（TrendForce）；广岛 +25k 片/月（工商时报；与公司 CY28 年底的时间表不一致）；2025 年底 HBM 约 60k 片/月（朝鲜日报）。')}</li></ul></div></div>
   ${tableHTML(D.cap.sites,{wrap:true})}${tableHTML(D.cap.timeline_tbl,{wrap:true})}`;
 }
 /* ---------- capex ---------- */
 function capex(){
-  const s=D.fin.series;
-  $('#cc-capex').innerHTML=`<h2 class="sech" id="capex">Capex</h2><div class="grid g2"><div class="card"><div class="chartbox"><canvas id="cxA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="cxB"></canvas></div></div></div>
+  const s=D.fin.series, T=(en,zh)=>({display:true,text:L(en,zh)});
+  $('#cc-capex').innerHTML=`<h2 class="sech" id="capex">${L('Capex','资本开支')}</h2><div class="grid g2"><div class="card"><div class="chartbox"><canvas id="cxA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="cxB"></canvas></div></div></div>
   ${tableHTML(D.capex.tbl)}${tableHTML(D.capex.guid,{wrap:true})}`;
-  chart('cxA',{data:{labels:Q,datasets:[{type:'bar',label:'Gross capex',data:s.capex,backgroundColor:C.r},{type:'bar',label:'Government incentives',data:s.gov,backgroundColor:C.g},{type:'line',label:'Net capex',data:s.netcapex,borderColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Gross capex, incentives, net capex ($M)'}}})});
-  chart('cxB',{type:'line',data:{labels:Q,datasets:[{label:'Net capex % of revenue',data:s.netcapex.map((v,i)=>v/s.rev[i]*100),borderColor:C.o},{label:'Net capex % of OCF',data:s.netcapex.map((v,i)=>v/s.ocf[i]*100),borderColor:C.b}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Capex intensity (%)'}}})});
+  chart('cxA',{data:{labels:Q,datasets:[{type:'bar',label:L('Gross capex','资本开支总额'),data:s.capex,backgroundColor:C.r},{type:'bar',label:L('Government incentives','政府激励'),data:s.gov,backgroundColor:C.g},{type:'line',label:L('Net capex','净资本开支'),data:s.netcapex,borderColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Gross capex, incentives, net capex ($M)','资本开支总额、政府激励、净资本开支（$M）')}})});
+  chart('cxB',{type:'line',data:{labels:Q,datasets:[{label:L('Net capex % of revenue','净资本开支占营收 %'),data:s.netcapex.map((v,i)=>v/s.rev[i]*100),borderColor:C.o},{label:L('Net capex % of OCF','净资本开支占经营现金流 %'),data:s.netcapex.map((v,i)=>v/s.ocf[i]*100),borderColor:C.b}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Capex intensity (%)','资本开支强度（%）')}})});
 }
 /* ---------- buybacks ---------- */
 function buybacks(){
-  const B=D.bb,ch=B.chips,now=new Date();
+  const B=D.bb,ch=B.chips,now=new Date(), T=(en,zh)=>({display:true,text:L(en,zh)});
   const ph=ch.phases.map(p=>{const a=new Date(p.from),b=p.to?new Date(p.to):null;const cur=now>=a&&(!b||now<b);const hot=p.from==='2026-12-09';
-    return `<div class="card ${hot?'hot':''}"><div class="mut" style="font-size:12px">${p.from} → ${p.to||'…'} ${cur?'<span class="pill buy">CURRENT</span>':''}</div><div style="font-weight:800;margin:4px 0">${esc(p.name)}</div><div style="font-size:12.5px">${esc(p.rule)}</div></div>`}).join('');
+    return `<div class="card ${hot?'hot':''}"><div class="mut" style="font-size:12px">${p.from} → ${p.to||'…'} ${cur?`<span class="pill buy">${L('CURRENT','当前')}</span>`:''}</div><div style="font-weight:800;margin:4px 0">${E(p.name)}</div><div style="font-size:12.5px">${E(p.rule)}</div></div>`}).join('');
   const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-now)/864e5);
-  $('#s-buybacks').innerHTML=`<h2>Buybacks & CHIPS Act limits</h2>
-  <div class="grid g4"><div class="card kpi"><div class="l">Authorization remaining</div><div class="v">~$${fmt(B.remaining)}M</div><div class="s">$10B program (May 2018, no expiry); implied after FQ4 FY26</div></div>
-  <div class="card kpi"><div class="l">FY26 program buybacks</div><div class="v">$650M</div><div class="s">2.49M sh @ ~$261 (FQ1 $300M, FQ2 $350M; none FQ3–FQ4)</div></div>
-  <div class="card kpi"><div class="l">CHIPS step-up date</div><div class="v" style="color:var(--warn)">9 Dec 2026</div><div class="s">${days>0?days+' days away':'in effect'} · 2nd anniversary of Award Date</div></div>
-  <div class="card kpi"><div class="l">Restriction ends</div><div class="v">9 Dec 2029</div><div class="s">5th anniversary</div></div></div>
-  <h3>CHIPS buyback restriction schedule</h3><div class="mut" style="font-size:12.5px;margin-bottom:8px">${esc(ch.summary)}</div><div class="phase">${ph}</div>
-  <div class="card" style="margin-top:12px"><b>Management:</b> <span class="mut">${esc(ch.mgmt_quote)}</span></div>
-  <h3>Step-up conditions — illustrative status on FY26 data</h3>
-  <div class="tblwrap"><table class="wrapt"><thead><tr><th>Condition</th><th>Evidence</th><th>Status</th></tr></thead><tbody>${ch.tests.map(t=>`<tr><td>${esc(t[0])}</td><td>${esc(t[1])}</td><td class="${t[2].startsWith('pass')?'pos':'mut'}">${esc(t[2])}</td></tr>`).join('')}</tbody></table></div>
-  <ul class="notes">${ch.caveats.map(c=>`<li>${esc(c)}</li>`).join('')}${ch.sources.map(s=>`<li>${esc(s[0])}: <a href="${s[1]}" target="_blank">${s[1]}</a></li>`).join('')}</ul>
+  $('#s-buybacks').innerHTML=`<h2>${L('Buybacks & CHIPS Act limits','回购与 CHIPS 法案限制')}</h2>
+  <div class="grid g4"><div class="card kpi"><div class="l">${L('Authorization remaining','剩余授权额度')}</div><div class="v">~$${fmt(B.remaining)}M</div><div class="s">${L('$10B program (May 2018, no expiry); implied after FQ4 FY26','$10B 回购计划（2018年5月，无到期日）；FQ4 FY26 后推算')}</div></div>
+  <div class="card kpi"><div class="l">${L('FY26 program buybacks','FY26 计划内回购')}</div><div class="v">$650M</div><div class="s">${L('2.49M sh @ ~$261 (FQ1 $300M, FQ2 $350M; none FQ3–FQ4)','2.49M 股，均价约 $261（FQ1 $300M，FQ2 $350M；FQ3–FQ4 无）')}</div></div>
+  <div class="card kpi"><div class="l">${L('CHIPS step-up date','CHIPS 上限提升日期')}</div><div class="v" style="color:var(--warn)">${L('9 Dec 2026','2026年12月9日')}</div><div class="s">${days>0?L(days+' days away','还有 '+days+' 天'):L('in effect','已生效')} · ${L('2nd anniversary of Award Date','授予日两周年')}</div></div>
+  <div class="card kpi"><div class="l">${L('Restriction ends','限制结束')}</div><div class="v">${L('9 Dec 2029','2029年12月9日')}</div><div class="s">${L('5th anniversary','五周年')}</div></div></div>
+  <h3>${L('CHIPS buyback restriction schedule','CHIPS 回购限制时间表')}</h3><div class="mut" style="font-size:12.5px;margin-bottom:8px">${E(ch.summary)}</div><div class="phase">${ph}</div>
+  <div class="card" style="margin-top:12px"><b>${L('Management:','管理层：')}</b> <span class="mut">${E(ch.mgmt_quote)}</span></div>
+  <h3>${L('Step-up conditions — illustrative status on FY26 data','上限提升条件——基于 FY26 数据的示意性状态')}</h3>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Condition','条件')}</th><th>${L('Evidence','依据')}</th><th>${L('Status','状态')}</th></tr></thead><tbody>${ch.tests.map(t=>`<tr><td>${E(t[0])}</td><td>${E(t[1])}</td><td class="${t[2].startsWith('pass')?'pos':'mut'}">${E(t[2])}</td></tr>`).join('')}</tbody></table></div>
+  <ul class="notes">${ch.caveats.map(c=>`<li>${E(c)}</li>`).join('')}${ch.sources.map(s=>`<li>${E(s[0])}: <a href="${s[1]}" target="_blank">${s[1]}</a></li>`).join('')}</ul>
   <div class="grid g2" style="margin-top:14px"><div class="card"><div class="chartbox"><canvas id="bbA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="bbB"></canvas></div></div></div>
-  ${tableHTML(B.fy)}${tableHTML(B.q)}<ul class="notes">${B.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`;
-  chart('bbA',{data:{labels:B.FY.fy,datasets:[{type:'bar',label:'Program buybacks ($M)',data:B.FY.amt,backgroundColor:C.b,yAxisID:'y'},{type:'line',label:'Avg price ($/sh)',data:B.FY.avg,borderColor:C.y,yAxisID:'y1'}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Repurchase program by fiscal year'}},scales:{y1:{position:'right',grid:{drawOnChartArea:false}}}})});
+  ${tableHTML(B.fy)}${tableHTML(B.q)}<ul class="notes">${B.notes.map(n=>`<li>${E(n)}</li>`).join('')}</ul>`;
+  chart('bbA',{data:{labels:B.FY.fy,datasets:[{type:'bar',label:L('Program buybacks ($M)','计划内回购（$M）'),data:B.FY.amt,backgroundColor:C.b,yAxisID:'y'},{type:'line',label:L('Avg price ($/sh)','平均价格（$/股）'),data:B.FY.avg,borderColor:C.y,yAxisID:'y1'}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Repurchase program by fiscal year','按财年的回购计划')},scales:{y1:{position:'right',grid:{drawOnChartArea:false}}}})});
   const s=D.fin.series;
-  chart('bbB',{type:'bar',data:{labels:Q,datasets:[{label:'Program',data:s.bb_prog,backgroundColor:C.b},{label:'Tax withholdings',data:s.bb_wh,backgroundColor:C.p},{label:'Dividends',data:s.div,backgroundColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Cash returned, 8Q ($M)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+  chart('bbB',{type:'bar',data:{labels:Q,datasets:[{label:L('Program','回购计划'),data:s.bb_prog,backgroundColor:C.b},{label:L('Tax withholdings','代扣税'),data:s.bb_wh,backgroundColor:C.p},{label:L('Dividends','股息'),data:s.div,backgroundColor:C.y}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Cash returned, 8Q ($M)','现金回报，8 个季度（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
 }
 /* ---------- insiders ---------- */
 function insiders(){
   const I=D.ins, people=[...new Map(I.tx.map(t=>[t.Insider,t.Name||t.Insider])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
-  $('#s-insiders').innerHTML=`<h2>Insider activity (Form 4, 12 months: transaction dates ${esc(I.stats.window12.from)} – ${esc(I.stats.window12.to)})</h2>
-  <div class="mut" style="font-size:12.5px">Legend: <span class="pill planned">10b5-1 planned sale</span> <span class="pill nonplan">non-plan sale</span> <span class="pill tax">tax withholding (F)</span> <span class="pill other">grants / conversions / gifts</span> <span class="pill buy">open-market purchase (P)</span> · ${esc(I.stats.buy_txt)}</div>
+  const w=I.stats.window12;
+  $('#s-insiders').innerHTML=`<h2>${L(`Insider activity (Form 4, 12 months: transaction dates ${esc(w.from)} – ${esc(w.to)})`,`内部人交易（Form 4，12 个月：交易日期 ${esc(w.from)} 至 ${esc(w.to)}）`)}</h2>
+  <div class="mut" style="font-size:12.5px">${L('Legend:','图例：')} <span class="pill planned">${L('10b5-1 planned sale','10b5-1 计划内卖出')}</span> <span class="pill nonplan">${L('non-plan sale','非计划卖出')}</span> <span class="pill tax">${L('tax withholding (F)','代扣税（F）')}</span> <span class="pill other">${L('grants / conversions / gifts','授予 / 转换 / 赠与')}</span> <span class="pill buy">${L('open-market purchase (P)','公开市场买入（P）')}</span> · ${E(I.stats.buy_txt)}</div>
   <div class="grid g2" style="margin-top:10px"><div class="card"><div class="chartbox" id="inAbox"><canvas id="inA"></canvas></div></div><div class="card">${tableHTML(I.nonplan6,{wrap:false})}</div></div>
-  ${tableHTML(I.hold,{wrap:false})}<ul class="notes">${I.hold_notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+  ${tableHTML(I.hold,{wrap:false})}<ul class="notes">${I.hold_notes.map(n=>`<li>${E(n)}</li>`).join('')}</ul>
   ${tableHTML(I.summ)}
-  <h3>All transactions (sortable / filterable)</h3>
-  <div class="filters"><input id="fq" placeholder="Search name, code, footnote…" size="30"><select id="fp"><option value="">All insiders</option>${people.map(([v,n])=>`<option value="${esc(v)}">${esc(n)}</option>`).join('')}</select>
-  <select id="fc"><option value="">All types</option><option value="planned">10b5-1 planned sales</option><option value="nonplan">Non-plan sales</option><option value="buy">Open-market purchases (P)</option><option value="tax">Tax withholding (F)</option><option value="other">Other (A/M/G…)</option></select>
-  <label class="mut"><input type="checkbox" id="fs"> Sales only</label><span id="fcount" class="mut"></span></div>
-  <div class="tblwrap" style="max-height:560px"><table id="txT"><thead><tr>${['Type','Insider','Role','Txn date','Code','Shares','Price','Value ($)','Owned after','D/I','10b5-1','Filed','Form 4'].map((c,i)=>`<th data-i="${i}">${c}</th>`).join('')}</tr></thead><tbody></tbody></table></div>
-  <ul class="notes">${I.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`;
-  const lab={planned:'Planned',nonplan:'Non-plan',tax:'Tax',other:'Other',buy:'Buy'};
+  <h3>${L('All transactions (sortable / filterable)','全部交易（可排序 / 可筛选）')}</h3>
+  <div class="filters"><input id="fq" placeholder="${L('Search name, code, footnote…','搜索姓名、代码、脚注…')}" size="30"><select id="fp"><option value="">${L('All insiders','全部内部人')}</option>${people.map(([v,n])=>`<option value="${esc(v)}">${esc(n)}</option>`).join('')}</select>
+  <select id="fc"><option value="">${L('All types','全部类型')}</option><option value="planned">${L('10b5-1 planned sales','10b5-1 计划内卖出')}</option><option value="nonplan">${L('Non-plan sales','非计划卖出')}</option><option value="buy">${L('Open-market purchases (P)','公开市场买入（P）')}</option><option value="tax">${L('Tax withholding (F)','代扣税（F）')}</option><option value="other">${L('Other (A/M/G…)','其他（A/M/G…）')}</option></select>
+  <label class="mut"><input type="checkbox" id="fs"> ${L('Sales only','仅卖出')}</label><span id="fcount" class="mut"></span></div>
+  <div class="tblwrap" style="max-height:560px"><table id="txT"><thead><tr>${(LANG==='zh'?['类型','内部人','职务','交易日期','代码','股数','价格','金额（$）','交易后持股','D/I','10b5-1','申报日期','Form 4']:['Type','Insider','Role','Txn date','Code','Shares','Price','Value ($)','Owned after','D/I','10b5-1','Filed','Form 4']).map((c,i)=>`<th data-i="${i}">${c}</th>`).join('')}</tr></thead><tbody></tbody></table></div>
+  <ul class="notes">${I.notes.map(n=>`<li>${E(n)}</li>`).join('')}</ul>`;
+  const lab=LANG==='zh'?{planned:'计划内',nonplan:'非计划',tax:'代扣税',other:'其他',buy:'买入'}:{planned:'Planned',nonplan:'Non-plan',tax:'Tax',other:'Other',buy:'Buy'};
   const draw=()=>{const q=$('#fq').value.toLowerCase(),p=$('#fp').value,c=$('#fc').value,so=$('#fs').checked;
-    const rows=I.tx.filter(t=>(!p||t.Insider===p)&&(!c||t.class===c)&&(!so||t.Code==='S')&&(!q||JSON.stringify(t).toLowerCase().includes(q)));
-    $('#fcount').textContent=`${rows.length} rows`;
-    $('#txT tbody').innerHTML=rows.map(t=>`<tr class="r-${t.class}" title="${esc(t.Footnotes||'')}"><td><span class="pill ${t.class}">${lab[t.class]}</span></td><td>${esc(t.Name||t.Insider)}</td><td>${esc(t.Role)}</td><td>${t['Transaction date']||''}</td><td>${esc(t.Code)} <span class="mut">${esc(t['Code meaning']||'')}</span></td><td>${fmt(t.Shares)}</td><td>${t.Price?fmt(t.Price,2):''}</td><td>${t['Value ($)']?fmt(t['Value ($)']):''}</td><td>${fmt(t['Shares owned after'])}</td><td>${esc(t['Direct/Indirect'])}</td><td>${esc(t['10b5-1 plan'])}</td><td>${t['Filing date']||''}</td><td><a href="${t['Filing URL']}" target="_blank">xml</a></td></tr>`).join('');};
+    const rows=I.tx.filter(t=>(!p||t.Insider===p)&&(!c||t.class===c)&&(!so||t.Code==='S')&&(!q||JSON.stringify(t).toLowerCase().includes(q)||(LANG==='zh'&&[t.Role,t['Code meaning']].map(tr).join(' ').toLowerCase().includes(q))));
+    $('#fcount').textContent=L(`${rows.length} rows`,`${rows.length} 行`);
+    $('#txT tbody').innerHTML=rows.map(t=>`<tr class="r-${t.class}" title="${esc(t.Footnotes||'')}"><td><span class="pill ${t.class}">${lab[t.class]}</span></td><td>${esc(t.Name||t.Insider)}</td><td>${E(t.Role)}</td><td>${t['Transaction date']||''}</td><td>${esc(t.Code)} <span class="mut">${E(t['Code meaning']||'')}</span></td><td>${fmt(t.Shares)}</td><td>${t.Price?fmt(t.Price,2):''}</td><td>${t['Value ($)']?fmt(t['Value ($)']):''}</td><td>${fmt(t['Shares owned after'])}</td><td>${esc(t['Direct/Indirect'])}</td><td>${E(t['10b5-1 plan'])}</td><td>${t['Filing date']||''}</td><td><a href="${t['Filing URL']}" target="_blank">xml</a></td></tr>`).join('');};
   ['#fq','#fp','#fc','#fs'].forEach(s=>$(s).addEventListener('input',draw)); draw(); sortable($('#s-insiders'));
-  const A=I.agg.slice(0,12), nm=a=>`${a.display||a.name}${a.role_short?` (${a.role_short})`:''}`, mob=innerWidth<=700;
+  const A=I.agg.slice(0,12), rs=a=>a.role_short?tr(a.role_short):'', nm=a=>`${a.display||a.name}${a.role_short?L(` (${rs(a)})`,`（${rs(a)}）`):''}`, mob=innerWidth<=700;
   // one row per insider (planned + non-plan stacked), every name shown, ~30px per bar (24px on phones)
   $('#inAbox').style.height=(A.length*(mob?24:30)+(mob?96:90))+'px';
-  const M=v=>'$'+(v/1e6).toFixed(2)+'M';
-  chart('inA',{type:'bar',data:{labels:A.map(nm),datasets:[{label:'10b5-1 planned ($M)',data:A.map(a=>a.planned/1e6),backgroundColor:C.b},{label:'Non-plan ($M)',data:A.map(a=>a.nonplan/1e6),backgroundColor:C.o}]},
-    options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Open-market sales by insider, 12 months ($M)'},
-      tooltip:{callbacks:{title:it=>{const a=A[it[0].dataIndex];return a.display||a.name;},afterTitle:it=>A[it[0].dataIndex].role||'',
-        label:c=>`${c.dataset.label.replace(' ($M)','')}: ${M(c.dataset.label.startsWith('10b5')?A[c.dataIndex].planned:A[c.dataIndex].nonplan)}`,
-        footer:it=>{const a=A[it[0].dataIndex];return `Total: ${M(a.planned+a.nonplan)}`;}}}},
+  const M=v=>'$'+(v/1e6).toFixed(2)+'M', LP=L('10b5-1 planned','10b5-1 计划内'), LN=L('Non-plan','非计划');
+  chart('inA',{type:'bar',data:{labels:A.map(nm),datasets:[{label:LP+' ($M)',data:A.map(a=>a.planned/1e6),backgroundColor:C.b,_k:'p'},{label:LN+' ($M)',data:A.map(a=>a.nonplan/1e6),backgroundColor:C.o,_k:'n'}]},
+    options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:L('Open-market sales by insider, 12 months ($M)','各内部人公开市场卖出，12 个月（$M）')},
+      tooltip:{callbacks:{title:it=>{const a=A[it[0].dataIndex];return a.display||a.name;},afterTitle:it=>tr(A[it[0].dataIndex].role||''),
+        label:c=>`${c.dataset._k==='p'?LP:LN}: ${M(c.dataset._k==='p'?A[c.dataIndex].planned:A[c.dataIndex].nonplan)}`,
+        footer:it=>{const a=A[it[0].dataIndex];return `${L('Total','合计')}: ${M(a.planned+a.nonplan)}`;}}}},
       scales:{x:{stacked:true},y:{stacked:true,ticks:{autoSkip:false,font:{size:mob?10:11.5}}}}})});
 }
 /* ---------- calls ---------- */
 function calls(){
-  const G=D.calls.GUIDE, L=D.calls.list;
-  $('#s-calls').innerHTML=`<h2>Earnings calls & guidance vs actual</h2>
+  const G=D.calls.GUIDE, L8=D.calls.list, T=(en,zh)=>({display:true,text:L(en,zh)});
+  $('#s-calls').innerHTML=`<h2>${L('Earnings calls & guidance vs actual','业绩电话会与指引 vs 实际')}</h2>
   <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="clA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="clB"></canvas></div></div></div>
   ${tableHTML(D.calls.gva)}
-  <h3>Call highlights (8 calls)</h3>
-  <div class="grid g2">${L.map(c=>`<div class="card callcard"><h4>${c.q} <span class="mut" style="font-weight:400">· call ${c.date} · next-day move <span class="${+c.move>=0?'pos':'neg'}">${(+c.move*100).toFixed(1)}%</span></span></h4><ul>${c.hl.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div>`).join('')}</div>
-  <ul class="notes">${D.calls.src.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`;
+  <h3>${L('Call highlights (8 calls)','电话会要点（8 次）')}</h3>
+  <div class="grid g2">${L8.map(c=>`<div class="card callcard"><h4>${c.q} <span class="mut" style="font-weight:400">· ${L('call','电话会')} ${c.date} · ${L('next-day move','次日涨跌')} <span class="${+c.move>=0?'pos':'neg'}">${(+c.move*100).toFixed(1)}%</span></span></h4><ul>${c.hl.map(h=>`<li>${E(h)}</li>`).join('')}</ul></div>`).join('')}</div>
+  <ul class="notes">${D.calls.src.map(s=>`<li>${E(s)}</li>`).join('')}</ul>`;
   sortable($('#s-calls'));
-  const lab8=Q.concat(['FQ1 FY27 (guide)']);
-  chart('clA',{data:{labels:lab8,datasets:[{type:'bar',label:'Revenue guide midpoint ($B)',data:G.rev_mid,backgroundColor:C.guide},{type:'bar',label:'Actual revenue ($B)',data:G.rev_act.map(v=>typeof v==='number'?v:null),backgroundColor:C.dram},{type:'line',label:'Non-GAAP GM actual %',data:G.gm_act.map(v=>typeof v==='number'?v:null),borderColor:C.g,yAxisID:'y1'},{type:'line',label:'GM guide %',data:G.gm_mid,borderColor:C.y,borderDash:[4,4],yAxisID:'y1'}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Revenue & GM: guidance vs actual'}},scales:{y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}})});
-  chart('clB',{data:{labels:Q,datasets:[{type:'bar',label:'EPS beat vs guide midpoint %',data:G.eps_act.slice(0,8).map((v,i)=>(v/G.eps_mid[i]-1)*100),backgroundColor:C.g},{type:'bar',label:'Next-day stock move %',data:G.move.map(v=>v*100),backgroundColor:G.move.map(v=>v>=0?C.up:C.dn)}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Non-GAAP EPS beat vs stock reaction (%)'}}})});
+  const lab8=Q.concat([L('FQ1 FY27 (guide)','FQ1 FY27（指引）')]);
+  chart('clA',{data:{labels:lab8,datasets:[{type:'bar',label:L('Revenue guide midpoint ($B)','营收指引中值（$B）'),data:G.rev_mid,backgroundColor:C.guide},{type:'bar',label:L('Actual revenue ($B)','实际营收（$B）'),data:G.rev_act.map(v=>typeof v==='number'?v:null),backgroundColor:C.dram},{type:'line',label:L('Non-GAAP GM actual %','非 GAAP 毛利率实际 %'),data:G.gm_act.map(v=>typeof v==='number'?v:null),borderColor:C.g,yAxisID:'y1'},{type:'line',label:L('GM guide %','毛利率指引 %'),data:G.gm_mid,borderColor:C.y,borderDash:[4,4],yAxisID:'y1'}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue & GM: guidance vs actual','营收与毛利率：指引 vs 实际')},scales:{y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}})});
+  chart('clB',{data:{labels:Q,datasets:[{type:'bar',label:L('EPS beat vs guide midpoint %','EPS 相对指引中值超预期 %'),data:G.eps_act.slice(0,8).map((v,i)=>(v/G.eps_mid[i]-1)*100),backgroundColor:C.g},{type:'bar',label:L('Next-day stock move %','次日股价涨跌 %'),data:G.move.map(v=>v*100),backgroundColor:G.move.map(v=>v>=0?C.up:C.dn)}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Non-GAAP EPS beat vs stock reaction (%)','非 GAAP EPS 超预期 vs 股价反应（%）')}})});
 }
 /* ---------- Wall Street estimates ---------- */
 function estimates(){
-  const E=D.est, M=E.manual, NS=E.nasdaq||{}, G=M.guidance_fq1fy27, T=E.targets||{}, MO=E.momentum||{}, RT=E.ratings||{};
-  const nAs = NS.status==='unavailable'||!NS.status ? 'Nasdaq.com / Zacks data unavailable' : `Nasdaq.com (Zacks Investment Research data) · ${NS.status==='live'?'fetched live':'SNAPSHOT (live fetch failed)'} ${NS.as_of_sgt||''}`;
-  const n=(v,d=2)=>v==null?'<span class="mut">n/a</span>':fmt(v,d);
-  const pc=(v,d=1)=>{if(v==null||!isFinite(v))return '<span class="mut">n/a</span>'; if(Math.abs(v)<0.5*Math.pow(10,-d)) return `<span class="mut">${(0).toFixed(d)}% (in line)</span>`; return `<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(d)}%</span>`;};
-  const pp=(v)=>v==null?'<span class="mut">n/a</span>':`<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(2)}pp</span>`;
-  const PER=[...(E.q||[]),...(E.y||[])], per=l=>PER.find(p=>p.label===l)||null;
+  const E_=D.est, M=E_.manual, NS=E_.nasdaq||{}, G=M.guidance_fq1fy27, T=E_.targets||{}, MO=E_.momentum||{}, RT=E_.ratings||{};
+  const na=NA(), nam=`<span class="mut">${na}</span>`, TT=(en,zh)=>({display:true,text:L(en,zh)});
+  const nAs = NS.status==='unavailable'||!NS.status ? L('Nasdaq.com / Zacks data unavailable','Nasdaq.com / Zacks 数据不可用') : L(`Nasdaq.com (Zacks Investment Research data) · ${NS.status==='live'?'fetched live':'SNAPSHOT (live fetch failed)'} ${NS.as_of_sgt||''}`,`Nasdaq.com（Zacks Investment Research 数据）· ${NS.status==='live'?'实时抓取':'快照（实时抓取失败）'} ${NS.as_of_sgt||''}`);
+  const n=(v,d=2)=>v==null?nam:fmt(v,d);
+  const pc=(v,d=1)=>{if(v==null||!isFinite(v))return nam; if(Math.abs(v)<0.5*Math.pow(10,-d)) return `<span class="mut">${(0).toFixed(d)}% ${L('(in line)','（持平）')}</span>`; return `<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(d)}%</span>`;};
+  const pp=(v)=>v==null?nam:`<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(2)}pp</span>`;
+  const PER=[...(E_.q||[]),...(E_.y||[])], per=l=>PER.find(p=>p.label===l)||null;
   const q1=per('FQ1 FY27')||{};
   const last=D.price.close, oc=M.other_consensus;
   const fs=oc.find(o=>o.gm!=null&&o.period==='FQ1 FY27');
@@ -539,109 +582,113 @@ function estimates(){
   const kp=(t,v,s)=>`<div class="card kpi"><div class="l">${t}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
   const src=(t,u)=>u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`:esc(t);
   const NQE='https://www.nasdaq.com/market-activity/stocks/mu/earnings', NQA='https://www.nasdaq.com/market-activity/stocks/mu/analyst-research';
+  const BHS=(b,h,s)=>L(`${b} Buy / ${h} Hold / ${s} Sell`,`${b} 买入 / ${h} 持有 / ${s} 卖出`);
+  const notInFeed=L('n/a (not in the Nasdaq.com/Zacks feed)','暂无（Nasdaq.com/Zacks 数据中没有）');
   // --- A: guide vs consensus FQ1 FY27
   const qeps=q1.mean;
   const rowsA=[
-    ['Revenue ($B)', `$${G.rev_low.toFixed(1)}–${G.rev_high.toFixed(1)}B (mid $${G.rev_mid}B)`, 'n/a (not in the Nasdaq.com/Zacks feed)', '—', '—', lseg?`$${lseg.rev_b.toFixed(1)}B LSEG pre-guide → guide ${pc((G.rev_mid/lseg.rev_b-1)*100,2)}`:'<span class="mut">n/a</span>'],
-    ['Non-GAAP gross margin (%)', `~${G.gm_ng}% (GAAP ~${G.gm_gaap}%)`, 'n/a (not in the Nasdaq.com/Zacks feed)', '—', '—', fs?`${fs.gm}% FactSet pre-guide → guide ${pp(G.gm_ng-fs.gm)}`:'n/a'],
-    ['Non-GAAP diluted EPS ($)', `$${G.eps_low.toFixed(2)}–${G.eps_high.toFixed(2)} (mid $${G.eps_mid})`, qeps==null?'n/a':'$'+qeps.toFixed(2), q1.low==null?'n/a':`$${q1.low.toFixed(2)}–${q1.high.toFixed(2)}`, q1.n??'n/a', qeps==null?'<span class="mut">n/a</span>':pc((qeps/G.eps_mid-1)*100,2)]];
+    [L('Revenue ($B)','营收（$B）'), L(`$${G.rev_low.toFixed(1)}–${G.rev_high.toFixed(1)}B (mid $${G.rev_mid}B)`,`$${G.rev_low.toFixed(1)}–${G.rev_high.toFixed(1)}B（中值 $${G.rev_mid}B）`), notInFeed, '—', '—', lseg?L(`$${lseg.rev_b.toFixed(1)}B LSEG pre-guide → guide ${pc((G.rev_mid/lseg.rev_b-1)*100,2)}`,`LSEG 指引前 $${lseg.rev_b.toFixed(1)}B → 指引 ${pc((G.rev_mid/lseg.rev_b-1)*100,2)}`):nam],
+    [L('Non-GAAP gross margin (%)','非 GAAP 毛利率（%）'), L(`~${G.gm_ng}% (GAAP ~${G.gm_gaap}%)`,`约 ${G.gm_ng}%（GAAP 约 ${G.gm_gaap}%）`), notInFeed, '—', '—', fs?L(`${fs.gm}% FactSet pre-guide → guide ${pp(G.gm_ng-fs.gm)}`,`FactSet 指引前 ${fs.gm}% → 指引 ${pp(G.gm_ng-fs.gm)}`):na],
+    [L('Non-GAAP diluted EPS ($)','非 GAAP 稀释 EPS（$）'), L(`$${G.eps_low.toFixed(2)}–${G.eps_high.toFixed(2)} (mid $${G.eps_mid})`,`$${G.eps_low.toFixed(2)}–${G.eps_high.toFixed(2)}（中值 $${G.eps_mid}）`), qeps==null?na:'$'+qeps.toFixed(2), q1.low==null?na:`$${q1.low.toFixed(2)}–${q1.high.toFixed(2)}`, q1.n??na, qeps==null?nam:pc((qeps/G.eps_mid-1)*100,2)]];
   // --- B: consensus by period
   const cols=['FQ1 FY27','FQ2 FY27','FQ3 FY27','FQ4 FY27','FY27','FY28'];
   const EA=D.calls.GUIDE.eps_act, yago=l=>{const m=l.match(/^FQ(\d) FY27$/); if(m) return EA[4+(+m[1])-1]; if(l==='FY27') return 75.52; if(l==='FY28') return null; return null;};
   const sp=l=>oc.find(o=>o.provider.startsWith('S&P')&&o.period===l);
-  const rowB=(lab,f)=>`<tr><td>${lab}</td>${cols.map(l=>{const p=per(l);return `<td>${p?f(p,l):'<span class="mut">n/a</span>'}</td>`;}).join('')}</tr>`;
+  const rowB=(lab,f)=>`<tr><td>${lab}</td>${cols.map(l=>{const p=per(l);return `<td>${p?f(p,l):nam}</td>`;}).join('')}</tr>`;
   const secB=t=>`<tr class="sec"><td colspan="${cols.length+1}">${t}</td></tr>`;
-  const tblB=`<div class="tblwrap"><table><thead><tr><th>Nasdaq.com / Zacks consensus (as of ${esc(NS.as_of_sgt||'n/a')})</th>${cols.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
-   ${secB('Non-GAAP EPS')}${rowB('Mean',p=>'$'+n(p.mean))}${rowB('Low – high',p=>p.low==null?'n/a':`$${n(p.low)} – $${n(p.high)}`)}${rowB('# estimates',p=>p.n??'n/a')}
-   ${rowB('Revisions up / down (last 4 weeks)',p=>`${p.up4w??'n/a'} / ${p.down4w??'n/a'}`)}
-   ${rowB('Year-ago EPS (Micron non-GAAP actual)',(p,l)=>{const v=yago(l);return v==null?'<span class="mut">n/a</span>':'$'+n(v);})}${rowB('Growth y/y',(p,l)=>{const v=yago(l);return v==null||p.mean==null?'<span class="mut">n/a</span>':pc((p.mean/v-1)*100);})}
-   ${secB('Revenue (other sources; the Nasdaq.com/Zacks feed has no revenue consensus)')}${rowB('Revenue consensus',(p,l)=>{const s=sp(l); if(s&&s.rev_b) return `$${fmt(s.rev_b,2)}B (S&P Global, ${s.as_of})`; if(l==='FQ1 FY27'&&lseg) return `$${lseg.rev_b.toFixed(1)}B (LSEG pre-guide, ${lseg.as_of})`; return '<span class="mut">n/a</span>';})}
-   ${secB('Gross margin (other sources)')}${rowB('GM consensus',(p,l)=>{if(l==='FQ1 FY27'&&fs) return `${fs.gm}% (FactSet, pre-guide, ${fs.as_of})`; const s=sp(l); return s&&s.gm?`${s.gm}% (S&P Global, implied, ${s.as_of})`:'<span class="mut">n/a</span>';})}
+  const tblB=`<div class="tblwrap"><table><thead><tr><th>${L(`Nasdaq.com / Zacks consensus (as of ${esc(NS.as_of_sgt||'n/a')})`,`Nasdaq.com / Zacks 共识预期（截至 ${esc(NS.as_of_sgt||na)}）`)}</th>${cols.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>
+   ${secB(L('Non-GAAP EPS','非 GAAP EPS'))}${rowB(L('Mean','均值'),p=>'$'+n(p.mean))}${rowB(L('Low – high','最低 – 最高'),p=>p.low==null?na:`$${n(p.low)} – $${n(p.high)}`)}${rowB(L('# estimates','预测数'),p=>p.n??na)}
+   ${rowB(L('Revisions up / down (last 4 weeks)','上调 / 下调次数（近 4 周）'),p=>`${p.up4w??na} / ${p.down4w??na}`)}
+   ${rowB(L('Year-ago EPS (Micron non-GAAP actual)','上年同期 EPS（美光非 GAAP 实际）'),(p,l)=>{const v=yago(l);return v==null?nam:'$'+n(v);})}${rowB(L('Growth y/y','同比增长'),(p,l)=>{const v=yago(l);return v==null||p.mean==null?nam:pc((p.mean/v-1)*100);})}
+   ${secB(L('Revenue (other sources; the Nasdaq.com/Zacks feed has no revenue consensus)','营收（其他来源；Nasdaq.com/Zacks 数据没有营收共识）'))}${rowB(L('Revenue consensus','营收共识'),(p,l)=>{const s=sp(l); if(s&&s.rev_b) return `$${fmt(s.rev_b,2)}B (S&P Global, ${s.as_of})`; if(l==='FQ1 FY27'&&lseg) return L(`$${lseg.rev_b.toFixed(1)}B (LSEG pre-guide, ${lseg.as_of})`,`$${lseg.rev_b.toFixed(1)}B（LSEG 指引前，${lseg.as_of}）`); return nam;})}
+   ${secB(L('Gross margin (other sources)','毛利率（其他来源）'))}${rowB(L('GM consensus','毛利率共识'),(p,l)=>{if(l==='FQ1 FY27'&&fs) return L(`${fs.gm}% (FactSet, pre-guide, ${fs.as_of})`,`${fs.gm}%（FactSet，指引前，${fs.as_of}）`); const s=sp(l); return s&&s.gm?L(`${s.gm}% (S&P Global, implied, ${s.as_of})`,`${s.gm}%（S&P Global，推算，${s.as_of}）`):nam;})}
    </tbody></table></div>`;
   // --- C: revisions (Nasdaq.com estimate momentum)
   const mrow=(lab,k,up,dn)=>{const a=MO.month&&MO.month[k], w=MO.week&&MO.week[k], c=MO.current&&MO.current[k];
-    return `<tr><td>${esc(lab||'n/a')}</td><td>$${n(a)}</td><td>$${n(w)}</td><td>$${n(c)}</td><td>${a&&c?pc((c/a-1)*100):'n/a'}</td><td>${w&&c?pc((c/w-1)*100,2):'n/a'}</td><td>${up??'n/a'} / ${dn??'n/a'}</td></tr>`;};
-  const tblC=`<div class="tblwrap"><table><thead><tr><th>EPS consensus trend (Nasdaq.com / Zacks)</th><th>1 month ago</th><th>1 week ago</th><th>Current</th><th>Δ vs 1 month</th><th>Δ vs 1 week</th><th>Raised / lowered (4 weeks)</th></tr></thead><tbody>
+    return `<tr><td>${esc(lab||na)}</td><td>$${n(a)}</td><td>$${n(w)}</td><td>$${n(c)}</td><td>${a&&c?pc((c/a-1)*100):na}</td><td>${w&&c?pc((c/w-1)*100,2):na}</td><td>${up??na} / ${dn??na}</td></tr>`;};
+  const tblC=`<div class="tblwrap"><table><thead><tr><th>${L('EPS consensus trend (Nasdaq.com / Zacks)','EPS 共识趋势（Nasdaq.com / Zacks）')}</th><th>${L('1 month ago','1 个月前')}</th><th>${L('1 week ago','1 周前')}</th><th>${L('Current','当前')}</th><th>${L('Δ vs 1 month','较 1 个月前 Δ')}</th><th>${L('Δ vs 1 week','较 1 周前 Δ')}</th><th>${L('Raised / lowered (4 weeks)','上调 / 下调（4 周）')}</th></tr></thead><tbody>
    ${mrow(MO.q_label,'qtrMean',MO.q_up,MO.q_down)}${mrow(MO.y_label,'yrMean',MO.y_up,MO.y_down)}
-   </tbody></table></div><div class="mut" style="font-size:12px">Estimate momentum as published by ${src('Nasdaq.com',NQE)} (Zacks data): current fiscal quarter and fiscal year only. Revenue-estimate trend history is not in this feed (n/a). Per-period up/down revision counts are in the table above.</div>`;
+   </tbody></table></div><div class="mut" style="font-size:12px">${L(`Estimate momentum as published by ${src('Nasdaq.com',NQE)} (Zacks data): current fiscal quarter and fiscal year only. Revenue-estimate trend history is not in this feed (n/a). Per-period up/down revision counts are in the table above.`,`预期动量取自 ${src('Nasdaq.com',NQE)}（Zacks 数据）：仅当前财季和当前财年。该数据源没有营收预期趋势历史（暂无）。各期上调/下调次数见上表。`)}</div>`;
   // --- D: price targets
-  const up=v=>v==null||!last?'':` <span class="mut">(${((v/last-1)*100).toFixed(0)}% vs $${fmt(last,2)})</span>`;
-  const ptRows=[[`Nasdaq.com (Zacks) — ${(T.status||{}).status||'n/a'}`, (T.status||{}).as_of_sgt||'n/a', T.priceTarget, null, T.highPriceTarget, T.lowPriceTarget, nAn||null, `${T.buy??'?'} Buy / ${T.hold??'?'} Hold / ${T.sell??'?'} Sell · consensus ${RT.mean||'n/a'}`, NQA]]
-    .concat(M.price_target_providers.map(p=>[p.provider,p.as_of,p.mean,p.median,p.high,p.low,p.n,p.ratings,p.url]));
-  const tblD=`<div class="tblwrap"><table class="wrapt"><thead><tr><th>Provider</th><th>As of</th><th>Mean PT</th><th>Median</th><th>High</th><th>Low</th><th># analysts</th><th>Ratings</th><th>Source</th></tr></thead><tbody>
-    ${ptRows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${r[2]==null?'<span class="mut">n/a</span>':'$'+fmt(r[2],0)+up(r[2])}</td><td>${r[3]==null?'<span class="mut">n/a</span>':'$'+fmt(r[3],0)}</td><td>${r[4]==null?'<span class="mut">n/a</span>':'$'+fmt(r[4],0)}</td><td>${r[5]==null?'<span class="mut">n/a</span>':'$'+fmt(r[5],0)}</td><td>${r[6]??'n/a'}</td><td>${esc(r[7])}</td><td>${src('link',r[8])}</td></tr>`).join('')}
-    </tbody></table></div><div class="mut" style="font-size:12px">Providers differ in look-back window and in whether stale targets are dropped (e.g., MarketBeat low $300 and S&P low $361 are older targets; the S&P high $2,200 predates D.A. Davidson's $3,000). Upside shown vs last official close $${fmt(last,2)} (${D.price.close_date}, Nasdaq.com).</div>`;
+  const up=v=>v==null||!last?'':` <span class="mut">(${((v/last-1)*100).toFixed(0)}% ${L('vs','较')} $${fmt(last,2)})</span>`;
+  const stz=s=>LANG==='zh'?({live:'实时',snapshot:'快照',unavailable:'不可用'}[s]||s):s;
+  const ptRows=[[`Nasdaq.com (Zacks) — ${stz((T.status||{}).status||na)}`, (T.status||{}).as_of_sgt||na, T.priceTarget, null, T.highPriceTarget, T.lowPriceTarget, nAn||null, `${BHS(T.buy??'?',T.hold??'?',T.sell??'?')} · ${L('consensus','共识')} ${tr(RT.mean)||na}`, NQA]]
+    .concat(M.price_target_providers.map(p=>[p.provider,p.as_of,p.mean,p.median,p.high,p.low,p.n,tr(p.ratings),p.url]));
+  const tblD=`<div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Provider','数据商')}</th><th>${L('As of','截至')}</th><th>${L('Mean PT','平均目标价')}</th><th>${L('Median','中位数')}</th><th>${L('High','最高')}</th><th>${L('Low','最低')}</th><th>${L('# analysts','分析师数')}</th><th>${L('Ratings','评级')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+    ${ptRows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${r[2]==null?nam:'$'+fmt(r[2],0)+up(r[2])}</td><td>${r[3]==null?nam:'$'+fmt(r[3],0)}</td><td>${r[4]==null?nam:'$'+fmt(r[4],0)}</td><td>${r[5]==null?nam:'$'+fmt(r[5],0)}</td><td>${r[6]??na}</td><td>${esc(r[7])}</td><td>${src(L('link','链接'),r[8])}</td></tr>`).join('')}
+    </tbody></table></div><div class="mut" style="font-size:12px">${L(`Providers differ in look-back window and in whether stale targets are dropped (e.g., MarketBeat low $300 and S&P low $361 are older targets; the S&P high $2,200 predates D.A. Davidson's $3,000). Upside shown vs last official close $${fmt(last,2)} (${D.price.close_date}, Nasdaq.com).`,`各数据商的回溯窗口及是否剔除过期目标价不同（例如 MarketBeat 最低 $300 和 S&P 最低 $361 为较早的目标价；S&P 最高 $2,200 早于 D.A. Davidson 的 $3,000）。上涨空间相对最新官方收盘价 $${fmt(last,2)}（${D.price.close_date}，Nasdaq.com）计算。`)}</div>`;
   // --- E: target changes (curated) + Nasdaq.com feed
-  const tblE=`<div class="tblwrap"><table class="wrapt" id="tcT"><thead><tr><th>Date (US)</th><th>Firm</th><th>Analyst</th><th>Action</th><th>Old → new target</th><th>Rating</th><th>Note</th><th>Source</th></tr></thead><tbody>
-   ${M.target_changes.map(c=>`<tr><td>${c.date}</td><td>${esc(c.firm)}</td><td>${c.analyst?esc(c.analyst):'<span class="mut">not given</span>'}</td><td><span class="pill ${c.action==='Raised'?'buy':c.action==='Lowered'?'nonplan':'other'}">${esc(c.action)}</span></td><td>${c.old==null?'<span class="mut">n/a</span>':'$'+fmt(c.old)} → <b>$${fmt(c.new)}</b>${c.old&&c.new!==c.old?` <span class="${c.new>c.old?'pos':'neg'}">(${c.new>c.old?'+':''}${((c.new/c.old-1)*100).toFixed(0)}%)</span>`:''}</td><td>${esc(c.rating||'n/a')}</td><td class="mut">${esc(c.note||'')}</td><td>${src('src',c.url)}${c.url2?' · '+src('src2',c.url2):''}</td></tr>`).join('')}
+  const tblE=`<div class="tblwrap"><table class="wrapt" id="tcT"><thead><tr><th>${L('Date (US)','日期（美国）')}</th><th>${L('Firm','机构')}</th><th>${L('Analyst','分析师')}</th><th>${L('Action','动作')}</th><th>${L('Old → new target','原 → 新目标价')}</th><th>${L('Rating','评级')}</th><th>${L('Note','备注')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+   ${M.target_changes.map(c=>`<tr><td>${c.date}</td><td>${esc(c.firm)}</td><td>${c.analyst?esc(c.analyst):`<span class="mut">${L('not given','未提供')}</span>`}</td><td><span class="pill ${c.action==='Raised'?'buy':c.action==='Lowered'?'nonplan':'other'}">${E(c.action)}</span></td><td>${c.old==null?nam:'$'+fmt(c.old)} → <b>$${fmt(c.new)}</b>${c.old&&c.new!==c.old?` <span class="${c.new>c.old?'pos':'neg'}">(${c.new>c.old?'+':''}${((c.new/c.old-1)*100).toFixed(0)}%)</span>`:''}</td><td>${E(c.rating||na)}</td><td class="mut">${E(c.note||'')}</td><td>${src(L('src','来源'),c.url)}${c.url2?' · '+src(L('src2','来源2'),c.url2):''}</td></tr>`).join('')}
    </tbody></table></div>`;
   const CH=RT.changes||[], chk=CH.length?Object.keys(CH[0]):[];
-  const tblY=`<div class="tblwrap"><table><thead><tr>${chk.length?chk.map(k=>`<th>${esc(k)}</th>`).join(''):'<th>Nasdaq.com upgrades / downgrades</th>'}</tr></thead><tbody>
-   ${CH.length?CH.map(c=>`<tr>${chk.map(k=>`<td>${esc(String(c[k]??''))}</td>`).join('')}</tr>`).join(''):'<tr><td class="mut">none listed by Nasdaq.com at this build</td></tr>'}
-   </tbody></table></div><div class="mut" style="font-size:12px">${esc(RT.summary||'')} Brokers listed: ${esc((RT.brokers||[]).join(', '))}.</div>`;
+  const tblY=`<div class="tblwrap"><table><thead><tr>${chk.length?chk.map(k=>`<th>${E(k)}</th>`).join(''):`<th>${L('Nasdaq.com upgrades / downgrades','Nasdaq.com 评级上调 / 下调')}</th>`}</tr></thead><tbody>
+   ${CH.length?CH.map(c=>`<tr>${chk.map(k=>`<td>${E(String(c[k]??''))}</td>`).join('')}</tr>`).join(''):`<tr><td class="mut">${L('none listed by Nasdaq.com at this build','本次构建时 Nasdaq.com 未列出')}</td></tr>`}
+   </tbody></table></div><div class="mut" style="font-size:12px">${E(RT.summary||'')} ${L('Brokers listed:','列出的券商：')} ${esc((RT.brokers||[]).join(', '))}${L('.','。')}</div>`;
   // --- F: history beat/miss
-  const H=E.hist;
-  const hr=(lab,f)=>`<tr><td>${lab}</td>${H.map(h=>`<td>${f(h)}</td>`).join('')}</tr>`;
+  const Hh=E_.hist;
+  const hr=(lab,f)=>`<tr><td>${lab}</td>${Hh.map(h=>`<td>${f(h)}</td>`).join('')}</tr>`;
   const num=v=>typeof v==='number';
-  const tblF=`<div class="tblwrap"><table><thead><tr><th>Actual vs consensus</th>${H.map(h=>`<th>${h.q}</th>`).join('')}</tr></thead><tbody>
-   <tr class="sec"><td colspan="9">Revenue ($B) — consensus = LSEG via CNBC on results day</td></tr>
-   ${hr('Actual',h=>'$'+h.rev_act.toFixed(2))}${hr('LSEG consensus',h=>num(h.rev_cons)?'$'+h.rev_cons.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise',h=>num(h.rev_cons)?pc((h.rev_act/h.rev_cons-1)*100):'n/a')}
-   <tr class="sec"><td colspan="9">Non-GAAP EPS ($)</td></tr>
-   ${hr('Actual',h=>'$'+h.eps_act.toFixed(2))}${hr('LSEG consensus',h=>num(h.eps_cons)?'$'+h.eps_cons.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise vs LSEG',h=>num(h.eps_cons)?pc((h.eps_act/h.eps_cons-1)*100):'n/a')}
-   ${hr('Zacks consensus (Nasdaq.com)',h=>num(h.eps_zacks)?'$'+h.eps_zacks.toFixed(2):'<span class="mut">n/a</span>')}${hr('Surprise vs Zacks (Zacks-basis actual)',h=>num(h.zacks_surprise)?`${pc(h.zacks_surprise,2)} <span class="mut">(actual $${h.eps_zacks_act.toFixed(2)})</span>`:'<span class="mut">n/a</span>')}
-   <tr class="sec"><td colspan="9">Next-quarter guide vs Street (LSEG) just before the guide</td></tr>
-   ${hr('Guide midpoint revenue (next qtr)',h=>'$'+h.next_guide_rev.toFixed(2)+'B')}${hr('Street revenue (next qtr)',h=>num(h.next_rev_cons)?'$'+h.next_rev_cons.toFixed(2)+'B':'<span class="mut">n/a</span>')}${hr('Guide vs Street',h=>num(h.next_rev_cons)?pc((h.next_guide_rev/h.next_rev_cons-1)*100):'n/a')}
-   ${hr('Guide midpoint EPS (next qtr)',h=>'$'+h.next_guide_eps.toFixed(2))}${hr('Street EPS (next qtr)',h=>num(h.next_eps_cons)?'$'+h.next_eps_cons.toFixed(2):'<span class="mut">n/a</span>')}${hr('Guide vs Street',h=>num(h.next_eps_cons)?pc((h.next_guide_eps/h.next_eps_cons-1)*100):'<span class="mut">n/a</span>')}
-   ${hr('Next-day stock move',h=>pc(h.move*100))}
-   ${hr('Source',h=>src('CNBC',h.url))}
+  const GvS=L('Guide vs Street','指引 vs 市场预期');
+  const tblF=`<div class="tblwrap"><table><thead><tr><th>${L('Actual vs consensus','实际 vs 共识')}</th>${Hh.map(h=>`<th>${h.q}</th>`).join('')}</tr></thead><tbody>
+   <tr class="sec"><td colspan="9">${L('Revenue ($B) — consensus = LSEG via CNBC on results day','营收（$B）——共识 = 业绩发布日 CNBC 报道的 LSEG 数据')}</td></tr>
+   ${hr(L('Actual','实际'),h=>'$'+h.rev_act.toFixed(2))}${hr(L('LSEG consensus','LSEG 共识'),h=>num(h.rev_cons)?'$'+h.rev_cons.toFixed(2):nam)}${hr(L('Surprise','超预期幅度'),h=>num(h.rev_cons)?pc((h.rev_act/h.rev_cons-1)*100):na)}
+   <tr class="sec"><td colspan="9">${L('Non-GAAP EPS ($)','非 GAAP EPS（$）')}</td></tr>
+   ${hr(L('Actual','实际'),h=>'$'+h.eps_act.toFixed(2))}${hr(L('LSEG consensus','LSEG 共识'),h=>num(h.eps_cons)?'$'+h.eps_cons.toFixed(2):nam)}${hr(L('Surprise vs LSEG','相对 LSEG 超预期幅度'),h=>num(h.eps_cons)?pc((h.eps_act/h.eps_cons-1)*100):na)}
+   ${hr(L('Zacks consensus (Nasdaq.com)','Zacks 共识（Nasdaq.com）'),h=>num(h.eps_zacks)?'$'+h.eps_zacks.toFixed(2):nam)}${hr(L('Surprise vs Zacks (Zacks-basis actual)','相对 Zacks 超预期幅度（Zacks 口径实际值）'),h=>num(h.zacks_surprise)?`${pc(h.zacks_surprise,2)} <span class="mut">(${L('actual','实际')} $${h.eps_zacks_act.toFixed(2)})</span>`:nam)}
+   <tr class="sec"><td colspan="9">${L('Next-quarter guide vs Street (LSEG) just before the guide','下季度指引 vs 指引发布前的市场预期（LSEG）')}</td></tr>
+   ${hr(L('Guide midpoint revenue (next qtr)','指引中值营收（下季度）'),h=>'$'+h.next_guide_rev.toFixed(2)+'B')}${hr(L('Street revenue (next qtr)','市场预期营收（下季度）'),h=>num(h.next_rev_cons)?'$'+h.next_rev_cons.toFixed(2)+'B':nam)}${hr(GvS,h=>num(h.next_rev_cons)?pc((h.next_guide_rev/h.next_rev_cons-1)*100):na)}
+   ${hr(L('Guide midpoint EPS (next qtr)','指引中值 EPS（下季度）'),h=>'$'+h.next_guide_eps.toFixed(2))}${hr(L('Street EPS (next qtr)','市场预期 EPS（下季度）'),h=>num(h.next_eps_cons)?'$'+h.next_eps_cons.toFixed(2):nam)}${hr(GvS,h=>num(h.next_eps_cons)?pc((h.next_guide_eps/h.next_eps_cons-1)*100):nam)}
+   ${hr(L('Next-day stock move','次日股价涨跌'),h=>pc(h.move*100))}
+   ${hr(L('Source','来源'),h=>src('CNBC',h.url))}
    </tbody></table></div>`;
-  $('#s-estimates').innerHTML=`<h2>Wall Street estimates</h2>
-  <div class="mut" style="font-size:12px;margin:-4px 0 10px">Live block: ${esc(nAs)}. Curated third-party figures carry their own as-of date and source link. Consensus EPS is non-GAAP. Not investment advice.</div>
+  $('#s-estimates').innerHTML=`<h2>${L('Wall Street estimates','华尔街预期')}</h2>
+  <div class="mut" style="font-size:12px;margin:-4px 0 10px">${L(`Live block: ${esc(nAs)}. Curated third-party figures carry their own as-of date and source link. Consensus EPS is non-GAAP. Not investment advice.`,`实时数据：${esc(nAs)}。人工整理的第三方数据各自标注日期和来源链接。共识 EPS 为非 GAAP 口径。不构成投资建议。`)}</div>
   <div class="grid g4">
-   ${kp('FQ1 FY27 revenue: Street (pre-guide) vs guide', lseg?`$${lseg.rev_b.toFixed(1)}B`:'n/a', `LSEG pre-guide (CNBC, 30 Sep) · guide $${G.rev_mid}B ± $1.5B${lseg?` (${((G.rev_mid/lseg.rev_b-1)*100).toFixed(1)}% above)`:''}`)}
-   ${kp('FQ1 FY27 EPS: consensus vs guide', qeps==null?'n/a':'$'+qeps.toFixed(2), `guide $${G.eps_mid} ± $1.00 · ${q1.n??'?'} estimates (Nasdaq.com/Zacks) · LSEG pre-guide $35.40`)}
-   ${kp('FQ1 FY27 gross margin', `~${G.gm_ng}%`, fs?`guide vs FactSet pre-guide ${fs.gm}% (${(G.gm_ng-fs.gm).toFixed(2)}pp)`:'consensus n/a')}
-   ${kp('Mean price target (Nasdaq.com/Zacks)', T.priceTarget==null?'n/a':'$'+fmt(T.priceTarget,0), `range $${fmt(T.lowPriceTarget,0)}–$${fmt(T.highPriceTarget,0)} · ${nAn||'?'} analysts · ${last&&T.priceTarget?((T.priceTarget/last-1)*100).toFixed(0)+'% vs last close':''}`)}
-   ${kp('Ratings (Nasdaq.com/Zacks)', `${T.buy??'?'} Buy`, `${T.buy??'?'} Buy · ${T.hold??'?'} Hold · ${T.sell??'?'} Sell · consensus ${esc(RT.mean||'n/a')}`)}
-   ${kp('Post-earnings target moves', `${raises.length} raised · ${lowers.length} lowered`, `since 30 Sep 2026 (curated list); Street-high $3,000 (D.A. Davidson, 7 Oct)`)}
+   ${kp(L('FQ1 FY27 revenue: Street (pre-guide) vs guide','FQ1 FY27 营收：市场预期（指引前）vs 指引'), lseg?`$${lseg.rev_b.toFixed(1)}B`:na, L(`LSEG pre-guide (CNBC, 30 Sep) · guide $${G.rev_mid}B ± $1.5B${lseg?` (${((G.rev_mid/lseg.rev_b-1)*100).toFixed(1)}% above)`:''}`,`LSEG 指引前（CNBC，9月30日）· 指引 $${G.rev_mid}B ± $1.5B${lseg?`（高出 ${((G.rev_mid/lseg.rev_b-1)*100).toFixed(1)}%）`:''}`))}
+   ${kp(L('FQ1 FY27 EPS: consensus vs guide','FQ1 FY27 EPS：共识 vs 指引'), qeps==null?na:'$'+qeps.toFixed(2), L(`guide $${G.eps_mid} ± $1.00 · ${q1.n??'?'} estimates (Nasdaq.com/Zacks) · LSEG pre-guide $35.40`,`指引 $${G.eps_mid} ± $1.00 · ${q1.n??'?'} 个预测（Nasdaq.com/Zacks）· LSEG 指引前 $35.40`))}
+   ${kp(L('FQ1 FY27 gross margin','FQ1 FY27 毛利率'), `~${G.gm_ng}%`, fs?L(`guide vs FactSet pre-guide ${fs.gm}% (${(G.gm_ng-fs.gm).toFixed(2)}pp)`,`指引 vs FactSet 指引前 ${fs.gm}%（${(G.gm_ng-fs.gm).toFixed(2)}pp）`):L('consensus n/a','共识暂无'))}
+   ${kp(L('Mean price target (Nasdaq.com/Zacks)','平均目标价（Nasdaq.com/Zacks）'), T.priceTarget==null?na:'$'+fmt(T.priceTarget,0), L(`range $${fmt(T.lowPriceTarget,0)}–$${fmt(T.highPriceTarget,0)} · ${nAn||'?'} analysts · ${last&&T.priceTarget?((T.priceTarget/last-1)*100).toFixed(0)+'% vs last close':''}`,`区间 $${fmt(T.lowPriceTarget,0)}–$${fmt(T.highPriceTarget,0)} · ${nAn||'?'} 位分析师 · ${last&&T.priceTarget?'较最新收盘价 '+((T.priceTarget/last-1)*100).toFixed(0)+'%':''}`))}
+   ${kp(L('Ratings (Nasdaq.com/Zacks)','评级（Nasdaq.com/Zacks）'), L(`${T.buy??'?'} Buy`,`${T.buy??'?'} 买入`), `${BHS(T.buy??'?',T.hold??'?',T.sell??'?').replace(/ \/ /g,' · ')} · ${L('consensus','共识')} ${E(RT.mean||na)}`)}
+   ${kp(L('Post-earnings target moves','财报后目标价调整'), L(`${raises.length} raised · ${lowers.length} lowered`,`${raises.length} 上调 · ${lowers.length} 下调`), L(`since 30 Sep 2026 (curated list); Street-high $3,000 (D.A. Davidson, 7 Oct)`,`自 2026年9月30日起（人工整理）；华尔街最高 $3,000（D.A. Davidson，10月7日）`))}
   </div>
-  <h3>FQ1 FY27: Micron guidance vs consensus</h3>
-  <div class="tblwrap"><table class="wrapt"><thead><tr><th>Metric</th><th>Micron guidance (30 Sep 2026)</th><th>Nasdaq.com / Zacks consensus mean</th><th>Low – high</th><th># estimates</th><th>Consensus vs guide midpoint</th></tr></thead><tbody>${rowsA.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
-  <div class="mut" style="font-size:12px">Guidance source: ${src('Micron FQ4 FY26 press release',G.url)}. Nasdaq.com / Zacks consensus as of ${esc(NS.as_of_sgt||'n/a')} — already updated for the guide. Pre-guide Street for FQ1 FY27: LSEG $57.0B / $35.40 EPS (CNBC, 30 Sep), Benzinga $57.24B, FactSet GM 86.31%.</div>
+  <h3>${L('FQ1 FY27: Micron guidance vs consensus','FQ1 FY27：美光指引 vs 共识预期')}</h3>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Metric','指标')}</th><th>${L('Micron guidance (30 Sep 2026)','美光指引（2026年9月30日）')}</th><th>${L('Nasdaq.com / Zacks consensus mean','Nasdaq.com / Zacks 共识均值')}</th><th>${L('Low – high','最低 – 最高')}</th><th>${L('# estimates','预测数')}</th><th>${L('Consensus vs guide midpoint','共识 vs 指引中值')}</th></tr></thead><tbody>${rowsA.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  <div class="mut" style="font-size:12px">${L(`Guidance source: ${src('Micron FQ4 FY26 press release',G.url)}. Nasdaq.com / Zacks consensus as of ${esc(NS.as_of_sgt||'n/a')} — already updated for the guide. Pre-guide Street for FQ1 FY27: LSEG $57.0B / $35.40 EPS (CNBC, 30 Sep), Benzinga $57.24B, FactSet GM 86.31%.`,`指引来源：${src('美光 FQ4 FY26 新闻稿',G.url)}。Nasdaq.com / Zacks 共识截至 ${esc(NS.as_of_sgt||na)}——已根据指引更新。FQ1 FY27 指引前市场预期：LSEG $57.0B / EPS $35.40（CNBC，9月30日），Benzinga $57.24B，FactSet 毛利率 86.31%。`)}</div>
   <div class="grid g2" style="margin-top:12px"><div class="card"><div class="chartbox"><canvas id="esA"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="esB"></canvas></div></div></div>
-  <h3>Consensus by period (FQ1–FQ4 FY27, FY27, FY28)</h3>${tblB}
-  <div class="mut" style="font-size:12px">Nasdaq.com lists periods by fiscal quarter-end month (Nov 2026 = FQ1 FY27, Feb 2027 = FQ2, May 2027 = FQ3, Aug 2027 = FQ4 and FY27). Zacks' EPS basis can differ slightly from Micron's non-GAAP EPS. FY26 non-GAAP EPS actual: $75.52. No Micron guidance exists beyond FQ1 FY27. Source: ${src('Nasdaq.com earnings forecast',NQE)}.</div>
-  <h3>Estimate revisions</h3>${tblC}
-  <h3>Price targets & ratings</h3>${tblD}
+  <h3>${L('Consensus by period (FQ1–FQ4 FY27, FY27, FY28)','分期共识预期（FQ1–FQ4 FY27、FY27、FY28）')}</h3>${tblB}
+  <div class="mut" style="font-size:12px">${L(`Nasdaq.com lists periods by fiscal quarter-end month (Nov 2026 = FQ1 FY27, Feb 2027 = FQ2, May 2027 = FQ3, Aug 2027 = FQ4 and FY27). Zacks' EPS basis can differ slightly from Micron's non-GAAP EPS. FY26 non-GAAP EPS actual: $75.52. No Micron guidance exists beyond FQ1 FY27. Source: ${src('Nasdaq.com earnings forecast',NQE)}.`,`Nasdaq.com 按财季结束月份列示期间（2026年11月 = FQ1 FY27，2027年2月 = FQ2，2027年5月 = FQ3，2027年8月 = FQ4 及 FY27）。Zacks 的 EPS 口径可能与美光非 GAAP EPS 略有差异。FY26 非 GAAP EPS 实际值：$75.52。美光没有 FQ1 FY27 之后的指引。来源：${src('Nasdaq.com 盈利预测',NQE)}。`)}</div>
+  <h3>${L('Estimate revisions','预期修正')}</h3>${tblC}
+  <h3>${L('Price targets & ratings','目标价与评级')}</h3>${tblD}
   <div class="grid g2" style="margin-top:12px"><div class="card"><div class="chartbox"><canvas id="esC"></canvas></div></div><div class="card"><div class="chartbox" id="esDbox"><canvas id="esD"></canvas></div></div></div>
-  <h3>Broker target changes after the 30 Sep 2026 results (curated)</h3>${tblE}
-  <h3>Auto feed: Nasdaq.com upgrades/downgrades (Zacks; refreshes on rebuild)</h3>${tblY}
-  <h3>History: beat/miss vs consensus (8 quarters)</h3>
+  <h3>${L('Broker target changes after the 30 Sep 2026 results (curated)','2026年9月30日业绩发布后券商目标价调整（人工整理）')}</h3>${tblE}
+  <h3>${L('Auto feed: Nasdaq.com upgrades/downgrades (Zacks; refreshes on rebuild)','自动数据：Nasdaq.com 评级上调/下调（Zacks；重新构建时刷新）')}</h3>${tblY}
+  <h3>${L('History: beat/miss vs consensus (8 quarters)','历史：相对共识的超预期/不及预期（8 个季度）')}</h3>
   <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="esE"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="esF"></canvas></div></div></div>
   ${tblF}
-  <ul class="notes"><li>Consensus values differ across providers (LSEG, FactSet, S&P Global, Zacks via Nasdaq.com, Visible Alpha) and by date. Each figure here is labelled with its provider and as-of date; nothing is blended or estimated.</li>
-  <li>The Nasdaq.com / Zacks earnings-surprise table covers only the last 4 quarters (FQ1–FQ4 FY26); earlier quarters are n/a. Zacks' "actual" EPS can differ from Micron's non-GAAP EPS (e.g., FQ4 FY26 $33.19 vs $33.42).</li>
-  <li>Historical revenue/EPS consensus = LSEG figures quoted by CNBC on each results day (links in the Source row). Some next-quarter EPS consensus figures were not reported (n/a). Next-day moves use Nasdaq.com official closes.</li>
-  <li>Analyst names come from Benzinga, CNBC, MarketBeat, TipRanks and StreetInsider. Where the prior target was not stated, it is n/a.</li></ul>`;
+  <ul class="notes"><li>${L('Consensus values differ across providers (LSEG, FactSet, S&P Global, Zacks via Nasdaq.com, Visible Alpha) and by date. Each figure here is labelled with its provider and as-of date; nothing is blended or estimated.','不同数据商（LSEG、FactSet、S&P Global、经 Nasdaq.com 的 Zacks、Visible Alpha）及不同日期的共识数值各不相同。此处每个数字均标注数据商和日期；未做混合或估算。')}</li>
+  <li>${L(`The Nasdaq.com / Zacks earnings-surprise table covers only the last 4 quarters (FQ1–FQ4 FY26); earlier quarters are n/a. Zacks' "actual" EPS can differ from Micron's non-GAAP EPS (e.g., FQ4 FY26 $33.19 vs $33.42).`,`Nasdaq.com / Zacks 盈利超预期表仅涵盖最近 4 个季度（FQ1–FQ4 FY26）；更早季度为暂无。Zacks 的“实际”EPS 可能与美光非 GAAP EPS 不同（例如 FQ4 FY26 $33.19 vs $33.42）。`)}</li>
+  <li>${L('Historical revenue/EPS consensus = LSEG figures quoted by CNBC on each results day (links in the Source row). Some next-quarter EPS consensus figures were not reported (n/a). Next-day moves use Nasdaq.com official closes.','历史营收/EPS 共识 = 各业绩发布日 CNBC 引用的 LSEG 数据（链接见“来源”行）。部分下季度 EPS 共识未被报道（暂无）。次日涨跌采用 Nasdaq.com 官方收盘价。')}</li>
+  <li>${L('Analyst names come from Benzinga, CNBC, MarketBeat, TipRanks and StreetInsider. Where the prior target was not stated, it is n/a.','分析师姓名来自 Benzinga、CNBC、MarketBeat、TipRanks 和 StreetInsider。未说明此前目标价的，标为暂无。')}</li></ul>`;
   sortable($('#tcT').parentElement);
   // charts
-  chart('esA',{type:'bar',data:{labels:['Low','Mid / mean','High'],datasets:[{label:'Micron guide EPS ($)',data:[G.eps_low,G.eps_mid,G.eps_high],backgroundColor:C.guide},{label:'Nasdaq.com/Zacks consensus EPS ($)',data:[q1.low,q1.mean,q1.high],backgroundColor:C.dram}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'FQ1 FY27 non-GAAP EPS: guide vs consensus range ($)'}},scales:{y:{min:30}}})});
-  const mk=[['month','1 month ago'],['week','1 week ago'],['current','Current']];
-  chart('esB',{type:'line',data:{labels:mk.map(m=>m[1]),datasets:[['qtrMean',MO.q_label,C.dram],['yrMean',MO.y_label,C.g]].map(([k,l,c])=>({label:(l||k)+' EPS (index, 1 month ago = 100)',data:mk.map(m=>MO[m[0]]&&MO.month&&MO.month[k]?MO[m[0]][k]/MO.month[k]*100:null),borderColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'EPS consensus revisions (Nasdaq.com/Zacks; indexed to 1 month ago = 100)'}}})});
-  const RH=E.rating_hist||[];
-  chart('esC',{type:'bar',data:{labels:RH.map(r=>{const [m,d,y]=r.date.split('/');return new Date(Date.UTC(+y,+m-1,+d)).toLocaleDateString('en-US',{month:'short',year:'2-digit',timeZone:'UTC'});}),datasets:[['buy','Buy',C.up],['hold','Hold',C.hold],['sell','Sell',C.dn]].map(([k,l,c])=>({label:l,data:RH.map(r=>r[k]),backgroundColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Ratings distribution by month (Nasdaq.com / Zacks)'}},scales:{x:{stacked:true},y:{stacked:true}}})});
+  chart('esA',{type:'bar',data:{labels:[L('Low','最低'),L('Mid / mean','中值 / 均值'),L('High','最高')],datasets:[{label:L('Micron guide EPS ($)','美光指引 EPS（$）'),data:[G.eps_low,G.eps_mid,G.eps_high],backgroundColor:C.guide},{label:L('Nasdaq.com/Zacks consensus EPS ($)','Nasdaq.com/Zacks 共识 EPS（$）'),data:[q1.low,q1.mean,q1.high],backgroundColor:C.dram}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:TT('FQ1 FY27 non-GAAP EPS: guide vs consensus range ($)','FQ1 FY27 非 GAAP EPS：指引 vs 共识区间（$）')},scales:{y:{min:30}}})});
+  const mk=[['month',L('1 month ago','1 个月前')],['week',L('1 week ago','1 周前')],['current',L('Current','当前')]];
+  chart('esB',{type:'line',data:{labels:mk.map(m=>m[1]),datasets:[['qtrMean',MO.q_label,C.dram],['yrMean',MO.y_label,C.g]].map(([k,l,c])=>({label:(l||k)+L(' EPS (index, 1 month ago = 100)',' EPS（指数，1 个月前 = 100）'),data:mk.map(m=>MO[m[0]]&&MO.month&&MO.month[k]?MO[m[0]][k]/MO.month[k]*100:null),borderColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:TT('EPS consensus revisions (Nasdaq.com/Zacks; indexed to 1 month ago = 100)','EPS 共识修正（Nasdaq.com/Zacks；以 1 个月前 = 100 为指数）')}})});
+  const RH=E_.rating_hist||[];
+  chart('esC',{type:'bar',data:{labels:RH.map(r=>{const [m,d,y]=r.date.split('/');return LANG==='zh'?`${y.slice(-2)}年${+m}月`:new Date(Date.UTC(+y,+m-1,+d)).toLocaleDateString('en-US',{month:'short',year:'2-digit',timeZone:'UTC'});}),datasets:[['buy',L('Buy','买入'),C.up],['hold',L('Hold','持有'),C.hold],['sell',L('Sell','卖出'),C.dn]].map(([k,l,c])=>({label:l,data:RH.map(r=>r[k]),backgroundColor:c}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:TT('Ratings distribution by month (Nasdaq.com / Zacks)','月度评级分布（Nasdaq.com / Zacks）')},scales:{x:{stacked:true},y:{stacked:true}}})});
   const TC=M.target_changes.filter(c=>c.new!=null).sort((a,b)=>b.new-a.new), mobD=innerWidth<=700;
   $('#esDbox').style.height=(TC.length*(mobD?24:30)+(mobD?96:90))+'px';  // every firm label shown
-  chart('esD',{type:'bar',data:{labels:TC.map(c=>c.firm+(c.date==='2026-10-07'?' (7 Oct)':'')),datasets:[{label:'Prior target',data:TC.map(c=>c.old),backgroundColor:C.guide},{label:'New / current target',data:TC.map(c=>c.new),backgroundColor:TC.map(c=>c.action==='Raised'?C.up:C.b)}]},options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:{display:true,text:'Post-earnings price targets ($): prior vs new'}},scales:{y:{ticks:{autoSkip:false,font:{size:mobD?10:11.5}}}}})});
-  chart('esE',{type:'bar',data:{labels:Q,datasets:[{label:'Revenue surprise vs LSEG %',data:H.map(h=>num(h.rev_cons)?(h.rev_act/h.rev_cons-1)*100:null),backgroundColor:C.dram},{label:'EPS surprise vs LSEG %',data:H.map(h=>num(h.eps_cons)?(h.eps_act/h.eps_cons-1)*100:null),backgroundColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Actual vs consensus surprise (%)'}}})});
-  chart('esF',{type:'bar',data:{labels:H.map(h=>h.q+'→next'),datasets:[{label:'Next-qtr revenue guide vs Street %',data:H.map(h=>num(h.next_rev_cons)?(h.next_guide_rev/h.next_rev_cons-1)*100:null),backgroundColor:C.nand},{label:'Next-day stock move %',data:H.map(h=>h.move*100),backgroundColor:H.map(h=>h.move>=0?C.up:C.dn)}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:'Guide vs Street (next quarter) and stock reaction (%)'}}})});
+  chart('esD',{type:'bar',data:{labels:TC.map(c=>c.firm+(c.date==='2026-10-07'?L(' (7 Oct)','（10月7日）'):'')),datasets:[{label:L('Prior target','此前目标价'),data:TC.map(c=>c.old),backgroundColor:C.guide},{label:L('New / current target','新 / 当前目标价'),data:TC.map(c=>c.new),backgroundColor:TC.map(c=>c.action==='Raised'?C.up:C.b)}]},options:baseOpts({indexAxis:'y',plugins:{legend:{position:'bottom'},title:TT('Post-earnings price targets ($): prior vs new','财报后目标价（$）：此前 vs 新')},scales:{y:{ticks:{autoSkip:false,font:{size:mobD?10:11.5}}}}})});
+  chart('esE',{type:'bar',data:{labels:Q,datasets:[{label:L('Revenue surprise vs LSEG %','营收相对 LSEG 超预期 %'),data:Hh.map(h=>num(h.rev_cons)?(h.rev_act/h.rev_cons-1)*100:null),backgroundColor:C.dram},{label:L('EPS surprise vs LSEG %','EPS 相对 LSEG 超预期 %'),data:Hh.map(h=>num(h.eps_cons)?(h.eps_act/h.eps_cons-1)*100:null),backgroundColor:C.g}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:TT('Actual vs consensus surprise (%)','实际 vs 共识超预期幅度（%）')}})});
+  chart('esF',{type:'bar',data:{labels:Hh.map(h=>h.q+L('→next','→下季')),datasets:[{label:L('Next-qtr revenue guide vs Street %','下季度营收指引 vs 市场预期 %'),data:Hh.map(h=>num(h.next_rev_cons)?(h.next_guide_rev/h.next_rev_cons-1)*100:null),backgroundColor:C.nand},{label:L('Next-day stock move %','次日股价涨跌 %'),data:Hh.map(h=>h.move*100),backgroundColor:Hh.map(h=>h.move>=0?C.up:C.dn)}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:TT('Guide vs Street (next quarter) and stock reaction (%)','指引 vs 市场预期（下季度）与股价反应（%）')}})});
 }
 /* ---------- sources ---------- */
 function sources(){
-  $('#s-sources').innerHTML=`<h2>Sources & live feed</h2>
-  <div class="card"><h3 style="margin-top:0">Latest SEC filings (CIK 723125)</h3><div class="mut" style="font-size:12px">${SCHED_NOTE} · ${D.filings.length} most recent filings · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).</div><div class="tblwrap feed" style="max-height:420px">${feedTable(D.filings.length)}</div></div>
-  <h3>Source documents</h3><div class="tblwrap"><table class="wrapt"><thead><tr><th>Source</th><th>URL</th></tr></thead><tbody>${D.sources.map(s=>`<tr><td>${esc(s[0])}</td><td><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[1])}</a></td></tr>`).join('')}</tbody></table></div>
-  <h3>Build log</h3><ul class="notes">${D.meta.build_log.map(l=>`<li>${esc(l)}</li>`).join('')}</ul>`;
+  $('#s-sources').innerHTML=`<h2>${L('Sources & live feed','来源与实时数据')}</h2>
+  <div class="card"><h3 style="margin-top:0">${L('Latest SEC filings (CIK 723125)','最新 SEC 申报（CIK 723125）')}</h3><div class="mut" style="font-size:12px">${L(`${SCHED_NOTE()} · ${D.filings.length} most recent filings · data.sec.gov submissions API, last fetched ${esc(D.meta.built_sgt)} (status: ${esc(D.meta.feed_status)}).`,`${SCHED_NOTE()} · 最近 ${D.filings.length} 份申报 · data.sec.gov submissions API，最近抓取 ${esc(D.meta.built_sgt)}（状态：${esc(D.meta.feed_status==='ok'?'正常':D.meta.feed_status)}）。`)}</div><div class="tblwrap feed" style="max-height:420px">${feedTable(D.filings.length)}</div></div>
+  <h3>${L('Source documents','来源文件')}</h3><div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Source','来源')}</th><th>URL</th></tr></thead><tbody>${D.sources.map(s=>`<tr><td>${E(s[0])}</td><td><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[1])}</a></td></tr>`).join('')}</tbody></table></div>
+  <h3>${L('Build log','构建日志')}</h3><ul class="notes">${D.meta.build_log.map(l=>`<li>${E(l)}</li>`).join('')}</ul>`;
 }
 /* ---------- routing ---------- */
 const R={overview,financials,revenue,'capacity-capex':capacityCapex,buybacks,insiders,calls,estimates,sources}, done={};
@@ -651,22 +698,35 @@ function route(){let [t,sub]=(location.hash.slice(1)||'overview').split('/');con
   document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.t===tab));
   if(tab==='financials') financials(sub||'is'); else if(!done[tab]){R[tab]();done[tab]=1;} window.scrollTo(0,0); if(anchor&&anchor!=='capacity'){const e=document.getElementById(anchor); if(e) e.scrollIntoView();}
   const nv=$('#nav'),o=nv&&nv.querySelector('a.on'); if(o){const d=o.getBoundingClientRect().left-nv.getBoundingClientRect().left; nv.scrollLeft+=d-(nv.clientWidth-o.offsetWidth)/2;}}
-$('#nav').innerHTML=TABS.map(([k,l])=>`<a href="#${k}" data-t="${k}">${l}</a>`).join('');
+function chrome(){ // static page chrome that depends on the language
+  $('#nav').innerHTML=TABS.map(([k,en,zh])=>`<a href="#${k}" data-t="${k}">${L(en,zh)}</a>`).join('');
+  $('#bn').textContent=L('Dashboard','研究看板'); $('#h1').textContent=L('Micron Technology (MU) — Research Dashboard','美光科技 (MU) — 研究看板');
+  document.querySelector('.brand').setAttribute('aria-label',L('Micron dashboard home','美光看板首页'));
+  document.title=L('Micron (MU) Research Dashboard · © 2026 Hugo Tian','美光 (MU) 研究看板 · © 2026 Hugo Tian');
+  $('#langlbl').textContent=LANG==='zh'?'中文':'EN';
+  $('#langbtn').title=L('Language: English · click for 中文','语言：中文 · 点击切换为 English');
+  $('#langbtn').setAttribute('aria-label',L('Switch language to Chinese','切换语言为英文'));
+}
+chrome();
 /* ---------- theme: Auto (system) → Light → Dark; choice kept in localStorage 'mu-theme' ---------- */
-function applyTheme(rerender){
+function applyTheme(rerender,skipTv){
   const t=document.documentElement.dataset.theme||'auto';
-  $('#themelbl').textContent=t==='auto'?'Auto':t==='dark'?'Dark':'Light'; $('#themeic').textContent=t==='auto'?'◐':t==='dark'?'☾':'☀';
-  $('#themebtn').title=`Theme: ${t==='auto'?'follows your system':t} · click to switch`;
+  $('#themelbl').textContent=t==='auto'?L('Auto','自动'):t==='dark'?L('Dark','深色'):L('Light','浅色'); $('#themeic').textContent=t==='auto'?'◐':t==='dark'?'☾':'☀';
+  $('#themebtn').title=L(`Theme: ${t==='auto'?'follows your system':t} · click to switch`,`主题：${t==='auto'?'跟随系统':t==='dark'?'深色':'浅色'} · 点击切换`);
   if(!rerender) return;
   DARK=isDark(); chartTheme(); palette();
   Object.keys(charts).forEach(k=>{try{charts[k].destroy();}catch(e){} delete charts[k];});
   // header: the live box follows CSS variables; re-embed the TradingView fallback quote if it is showing
-  const showing=$('#tvwrap')&&$('#tvwrap').style.display==='block'; LQ.tv=false; if(showing) tvFallback(true);
+  if(!skipTv){ const showing=$('#tvwrap')&&$('#tvwrap').style.display==='block'; LQ.tv=false; if(showing) tvFallback(true); }
   for(const k in done) delete done[k]; const y=scrollY; route(); window.scrollTo(0,y);
 }
 $('#themebtn').onclick=()=>{const cur=document.documentElement.dataset.theme||'auto'; const nx=cur==='auto'?'light':cur==='light'?'dark':'auto';
   if(nx==='auto'){delete document.documentElement.dataset.theme; try{localStorage.removeItem('mu-theme');}catch(e){}} else {document.documentElement.dataset.theme=nx; try{localStorage.setItem('mu-theme',nx);}catch(e){}}
   applyTheme(true);};
+/* language toggle: EN ⇄ 中文, kept in localStorage 'mu-lang'; re-renders charts, tables and TradingView widgets (zh_CN locale) */
+$('#langbtn').onclick=()=>{ LANG=LANG==='zh'?'en':'zh'; const h=document.documentElement; h.dataset.lang=LANG; h.lang=LANG==='zh'?'zh-CN':'en';
+  try{localStorage.setItem('mu-lang',LANG);}catch(e){}
+  chrome(); header(false); applyTheme(true,true); };
 if(window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!document.documentElement.dataset.theme) applyTheme(true);});
 applyTheme(false); header(); window.addEventListener('hashchange',route); route();
 </script>
