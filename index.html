@@ -412,9 +412,9 @@ function overview(){
   ${kp(L('FQ1 FY27 guidance','FQ1 FY27 指引'),'$'+k.guide_rev+'B ± 1.5B',L(`GM ~${k.guide_gm}% · EPS $${k.guide_eps} ± 1.00 (non-GAAP)`,`毛利率约 ${k.guide_gm}% · EPS $${k.guide_eps} ± 1.00（非 GAAP）`))}
   ${kp(L('DRAM share of revenue (FQ4)','DRAM 营收占比（FQ4）'),k.dram_share.toFixed(1)+'%',L('NAND 26.0% · Other 0.7%','NAND 26.0% · 其他 0.7%'))}
   </div>
-  <div class="grid g2" style="margin-top:14px">
+  <div style="margin-top:14px">
    <div class="card"><h3 style="margin-top:0">${L('Revenue & margins (8Q)','营收与利润率（8 个季度）')}</h3><div class="chartbox"><canvas id="ovRev"></canvas></div></div>
-   <div class="card"><h3 style="margin-top:0">${L('MU daily candles (recent sessions)','MU 日 K 线（近期交易日）')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView','· 来自 TradingView')} · ${tvd}</span></h3><div class="tvchart tvchart-sm" id="tvchart2"></div></div>
+   
   </div>
   <div class="grid g2" style="margin-top:14px">
    <div class="card"><h3 style="margin-top:0">${L('Key takeaways','要点')}</h3><ul class="notes" style="font-size:13px;color:var(--txt)">
@@ -433,9 +433,6 @@ function overview(){
   tvEmbed($('#tvchart'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',range:'12M',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:TVLOC(),
     backgroundColor:DARK?'rgba(28,28,30,1)':'rgba(255,255,255,1)',gridColor:DARK?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
     why=>{$('#tvchart').innerHTML=`<div class="tvfail">${unav(why)}${lastc()}</div>`; $('#tvchart').style.height='auto';});
-  tvEmbed($('#tvchart2'),'advanced-chart',{autosize:true,symbol:'NASDAQ:MU',interval:'D',timezone:'Asia/Singapore',theme:DARK?'dark':'light',style:'1',locale:TVLOC(),
-    backgroundColor:DARK?'rgba(28,28,30,1)':'rgba(255,255,255,1)',gridColor:DARK?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)',allow_symbol_change:false,hide_side_toolbar:true,calendar:false,support_host:'https://www.tradingview.com'},
-    why=>{$('#tvchart2').innerHTML=`<div class="tvfail">${L(`Chart unavailable (${esc(why)}).`,`图表不可用（${esc(why)}）。`)}${lastc()}</div>`; $('#tvchart2').style.height='auto';});
   chart('ovRev',{data:{labels:Q,datasets:[{type:'bar',label:L('Revenue ($M)','营收（$M）'),data:s.rev,backgroundColor:C.dram,yAxisID:'y'},
     {type:'line',label:L('Gross margin %','毛利率 %'),data:s.gp.map((g,i)=>g/s.rev[i]*100),borderColor:C.g,yAxisID:'y1',tension:.25},
     {type:'line',label:L('Operating margin %','营业利润率 %'),data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1',tension:.25}]},
