@@ -155,7 +155,7 @@ footer b{color:var(--txt);font-weight:500}
 </style>
 </head>
 <body>
-<header><div class="bar"><a class="brand" href="#overview" aria-label="Micron dashboard home"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="65" height="18"><span class="bn" id="bn">Dashboard</span></a><nav id="nav"></nav><div class="hbtns"><button class="themebtn langbtn" id="langbtn" title="Language: English · click for 中文"><span id="langic">文</span><span class="tl3" id="langlbl">EN</span></button><button class="themebtn" id="themebtn" title="Theme: follows your system until you pick one"><span id="themeic">◐</span><span class="tl2" id="themelbl">Auto</span></button></div></div></header>
+<header><div class="bar"><a class="brand" href="#overview" aria-label="Micron dashboard home"><img class="mlogo" src="micron-logo.svg" alt="Micron Technology" aria-label="Micron Technology" width="65" height="18"><span class="bn" id="bn">Dashboard</span></a><nav id="nav"></nav><div class="hbtns"><button class="themebtn langbtn" id="langbtn" title="Language: English · click for 中文"><span class="tl3" id="langlbl">中文</span></button><button class="themebtn" id="themebtn" title="Theme: follows your system until you pick one"><span id="themeic">◐</span><span class="tl2" id="themelbl">Auto</span></button></div></div></header>
 <div class="hero"><h1 id="h1">Micron Technology (MU) — Research Dashboard</h1>
   <div class="sub" id="updated"></div>
   <div class="hstats" id="hstats"></div>
@@ -703,7 +703,7 @@ function chrome(){ // static page chrome that depends on the language
   $('#bn').textContent=L('Dashboard','研究看板'); $('#h1').textContent=L('Micron Technology (MU) — Research Dashboard','美光科技 (MU) — 研究看板');
   document.querySelector('.brand').setAttribute('aria-label',L('Micron dashboard home','美光看板首页'));
   document.title=L('Micron (MU) Research Dashboard · © 2026 Hugo Tian','美光 (MU) 研究看板 · © 2026 Hugo Tian');
-  $('#langlbl').textContent=LANG==='zh'?'中文':'EN';
+  $('#langlbl').textContent=LANG==='zh'?'EN':'中文';
   $('#langbtn').title=L('Language: English · click for 中文','语言：中文 · 点击切换为 English');
   $('#langbtn').setAttribute('aria-label',L('Switch language to Chinese','切换语言为英文'));
 }
