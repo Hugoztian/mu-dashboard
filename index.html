@@ -12,7 +12,7 @@
  h.lang=l==='zh'?'zh-CN':'en'; h.dataset.lang=l; if(l==='zh') document.title='美光 (MU) 研究看板 · © 2026 Hugo Tian';})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1791985989"></script>
+<script src="data.js?v=1791995487"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -108,6 +108,8 @@ table.c0tight th:first-child,table.c0tight td:first-child{min-width:0;width:1%;w
 .subtabs button{font-family:inherit;background:transparent;color:var(--txt);border:0;border-radius:8px;padding:6px 18px;cursor:pointer;font-weight:500;font-size:13px}
 .subtabs button.on{background:var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
 .chartbox{position:relative;height:300px}
+.wk{margin-bottom:14px}.wk ul{list-style:none;margin:6px 0 0;padding:0}.wk li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.45}.wk li:first-child{border-top:none}.wk .tag{flex:0 0 auto;min-width:64px;font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}.wk .tag.zh{text-transform:none;letter-spacing:0}
+details.pts{margin-top:10px}details.pts summary{cursor:pointer;color:var(--mut);font-size:12.5px}
 td.hl{font-weight:600}.takeaways{margin:0;padding-left:18px;line-height:1.55;font-size:13.5px}.takeaways li{margin:5px 0}
 .pill{display:inline-block;padding:2px 9px;border-radius:980px;font-size:11px;font-weight:600}
 .pill.planned{background:color-mix(in srgb,var(--plan) 12%,transparent);color:var(--plan)}.pill.nonplan{background:color-mix(in srgb,var(--np) 13%,transparent);color:var(--np)}.pill.tax{background:color-mix(in srgb,var(--tax) 12%,transparent);color:var(--tax)}.pill.other{background:var(--seg);color:var(--mut)}.pill.buy{background:color-mix(in srgb,var(--pos) 12%,transparent);color:var(--pos)}
@@ -168,6 +170,7 @@ footer b{color:var(--txt);font-weight:500}
 <section id="s-overview"></section>
 <section id="s-financials"></section>
 <section id="s-revenue"></section>
+<section id="s-cycle"></section>
 <section id="s-capacity-capex"></section>
 <section id="s-buybacks"></section>
 <section id="s-insiders"></section>
@@ -179,7 +182,7 @@ footer b{color:var(--txt);font-weight:500}
 <footer>© 2026 Hugo Tian. All rights reserved.</footer>
 <script>
 const D = window.MU_DATA, Q = D.meta.quarters;
-const TABS=[['overview','Overview','概览'],['financials','Financials','财务'],['revenue','Revenue & Pricing','营收与价格'],['capacity-capex','Capacity & Capex','产能与资本开支'],['buybacks','Buybacks & CHIPS','回购与 CHIPS'],['insiders','Insiders','内部人交易'],['calls','Earnings Calls','业绩电话会'],['estimates','Wall Street Estimates','华尔街预期'],['competition','Competition','竞争格局'],['sources','Sources & Live feed','来源与实时数据']];
+const TABS=[['overview','Overview','概览'],['financials','Financials','财务'],['revenue','Revenue & Pricing','营收与价格'],['cycle','Memory Cycle','存储周期'],['capacity-capex','Capacity & Capex','产能与资本开支'],['buybacks','Buybacks & CHIPS','回购与 CHIPS'],['insiders','Insiders','内部人交易'],['calls','Earnings Calls','业绩电话会'],['estimates','Wall Street Estimates','华尔街预期'],['competition','Competition','竞争格局'],['sources','Sources & Live feed','来源与实时数据']];
 const $=s=>document.querySelector(s);
 const fmt=(v,d=0)=>v==null?'n/a':Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const fB=v=>v==null?'n/a':'$'+(v/1000).toFixed(1)+'B';
@@ -276,6 +279,7 @@ new MutationObserver(()=>{ if(_tcPending) return; _tcPending=true; requestAnimat
 const SCHED_NOTE=()=>L('The list refreshes on each scheduled scan, Tue–Sat 8:40 AM and weekdays 9:40 PM SGT','列表在每次定时扫描时刷新：周二至周六 8:40 AM 及工作日 9:40 PM SGT');
 const charts={};
 function chart(id,cfg){const el=document.getElementById(id); if(!el) return; if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg);}
+const hiOpts=(extra={})=>baseOpts(Object.assign({devicePixelRatio:Math.max(2,window.devicePixelRatio||1)},extra)); // sharp charts for the new sections
 const baseOpts=(extra={})=>Object.assign({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom'}}},extra);
 
 /* ---------- header ---------- */
@@ -393,6 +397,7 @@ function overview(){
   const kp=(l,v,sub,cls='')=>`<div class="card kpi"><div class="l">${l}</div><div class="v ${cls}">${v}</div><div class="s">${sub}</div></div>`;
   const tvd=L('delayed','延迟');
   let h=`<h2>${L('Overview','概览')}</h2>
+  ${weeklyCard()}
   <div class="card" style="margin-bottom:14px"><h3 style="margin:0 0 6px">${L('MU live price chart','MU 实时价格图')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView','· 来自 TradingView')} · ${TV_FRESHNESS()}</span></h3>
   <div class="tvchart" id="tvchart"></div></div>
   <div class="grid g4">
@@ -431,6 +436,13 @@ function overview(){
     {type:'line',label:L('Operating margin %','营业利润率 %'),data:s.oi.map((g,i)=>g/s.rev[i]*100),borderColor:C.y,yAxisID:'y1',tension:.25}]},
     options:baseOpts({scales:{y:{title:{display:true,text:'$M'}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false},title:{display:true,text:'%'}}}})});
 }
+function weeklyCard(){
+  const W=D.weekly; if(!W) return '';
+  const TAG={price:['Price','股价'],filing:['Filing','申报'],estimate:['Estimate','预期'],rating:['Rating','评级'],target:['Target','目标价'],news:['News','新闻']};
+  const it=(W.items||[]).map(i=>`<li><span class="tag${LANG==='zh'?' zh':''}">${L(...(TAG[i.kind]||['Item','事项']))}</span><span>${E(i.text)}${i.url?` · <a href="${esc(i.url)}" target="_blank" rel="noopener">${L('link','链接')}</a>`:''}</span></li>`).join('');
+  return `<div class="card wk"><h3 style="margin:0">${L('What changed this week','本周变化')} <span class="mut" style="font-size:12px;font-weight:400">· ${W.from?L(`since <span class="nw">${esc(W.from)}</span>`,`自 <span class="nw">${esc(W.from)}</span> 起`):''} · ${L('updates with every scheduled build','随每次定时构建更新')}</span></h3>
+  <ul>${it||`<li>${L('No changes recorded this week.','本周无记录的变化。')}</li>`}</ul>${W.note?`<div class="mut" style="font-size:12px;margin-top:6px">${E(W.note)}</div>`:''}</div>`;
+}
 function feedTable(n){
   return `<table><thead><tr><th>${L('Form','表格')}</th><th>${L('Filed','申报日期')}</th><th>${L('Report date','报告期')}</th><th>${L('Description / items','说明 / 事项')}</th><th>${L('Link','链接')}</th></tr></thead><tbody>${D.filings.slice(0,n).map(f=>`<tr><td><b>${esc(f.form)}</b></td><td>${f.date}</td><td>${f.report||''}</td><td class="wrap">${E(f.desc)} ${f.items?'<span class="mut">'+L('items ','事项 ')+esc(f.items)+'</span>':''}</td><td><a href="${f.url}" target="_blank">${L('doc','文件')}</a> · <a href="${f.index}" target="_blank">${L('index','索引')}</a></td></tr>`).join('')}</tbody></table>`;
 }
@@ -465,12 +477,48 @@ function revenue(){
   <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="rvP"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="rvB"></canvas></div></div></div>
   ${tableHTML(R.prod)}${tableHTML(R.bu)}
   <div class="card" style="margin-top:14px"><div class="chartbox" style="height:260px"><canvas id="rvG"></canvas></div></div>
-  ${tableHTML(R.asp,{wrap:true})}${tableHTML(R.asp_tf,{wrap:true})}`;
+  ${tableHTML(R.asp,{wrap:true})}${tableHTML(R.asp_tf,{wrap:true})}
+  ${D.mc&&D.mc.bu_tbl?`<h3>${L('Business units: operating margin','业务部门：营业利润率')}</h3><div class="card"><div class="chartbox"><canvas id="rvO"></canvas></div></div>${tableHTML(D.mc.bu_tbl,{notitle:true})}${tableHTML(D.mc.hbm_tbl,{wrap:true})}`:''}`;
   sortable($('#s-revenue'));
+  if(D.mc&&D.mc.bu_om) chart('rvO',{type:'line',data:{labels:Q,datasets:Object.entries(D.mc.bu_om).map(([k,v])=>({label:k+L(' op. margin %',' 营业利润率 %'),data:v,borderColor:{CMBU:C.dram,CDBU:C.g,MCBU:C.nand,AEBU:C.y}[k],pointRadius:2}))},options:hiOpts({plugins:{legend:{position:'bottom'},title:T('Business-unit operating margin % (10-Q/10-K segment note)','业务部门营业利润率 %（10-Q/10-K 分部附注）')},scales:{y:{ticks:{callback:v=>v+'%'}}}})});
   chart('rvP',{type:'bar',data:{labels:Q,datasets:[{label:'DRAM',data:R.PROD.DRAM,backgroundColor:C.dram},{label:'NAND',data:R.PROD.NAND,backgroundColor:C.nand},{label:L('Other','其他'),data:R.PROD.Other,backgroundColor:C.oth}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue by technology ($M)','按技术划分的营收（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
   const bc={CMBU:C.dram,CDBU:C.g,MCBU:C.nand,AEBU:C.y};
   chart('rvB',{type:'bar',data:{labels:Q,datasets:Object.entries(R.BU).map(([k,v])=>({label:k,data:v,backgroundColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue by business unit ($M)','按业务部门划分的营收（$M）')},scales:{x:{stacked:true},y:{stacked:true}}})});
   chart('rvG',{type:'line',data:{labels:Q,datasets:Object.entries(R.BUGM).map(([k,v])=>({label:k+L(' GM %',' 毛利率 %'),data:v,borderColor:bc[k]}))},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Business-unit gross margin %','业务部门毛利率 %')}})});
+}
+/* ---------- memory cycle ---------- */
+function cycle(){
+  const X=D.mc, el=$('#s-cycle'), T=(en,zh)=>({display:true,text:L(en,zh)});
+  if(!X||!X.spot){el.innerHTML=`<h2>${L('Memory Cycle','存储周期')}</h2><div class="card mut">${L('Memory-cycle data unavailable in this build.','本次构建无存储周期数据。')} ${E(X&&X.error||'')}</div>`;return;}
+  const S=X.spot, LB={ddr5_16:'DDR5 16Gb',ddr4_16:'DDR4 16Gb',ddr4_8:'DDR4 8Gb',tlc512:L('512Gb TLC wafer','512Gb TLC 晶圆'),tlc256:L('256Gb TLC wafer','256Gb TLC 晶圆')};
+  const allPts=Object.entries(S).flatMap(([k,v])=>v.map(p=>[LB[k],p[0],p[1].toFixed(3),p[2],p[3]]));
+  el.innerHTML=`<h2>${L('Memory Cycle','存储周期')}</h2>
+  <div class="mut" style="font-size:12.5px;margin-bottom:12px">${L('Memory prices are third-party estimates (DRAMeXchange / TrendForce), each point dated and linked. Micron figures are from its 10-Q/10-K filings and prepared remarks; hyperscaler capex from their SEC filings.','存储价格为第三方估算（DRAMeXchange / TrendForce），每个数据点均注明日期并附链接。美光数据来自其 10-Q/10-K 申报和业绩会讲稿；云厂商资本开支来自其 SEC 申报。')}</div>
+  <h3>${L('Memory price tracker','存储价格追踪')}</h3>
+  <div class="grid g2"><div class="card"><div class="chartbox"><canvas id="cyD"></canvas></div></div><div class="card"><div class="chartbox"><canvas id="cyN"></canvas></div></div></div>
+  <div class="card" style="margin-top:18px"><div class="chartbox"><canvas id="cyC"></canvas></div></div>
+  ${tableHTML(X.spot_tbl)}
+  <details class="pts"><summary>${L(`All ${allPts.length} weekly spot points with sources`,`全部 ${allPts.length} 个每周现货数据点及来源`)}</summary><div class="tblwrap" style="max-height:360px"><table><thead><tr><th>${L('Item','品项')}</th><th>${L('Week of','周')}</th><th>${L('Average ($)','均价（$）')}</th><th>${L('DRAMeXchange update (GMT+8)','DRAMeXchange 更新时间（GMT+8）')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>${allPts.map(r=>`<tr><td>${esc(r[0])}</td><td>${r[1]}</td><td>${r[2]}</td><td>${esc(r[3])}</td><td><a href="${esc(r[4])}" target="_blank" rel="noopener">${/web\.archive/.test(r[4])?L('archived page','存档页面'):'DRAMeXchange'}</a></td></tr>`).join('')}</tbody></table></div></details>
+  ${tableHTML(X.contract_tbl)}
+  <h3 style="margin-top:28px">${L('Cycle gauge','周期指标')}</h3>
+  <div class="card"><div class="chartbox"><canvas id="cyI"></canvas></div></div>
+  ${tableHTML(X.dio_tbl,{notitle:false})}${tableHTML(X.com_tbl,{wrap:true})}${tableHTML(X.ind_tbl,{wrap:true})}
+  <h3 style="margin-top:28px">${L('Demand link: hyperscaler capex vs Micron data-centre revenue','需求联动：云厂商资本开支 vs 美光数据中心营收')}</h3>
+  <div class="card"><div class="chartbox"><canvas id="cyH"></canvas></div></div>
+  ${tableHTML(X.demand_tbl)}`;
+  sortable($('#s-cycle'));
+  const line=(id,keys,en,zh)=>{const lab=S[keys[0]].map(p=>p[0]); const cl=[C.dram,C.g,C.y];
+    chart(id,{type:'line',data:{labels:lab,datasets:keys.map((k,i)=>({label:LB[k],data:lab.map(d=>{const p=S[k].find(x=>x[0]===d);return p?p[1]:null;}),borderColor:cl[i],spanGaps:true,pointRadius:1.5}))},
+      options:hiOpts({plugins:{legend:{position:'bottom'},title:T(en,zh),tooltip:{callbacks:{label:c=>`${c.dataset.label}: $${(+c.raw).toFixed(3)}`}}},scales:{x:{ticks:{maxTicksLimit:8}},y:{ticks:{callback:v=>'$'+v}}}})});};
+  line('cyD',['ddr5_16','ddr4_16','ddr4_8'],'DRAM chip spot price, weekly (DRAMeXchange, $)','DRAM 颗粒现货价，每周（DRAMeXchange，$）');
+  line('cyN',['tlc512','tlc256'],'NAND wafer spot price, weekly (DRAMeXchange, $)','NAND 晶圆现货价，每周（DRAMeXchange，$）');
+  chart('cyC',{type:'line',data:{labels:X.contract.m,datasets:[{label:L('DDR4 8Gb contract ($)','DDR4 8Gb 合约价（$）'),data:X.contract.dram,borderColor:C.dram,pointRadius:2.5},{label:L('NAND 128Gb MLC contract ($)','NAND 128Gb MLC 合约价（$）'),data:X.contract.nand,borderColor:C.y,pointRadius:2.5}]},
+    options:hiOpts({plugins:{legend:{position:'bottom'},title:T('Monthly contract prices (DRAMeXchange via news reports, $)','月度合约价（DRAMeXchange，经新闻报道，$）')},scales:{y:{ticks:{callback:v=>'$'+v}}}})});
+  chart('cyI',{data:{labels:X.dio.q,datasets:[{type:'bar',label:L('DIO computed (days)','计算 DIO（天）'),data:X.dio.computed,backgroundColor:C.dram},{type:'line',label:L('DIO stated by Micron (days)','美光披露 DIO（天）'),data:X.dio.stated,borderColor:C.y,pointRadius:3,spanGaps:false}]},
+    options:hiOpts({plugins:{legend:{position:'bottom'},title:T('Micron inventory days (DIO)','美光库存天数（DIO）')},scales:{y:{min:0}}})});
+  const H=X.demand, cc={Microsoft:C.dram,Alphabet:C.g,Amazon:C.nand,Meta:C.y};
+  chart('cyH',{data:{labels:H.labels,datasets:Object.entries(H.capex).map(([n,v])=>({type:'bar',label:tr(n)+L(' capex',' 资本开支'),data:v,backgroundColor:cc[n],stack:'c',yAxisID:'y'})).concat([{type:'line',label:L('Micron data-centre revenue','美光数据中心营收'),data:H.dc,borderColor:C.dn,pointRadius:3,yAxisID:'y1'}])},
+    options:hiOpts({plugins:{legend:{position:'bottom'},title:T('Big-4 capex (stacked, $M) vs Micron data-centre revenue ($M, right)','四大云厂商资本开支（堆叠，$M）vs 美光数据中心营收（$M，右轴）')},scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:L('capex $M','资本开支 $M')}},y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:L('Micron DC $M','美光数据中心 $M')}}}})});
 }
 /* ---------- capacity & capex (merged tab: Capacity first, then Capex) ---------- */
 function capacityCapex(){
@@ -609,8 +657,12 @@ function calls(){
   ${tableHTML(D.calls.gva)}
   <h3>${L('Call highlights (8 calls)','电话会要点（8 次）')}</h3>
   <div class="grid g2">${L8.map(c=>`<div class="card callcard"><h4>${c.q} <span class="mut" style="font-weight:400">· ${L('call','电话会')} ${c.date} · ${L('next-day move','次日涨跌')} <span class="${+c.move>=0?'pos':'neg'}">${(+c.move*100).toFixed(1)}%</span></span></h4><ul>${c.hl.map(h=>`<li>${E(h)}</li>`).join('')}</ul></div>`).join('')}</div>
-  <ul class="notes">${D.calls.src.map(s=>`<li>${E(s)}</li>`).join('')}</ul>`;
+  <ul class="notes">${D.calls.src.map(s=>`<li>${E(s)}</li>`).join('')}</ul>
+  ${D.mc&&D.mc.qa_tbl?`<h3>${L('Earnings-call themes (Q&A)','业绩电话会主题（问答环节）')}</h3><div class="card"><div class="chartbox"><canvas id="clQ"></canvas></div></div>${tableHTML(D.mc.qa_tbl,{notitle:true,wrap:true})}`:''}`;
   sortable($('#s-calls'));
+  if(D.mc&&D.mc.qa){const qa=D.mc.qa.calls.filter(c=>c.all), tot={}; qa.forEach(c=>Object.entries(c.all).forEach(([k,v])=>tot[k]=(tot[k]||0)+v));
+    const top=Object.entries(tot).sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]), cl=[C.dram,C.g,C.y,C.o,C.b];
+    chart('clQ',{type:'bar',data:{labels:qa.map(c=>c.q),datasets:top.map((t,i)=>({label:tr(t),data:qa.map(c=>c.all[t]),backgroundColor:cl[i]}))},options:hiOpts({plugins:{legend:{position:'bottom'},title:T('Q&A: analyst questions by topic (top 5 topics, keyword-tagged)','问答：按话题的分析师提问数（前 5 个话题，关键词标注）')},scales:{y:{ticks:{precision:0}}}})});}
   const lab8=Q.concat([L('FQ1 FY27 (guide)','FQ1 FY27（指引）')]);
   chart('clA',{data:{labels:lab8,datasets:[{type:'bar',label:L('Revenue guide midpoint ($B)','营收指引中值（$B）'),data:G.rev_mid,backgroundColor:C.guide},{type:'bar',label:L('Actual revenue ($B)','实际营收（$B）'),data:G.rev_act.map(v=>typeof v==='number'?v:null),backgroundColor:C.dram},{type:'line',label:L('Non-GAAP GM actual %','非 GAAP 毛利率实际 %'),data:G.gm_act.map(v=>typeof v==='number'?v:null),borderColor:C.g,yAxisID:'y1'},{type:'line',label:L('GM guide %','毛利率指引 %'),data:G.gm_mid,borderColor:C.y,borderDash:[4,4],yAxisID:'y1'}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Revenue & GM: guidance vs actual','营收与毛利率：指引 vs 实际')},scales:{y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}})});
   chart('clB',{data:{labels:Q,datasets:[{type:'bar',label:L('EPS beat vs guide midpoint %','EPS 相对指引中值超预期 %'),data:G.eps_act.slice(0,8).map((v,i)=>(v/G.eps_mid[i]-1)*100),backgroundColor:C.g},{type:'bar',label:L('Next-day stock move %','次日股价涨跌 %'),data:G.move.map(v=>v*100),backgroundColor:G.move.map(v=>v>=0?C.up:C.dn)}]},options:baseOpts({plugins:{legend:{position:'bottom'},title:T('Non-GAAP EPS beat vs stock reaction (%)','非 GAAP EPS 超预期 vs 股价反应（%）')}})});
@@ -771,7 +823,7 @@ function sources(){
   <h3>${L('Build log','构建日志')}</h3><ul class="notes">${D.meta.build_log.map(l=>`<li>${E(l)}</li>`).join('')}</ul>`;
 }
 /* ---------- routing ---------- */
-const R={overview,financials,revenue,'capacity-capex':capacityCapex,buybacks,insiders,calls,estimates,competition,sources}, done={};
+const R={overview,financials,revenue,cycle,'capacity-capex':capacityCapex,buybacks,insiders,calls,estimates,competition,sources}, done={};
 const ALIAS={capacity:'capacity-capex',capex:'capacity-capex'}; // old #capacity / #capex links land on the merged tab, at their section
 function route(){let [t,sub]=(location.hash.slice(1)||'overview').split('/');const anchor=ALIAS[t]?t:null; if(anchor){t=ALIAS[t]; history.replaceState(null,'','#'+t);} const tab=R[t]?t:'overview';
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+tab));
