@@ -12,7 +12,7 @@
  h.lang=l==='zh'?'zh-CN':'en'; h.dataset.lang=l; if(l==='zh') document.title='美光 (MU) 研究看板 · © 2026 Hugo Tian';})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1792457218"></script>
+<script src="data.js?v=1792504493"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -386,7 +386,7 @@ function header(start){
        </div>`
      :`<div class="hstat"><div class="l">${L('MU year-to-date','MU 年初至今')}</div><div class="v na">${NA()}</div></div>`,
     `<div class="hstat" title="${E(k.next_earnings)}"><div class="l">${L('Next earnings (FQ1 FY27)','下次财报（FQ1 FY27）')}</div><div class="v" style="font-size:14px">${E((k.next_earn||{}).company||'Not yet announced by Micron')}</div>${(k.next_earn||{}).third_party?`<div class="s">${E(k.next_earn.short||k.next_earn.third_party)}</div>`:''}</div>`,
-    `<div class="hstat"><div class="l">${L('Buyback authorization left','剩余回购授权')}</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">${L('of $10B (2018 program; implied)','$10B 中（2018 年计划；推算）')}</div></div>`,
+    `<div class="hstat"><div class="l">${L('Buyback authorization left','剩余回购授权')}</div><div class="v">~$${fmt(k.bb_remaining/1000,2)}B</div><div class="s">${L('of $10B 2018 program · total → $35.16B from 9 Dec 2026','$10B 2018 年计划中 · 2026年12月9日起总额增至 $35.16B')}</div></div>`,
     `<div class="hstat"><div class="l">${L('CHIPS step-up','CHIPS 回购上限提升')}</div><div class="v" style="font-size:15px">${L('9 Dec 2026','2026年12月9日')}</div><div class="s" id="cd1"></div></div>`].join('');
   const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-new Date())/864e5); $('#cd1').textContent=days>0?L(`${days} days away`,`还有 ${days} 天`):L('in effect','已生效');
   if(start!==false) liveQuote(); else { if(LQ.tv){ LQ.tv=false; tvFallback(true); } else if(LQ.last&&LQ.ok) renderQuote(LQ.last); }
@@ -553,7 +553,7 @@ function buybacks(){
     return `<div class="card ${hot?'hot':''}"><div class="mut" style="font-size:12px">${p.from} → ${p.to||'…'} ${cur?`<span class="pill buy">${L('CURRENT','当前')}</span>`:''}</div><div style="font-weight:800;margin:4px 0">${E(p.name)}</div><div style="font-size:12.5px">${E(p.rule)}</div></div>`}).join('');
   const days=Math.ceil((new Date('2026-12-09T00:00:00-05:00')-now)/864e5);
   $('#s-buybacks').innerHTML=`<h2>${L('Buybacks & CHIPS Act limits','回购与 CHIPS 法案限制')}</h2>
-  <div class="grid g4"><div class="card kpi"><div class="l">${L('Authorization remaining','剩余授权额度')}</div><div class="v">~$${fmt(B.remaining)}M</div><div class="s">${L('$10B program (May 2018, no expiry); implied after FQ4 FY26','$10B 回购计划（2018年5月，无到期日）；FQ4 FY26 后推算')}</div></div>
+  <div class="grid g4"><div class="card kpi"><div class="l">${L('Authorization remaining','剩余授权额度')}</div><div class="v">~$${fmt(B.remaining)}M</div><div class="s">${L('Left under the $10B May 2018 program at 3 Sep 2026. Board raised the total to $35.16B on 8 Oct 2026, for repurchases from 9 Dec 2026 (FY26 10-K)','截至 2026年9月3日 $10B（2018年5月）回购计划剩余额度。董事会于 2026年10月8日将总授权提高至 $35.16B，自 2026年12月9日起执行回购（FY26 10-K）')}</div></div>
   <div class="card kpi"><div class="l">${L('FY26 program buybacks','FY26 计划内回购')}</div><div class="v">$650M</div><div class="s">${L('2.49M sh @ ~$261 (FQ1 $300M, FQ2 $350M; none FQ3–FQ4)','2.49M 股，均价约 $261（FQ1 $300M，FQ2 $350M；FQ3–FQ4 无）')}</div></div>
   <div class="card kpi"><div class="l">${L('CHIPS step-up date','CHIPS 上限提升日期')}</div><div class="v" style="color:var(--warn)">${L('9 Dec 2026','2026年12月9日')}</div><div class="s">${days>0?L(days+' days away','还有 '+days+' 天'):L('in effect','已生效')} · ${L('2nd anniversary of Award Date','授予日两周年')}</div></div>
   <div class="card kpi"><div class="l">${L('Restriction ends','限制结束')}</div><div class="v">${L('9 Dec 2029','2029年12月9日')}</div><div class="s">${L('5th anniversary','五周年')}</div></div></div>
