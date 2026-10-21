@@ -12,7 +12,7 @@
  h.lang=l==='zh'?'zh-CN':'en'; h.dataset.lang=l; if(l==='zh') document.title='美光 (MU) 研究看板 · © 2026 Hugo Tian';})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1792543373"></script>
+<script src="data.js?v=1792560699"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -172,17 +172,22 @@ footer b{color:var(--txt);font-weight:500}
 <section id="s-revenue"></section>
 <section id="s-cycle"></section>
 <section id="s-capacity-capex"></section>
+<section id="s-fabs"></section>
 <section id="s-buybacks"></section>
 <section id="s-insiders"></section>
 <section id="s-calls"></section>
 <section id="s-estimates"></section>
 <section id="s-competition"></section>
+<section id="s-china"></section>
+<section id="s-people"></section>
+<section id="s-holders"></section>
+<section id="s-catalysts"></section>
 <section id="s-sources"></section>
 </main>
 <footer>© 2026 Hugo Tian. All rights reserved.</footer>
 <script>
 const D = window.MU_DATA, Q = D.meta.quarters;
-const TABS=[['overview','Overview','概览'],['financials','Financials','财务'],['revenue','Revenue & Pricing','营收与价格'],['cycle','Memory Cycle','存储周期'],['capacity-capex','Capacity & Capex','产能与资本开支'],['buybacks','Buybacks & CHIPS','回购与 CHIPS'],['insiders','Insiders','内部人交易'],['calls','Earnings Calls','业绩电话会'],['estimates','Wall Street Estimates','华尔街预期'],['competition','Competition','竞争格局'],['sources','Sources & Live feed','来源与实时数据']];
+const TABS=[['overview','Overview','概览'],['financials','Financials','财务'],['revenue','Revenue & Pricing','营收与价格'],['cycle','Memory Cycle','存储周期'],['capacity-capex','Capacity & Capex','产能与资本开支'],['fabs','Fabs & HBM','晶圆厂与 HBM'],['buybacks','Buybacks & CHIPS','回购与 CHIPS'],['insiders','Insiders','内部人交易'],['calls','Earnings Calls','业绩电话会'],['estimates','Wall Street Estimates','华尔街预期'],['competition','Competition','竞争格局'],['china','China Risk','中国风险'],['people','Key People','关键人物'],['holders','13F Holders','13F 持仓'],['catalysts','Catalysts','催化剂'],['sources','Sources & Live feed','来源与实时数据']];
 const $=s=>document.querySelector(s);
 const fmt=(v,d=0)=>v==null?'n/a':Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const fB=v=>v==null?'n/a':'$'+(v/1000).toFixed(1)+'B';
@@ -276,7 +281,7 @@ function nwZh(root){ if(LANG!=='zh'||!root) return; const w=document.createTreeW
   ns.forEach(n=>{const f=document.createDocumentFragment(); let last=0, s=n.nodeValue; s.replace(ZDR,(m,i)=>{ if(i>last) f.appendChild(document.createTextNode(s.slice(last,i))); const sp=document.createElement('span'); sp.className='nw'; sp.textContent=m; f.appendChild(sp); last=i+m.length; return m;}); if(last<s.length) f.appendChild(document.createTextNode(s.slice(last))); n.parentNode.replaceChild(f,n);}); }
 let _tcPending=false;
 new MutationObserver(()=>{ if(_tcPending) return; _tcPending=true; requestAnimationFrame(()=>{_tcPending=false; tightCols(document.querySelector('main')); nwZh(document.querySelector('main')); nwZh($('#hstats'));}); }).observe(document.body,{childList:true,subtree:true});
-const SCHED_NOTE=()=>L('The list refreshes on each scheduled scan, Tue–Sat 8:40 AM and weekdays 9:40 PM SGT','列表在每次定时扫描时刷新：周二至周六 8:40 AM 及工作日 9:40 PM SGT');
+const SCHED_NOTE=()=>L('The list refreshes on each scheduled scan, Tue–Fri 8:40 AM and weekdays 9:40 PM SGT','列表在每次定时扫描时刷新：周二至周五 8:40 AM 及工作日 9:40 PM SGT');
 const charts={};
 function chart(id,cfg){const el=document.getElementById(id); if(!el) return; if(charts[id]) charts[id].destroy(); charts[id]=new Chart(el,cfg);}
 const hiOpts=(extra={})=>baseOpts(Object.assign({devicePixelRatio:Math.max(2,window.devicePixelRatio||1)},extra)); // sharp charts for the new sections
@@ -822,8 +827,96 @@ function sources(){
   <h3>${L('Source documents','来源文件')}</h3><div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Source','来源')}</th><th>URL</th></tr></thead><tbody>${D.sources.map(s=>`<tr><td>${E(s[0])}</td><td><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[1])}</a></td></tr>`).join('')}</tbody></table></div>
   <h3>${L('Build log','构建日志')}</h3><ul class="notes">${D.meta.build_log.map(l=>`<li>${E(l)}</li>`).join('')}</ul>`;
 }
+/* ---------- v3 sections: fabs & HBM, key people, 13F holders, catalysts, China risk (data: D.v3, bilingual [en,zh]) ---------- */
+const V=D.v3||{};
+const B=x=>x==null?'':Array.isArray(x)?(LANG==='zh'?x[1]:x[0]):String(x);
+const BE=x=>esc(B(x));
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fd=s=>{if(!s) return '—'; const p=String(s).split('-').map(Number); if(p.length===3) return LANG==='zh'?`${p[0]}年${p[1]}月${p[2]}日`:`${p[2]} ${MN[p[1]-1]} ${p[0]}`; if(p.length===2) return LANG==='zh'?`${p[0]}年${p[1]}月`:`${MN[p[1]-1]} ${p[0]}`; return esc(s);};
+const lk=l=>l?`<a href="${esc(l.u)}" target="_blank" rel="noopener">${BE(l.t)}</a>`:'';
+const lks=a=>(a||[]).map(lk).join(' · ');
+const v3na=()=>`<div class="card mut">${L('This section is unavailable in this build.','本次构建中此部分不可用。')}</div>`;
+const STG={build:['Under construction','建设中','planned'],prod:['Producing','已投产','buy'],ramp:['Ramping','爬坡中','buy'],risk:['Labour action','劳资行动','nonplan']};
+const HST={vol:['Volume','量产','buy'],sample:['Sampling','送样','planned'],dev:['In development','开发中','planned'],watch:['Watch','关注','other'],none:['Not announced','未宣布','other']};
+const pill=(m,k)=>{const x=m[k]||['—','—','other']; return `<span class="pill ${x[2]}">${L(x[0],x[1])}</span>`;};
+function fabsHbm(){
+  const el=$('#s-fabs'); if(!V.fabs){el.innerHTML=v3na();return;}
+  const C=V.chips;
+  el.innerHTML=`<h2>${L('Fabs &amp; HBM','晶圆厂与 HBM')}</h2>
+  <h3>${L('Fab and capacity tracker','晶圆厂与产能追踪')}</h3><div class="mut" style="font-size:12px;margin-bottom:6px">${L('Company statements unless marked reported. Timing as stated in the FY26 10-K (filed 9 Oct 2026) and the FQ4 FY26 call (30 Sep 2026).','除标注“媒体报道”外均为公司表述。时间表以 FY26 10-K（2026年10月9日 提交）及 FQ4 FY26 电话会（2026年9月30日）为准。')}</div>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Site','厂区')}</th><th>${L('Stage','阶段')}</th><th>${L('Type','类型')}</th><th>${L('Status','状态')}</th><th>${L('Timing','时间')}</th><th>${L('Incentives / notes','补贴 / 备注')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+  ${V.fabs.map(f=>`<tr><td><b>${BE(f.site)}</b></td><td>${pill(STG,f.stage)}</td><td>${BE(f.kind)}</td><td>${BE(f.status)}</td><td>${BE(f.timing)}</td><td>${BE(f.support)}</td><td>${lks(f.src)}</td></tr>`).join('')}</tbody></table></div>
+  <h3>${L('CHIPS Act: awarded vs recognised','CHIPS 法案：获批 vs 已确认')}</h3>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Program','项目')}</th><th>${L('Award (maximum)','补助（上限）')}</th><th>${L('Received / recognised','已收 / 已确认')}</th></tr></thead><tbody>
+  ${C.rows.map(r=>`<tr><td>${BE(r[0])}</td><td class="nw">${BE(r[1])}</td><td>${BE(r[2])}</td></tr>`).join('')}</tbody></table></div>
+  <ul class="notes">${C.notes.map(n=>`<li>${BE(n)}</li>`).join('')}<li>${L('Sources','来源')}: ${lks(C.src)}</li></ul>
+  <h3>${L('HBM qualification tracker','HBM 认证追踪')}</h3>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Product','产品')}</th><th>${L('Customer / platform','客户 / 平台')}</th><th>${L('Stage','阶段')}</th><th>${L('Status','状态')}</th><th>${L('Basis','依据')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+  ${V.hbm.map(h=>`<tr><td class="nw"><b>${BE(h.prod)}</b></td><td>${BE(h.cust)}</td><td>${pill(HST,h.state)}</td><td>${BE(h.status)}</td><td>${BE(h.who)}</td><td>${lks(h.src)}</td></tr>`).join('')}</tbody></table></div>
+  <h3>${L('Sold-out status','售罄状态')}</h3>
+  <div class="grid g4">${V.sold.map(s=>`<div class="card kpi"><div class="l">${BE(s[0])}</div><div class="s" style="color:var(--txt);font-size:13.5px;margin:6px 0">${BE(s[1])}</div><div class="s">${lk(s[3])}</div></div>`).join('')}</div>`;
+}
+function people(){
+  const el=$('#s-people'); if(!V.people){el.innerHTML=v3na();return;}
+  const KD={pr:['Prepared remarks','讲稿'],qa:['Said in Q&A','问答中表述'],conf:['Conference','会议'],ind:['Industry','行业']};
+  const card=q=>`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><div><b>${BE(q.who)}</b> <span class="mut" style="font-size:12px">${BE(q.role)}</span></div><span class="mut nw" style="font-size:12px">${fd(q.date)}</span></div>
+    <div style="margin:10px 0;font-size:14.5px;line-height:1.5">“${esc(q.en)}”${LANG==='zh'?`<br><span class="mut">译文：${esc(q.zh)}</span>`:''}</div>
+    <div class="mut" style="font-size:12px"><span class="pill other">${L(...KD[q.kind])}</span> ${BE(q.venue)} · <a href="${esc(q.url)}" target="_blank" rel="noopener">${L('source','来源')}</a></div></div>`;
+  el.innerHTML=`<h2>${L('Key people','关键人物')}</h2><div class="mut" style="font-size:12px;margin-bottom:14px">${L('Verbatim quotes, dated and linked. Q&amp;A items come from third-party transcripts and are labelled. No X posts are quoted: none from these executives’ verified accounts was found that adds to the filings and calls.','原文引用，注明日期并附链接。问答内容来自第三方记录并已标注。未引用 X 帖子：未在这些高管的认证账户中找到超出申报文件和电话会的内容。')}</div>
+  <div class="grid g2">${V.people.map(card).join('')}</div><h3>${L('Industry voices','行业声音')}</h3><div class="grid g2">${V.industry.map(card).join('')}</div>`;
+}
+function holders(){
+  const el=$('#s-holders'), H=V.h13f; if(!H||H.status!=='ok'){el.innerHTML=`<h2>${L('13F holders','13F 持仓')}</h2>`+v3na();return;}
+  const P=H.periods, qn=p=>{const [y,m]=p.split('-');return `Q${Math.ceil(+m/3)} ${y}`;};
+  const fm=v=>v==null?'—':(v/1e6).toFixed(2);
+  const row=t=>`<tr><td><b>${BE(t.name)}</b></td>${t.q.map((q,i)=>{const pv=i?t.q[i-1][1]:null, ch=(q[1]!=null&&pv)?(q[1]/pv-1)*100:null;
+    return `<td class="nw" title="${L('as of','截至')} ${q[0]}${q[3]?' · '+L('filed','提交')+' '+q[3]:''}">${q[4]?`<a href="${esc(q[4])}" target="_blank" rel="noopener">${fm(q[1])}</a>`:fm(q[1])}${ch!=null&&Math.abs(ch)>=10?`<br><span class="${ch>0?'pos':'neg'}" style="font-size:11px">${ch>0?'+':''}${ch.toFixed(0)}%</span>`:''}</td>`;}).join('')}</tr>`;
+  const head=`<thead><tr><th>${L('Filer (13F manager)','申报机构（13F 管理人）')}</th>${P.map(p=>`<th class="nw">${qn(p)}<br><span class="mut" style="font-weight:400">${L('as of','截至')} ${fd(p)}</span></th>`).join('')}</tr></thead>`;
+  el.innerHTML=`<h2>${L('13F holders','13F 持仓')}</h2>
+  <div class="mut" style="font-size:12px;margin-bottom:10px">${L(`MU shares held (millions) per SEC Form 13F-HR, matched on CUSIP 595112103; share positions only (options excluded). Each column is a quarter-end as-of date; 13Fs are filed up to 45 days later. Hover a cell for its filing date; click for the filing. Ranked by the ${qn(P[P.length-1])} position. ${H.nfilers[P[P.length-1]]} filers reported MU for ${qn(P[P.length-1])}.`,`根据 SEC 13F-HR 表格统计的美光持股（百万股），按 CUSIP 595112103 匹配；仅计股票头寸（不含期权）。每列为季末截至日期；13F 最迟在季末后 45 天提交。鼠标悬停可见提交日期，点击可打开申报文件。按 ${qn(P[P.length-1])} 持仓排序。${qn(P[P.length-1])} 共有 ${H.nfilers[P[P.length-1]]} 家机构申报持有美光。`)}</div>
+  <div class="card"><div class="chartbox"><canvas id="h13A"></canvas></div></div>
+  <h3>${L('Top 15 institutional holders','前 15 大机构持有人')}</h3><div class="tblwrap"><table>${head}<tbody>${H.top.map(row).join('')}</tbody></table></div>
+  <h3>${L('Hedge funds and trading firms','对冲基金与交易公司')}</h3><div class="tblwrap"><table>${head}<tbody>${H.hf.map(row).join('')}</tbody></table></div>
+  <ul class="notes"><li>${L('Source: SEC Form 13F data sets (quarterly bulk files from sec.gov), the same method as the SPCX dashboard. Amendments count only when they restate the full holdings.','来源：SEC 13F 数据集（sec.gov 季度批量文件），与 SPCX 看板方法相同。修正申报仅在完整重述持仓时计入。')}</li>
+  <li>${L('Vanguard split its 13F reporting across several entities from Q1 2026 (Vanguard Capital Management, Vanguard Portfolio Management, Vanguard Fiduciary Trust; before that Vanguard Group Inc.); they are combined in one row so the series stays comparable.','先锋领航自 2026 年第一季度起分多个实体申报 13F（Vanguard Capital Management、Vanguard Portfolio Management、Vanguard Fiduciary Trust；此前为 Vanguard Group Inc.）；此处合并为一行，以便前后可比。')}</li>
+  <li>${L('“—” means no matching 13F-HR row for that quarter (for example, Norges Bank has no matching row for Q3 and Q1 quarters in the data set).','“—”表示该季度无匹配的 13F-HR 记录（例如数据集中挪威央行的第三季度及第一季度无匹配记录）。')}</li>
+  ${(H.excluded||[]).map(x=>`<li>${L('Excluded as a filer data error','因申报数据错误而剔除')}: ${esc(x[0])}, ${L('as of','截至')} ${fd(x[1])}, ${(x[2]/1e6).toFixed(0)}M ${L('shares reported (more than MU’s shares outstanding)','股（超过美光流通股总数）')} · <a href="${esc(x[3])}" target="_blank" rel="noopener">${L('filing','申报文件')}</a></li>`).join('')}</ul>`;
+  const pal=[C.dram,C.y,C.up,C.o,C.dn,C.b];
+  chart('h13A',{type:'line',data:{labels:P.map(qn),datasets:H.top.slice(0,6).map((t,i)=>({label:B(t.name).replace(/ ?[（(].*$/,'').slice(0,28),data:t.q.map(q=>q[1]==null?null:+(q[1]/1e6).toFixed(2)),borderColor:pal[i],backgroundColor:pal[i],pointRadius:3,spanGaps:true}))},
+    options:hiOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:L('Top 6 holders: MU shares held (millions, quarter-end)','前 6 大持有人：美光持股（百万股，季末）')}}})});
+}
+function catalysts(){
+  const el=$('#s-catalysts'); if(!V.cat){el.innerHTML=v3na();return;}
+  const CF={co:['Confirmed','已确认','buy'],rep:['Reported','媒体报道','planned'],est:['Estimate','估计','other']};
+  const today=new Date().toISOString().slice(0,10);
+  el.innerHTML=`<h2>${L('Catalyst calendar','催化剂日历')}</h2><div class="mut" style="font-size:12px;margin-bottom:6px">${L('Times in SGT. Confirmed = announced by the company or organiser; Estimate = expected from past patterns, not announced.','时间为 SGT。已确认 = 公司或主办方已公布；估计 = 按以往规律推断，尚未公布。')}</div>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Date','日期')}</th><th>${L('Time','时间')}</th><th>${L('Event','事件')}</th><th>${L('Status','状态')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+  ${V.cat.map(c=>`<tr${c.d.length===10&&c.d<today?' class="mut"':''}><td class="dt"><b>${fd(c.d)}</b></td><td class="nw">${BE(c.time)}</td><td>${BE(c.ev)}</td><td>${pill(CF,c.conf)}</td><td>${lk(c.src)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function china(){
+  const el=$('#s-china'); if(!V.china){el.innerHTML=v3na();return;}
+  const G=V.china.geo, last=G[G.length-1];
+  el.innerHTML=`<h2>${L('China &amp; export risk','中国与出口风险')}</h2>
+  <div class="grid g4">
+   <div class="card kpi"><div class="l">${L(`FY${String(last.fy).slice(2)} mainland China revenue`,`FY${String(last.fy).slice(2)} 中国大陆营收`)}</div><div class="v">${last.cn_pct}%</div><div class="s">$${(last.cn/1000).toFixed(2)}B · ${L('10-K, customer HQ basis','10-K，按客户总部')}</div></div>
+   <div class="card kpi"><div class="l">${L('Mainland China + Hong Kong','中国大陆 + 香港')}</div><div class="v">${last.cnhk_pct}%</div><div class="s">${L('FY23 low after the CAC ban:','网信办禁令后 FY23 低点：')} ${G.find(g=>g.fy===2023).cnhk_pct}%</div></div>
+   <div class="card kpi"><div class="l">${L('Management outlook FY27','管理层 FY27 展望')}</div><div class="v" style="font-size:20px">${L('Single-digit %','个位数 %')}</div><div class="s">${L('China exposure (Q&amp;A, 30 Sep 2026)','中国敞口（问答，2026年9月30日）')}</div></div>
+   <div class="card kpi"><div class="l">${L('Tech lead vs China','对华技术领先')}</div><div class="v" style="font-size:20px">${L('≥2 nodes','≥2 个节点')}</div><div class="s">${L('Scott DeBoer (Q&amp;A, 30 Sep 2026)','Scott DeBoer（问答，2026年9月30日）')}</div></div></div>
+  <div class="grid g2" style="margin-top:18px"><div class="card"><div class="chartbox"><canvas id="cnA"></canvas></div></div>
+  <div class="card"><h3 style="margin-top:0">${L('Revenue by customer HQ ($M, 10-K)','按客户总部划分的营收（$M，10-K）')}</h3><div class="tblwrap"><table><thead><tr><th>FY</th><th>${L('Mainland China','中国大陆')}</th><th>${L('Hong Kong','香港')}</th><th>${L('Total','合计')}</th><th>${L('China %','中国 %')}</th><th>${L('China + HK %','中国 + 香港 %')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+  ${G.map(g=>`<tr><td>FY${g.fy}</td><td>${g.cn.toLocaleString()}</td><td>${g.hk.toLocaleString()}</td><td>${g.tot.toLocaleString()}</td><td>${g.cn_pct}%</td><td>${g.cnhk_pct}%</td><td><a href="${esc(g.src)}" target="_blank" rel="noopener">10-K</a></td></tr>`).join('')}</tbody></table></div></div></div>
+  <h3>${L('Timeline: CAC ban, export controls, CXMT and YMTC','时间线：网信办禁令、出口管制、长鑫与长江存储')}</h3>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Date','日期')}</th><th>${L('Event','事件')}</th><th>${L('Basis','依据')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+  ${V.china.events.map(e=>`<tr><td class="dt">${fd(e[0])}</td><td>${BE(e[1])}</td><td>${BE(e[2])}</td><td>${lk(e[3])}</td></tr>`).join('')}</tbody></table></div>
+  <h3>${L('Chinese competitors (third-party estimates)','中国竞争对手（第三方估计）')}</h3>
+  <div class="tblwrap"><table class="wrapt"><thead><tr><th>${L('Metric','指标')}</th><th>${L('Value','数值')}</th><th>${L('Basis','依据')}</th><th>${L('Source','来源')}</th></tr></thead><tbody>
+  ${V.china.kpi.map(k=>`<tr><td>${BE(k[0])}</td><td>${BE(k[1])}</td><td>${BE(k[2])}</td><td><a href="${esc(k[3])}" target="_blank" rel="noopener">${L('link','链接')}</a></td></tr>`).join('')}</tbody></table></div>
+  <ul class="notes"><li>${L('FY21–FY23 figures are from the 10-K that first reported them three years later (FY23 10-K covers FY21; FY24 10-K covers FY22; FY25 10-K covers FY23). The CAC decision came in FY23 (21 May 2023). FY26 revenue by HQ includes customers that buy for global data centres, so the China share can move with large orders.','FY21–FY23 数据取自三年后仍披露该年度的 10-K（FY23 10-K 含 FY21；FY24 10-K 含 FY22；FY25 10-K 含 FY23）。网信办决定发生在 FY23（2023年5月21日）。FY26 按总部划分的营收包含为全球数据中心采购的客户，因此中国占比会随大额订单波动。')}</li></ul>`;
+  chart('cnA',{type:'bar',data:{labels:G.map(g=>'FY'+String(g.fy).slice(2)),datasets:[{label:L('Mainland China % of revenue','中国大陆占营收 %'),data:G.map(g=>g.cn_pct),backgroundColor:C.dram,stack:'s'},{label:L('Hong Kong % of revenue','香港占营收 %'),data:G.map(g=>+(g.cnhk_pct-g.cn_pct).toFixed(1)),backgroundColor:C.nand,stack:'s'}]},
+    options:hiOpts({plugins:{legend:{position:'bottom'},title:{display:true,text:L('China + Hong Kong share of revenue (customer HQ, %)','中国 + 香港占营收比重（按客户总部，%）')}},scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>v+'%'}}}})});
+}
 /* ---------- routing ---------- */
-const R={overview,financials,revenue,cycle,'capacity-capex':capacityCapex,buybacks,insiders,calls,estimates,competition,sources}, done={};
+const R={overview,financials,revenue,cycle,'capacity-capex':capacityCapex,fabs:fabsHbm,buybacks,insiders,calls,estimates,competition,people,holders,catalysts,china,sources}, done={};
 const ALIAS={capacity:'capacity-capex',capex:'capacity-capex'}; // old #capacity / #capex links land on the merged tab, at their section
 function route(){let [t,sub]=(location.hash.slice(1)||'overview').split('/');const anchor=ALIAS[t]?t:null; if(anchor){t=ALIAS[t]; history.replaceState(null,'','#'+t);} const tab=R[t]?t:'overview';
   document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+tab));
