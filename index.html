@@ -10,7 +10,7 @@
 <script>(function(){var h=document.documentElement;try{var t=localStorage.getItem('mu-theme');if(t==='light'||t==='dark')h.dataset.theme=t;}catch(e){}})();</script>
 <script src="chart.umd.min.js"></script>
 <script>if(!window.Chart){document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script>')}</script>
-<script src="data.js?v=1792976564"></script>
+<script src="data.js?v=1792977261"></script>
 <style>
 :root{--font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
  --bg:#f5f5f7;--panel:#ffffff;--panel2:#fafafc;--line:rgba(0,0,0,.08);--hair:#d2d2d7;--txt:#1d1d1f;--mut:#6e6e73;--mut2:#86868b;
@@ -151,6 +151,12 @@ footer b{color:var(--txt);font-weight:500}
  main{padding:12px 16px 30px}h2{font-size:30px;margin:18px 0 16px}h3{font-size:17px}.card{padding:16px;border-radius:16px}.hstat{border-radius:16px;padding:12px 14px}.hstat .v{font-size:22px}
  .hstat.live2>.half+.half{border-left:none;border-top:1px solid var(--line);padding-top:6px;margin-top:4px}.kpi .v{font-size:24px}
  td:first-child,th:first-child{min-width:150px}th,td{padding:8px 10px}.tvchart{height:380px}.chartbox{height:260px}footer{padding:20px 16px 30px}.themebtn .tl2{display:none}}
+.vid{margin-bottom:14px}.vid ul{list-style:none;margin:6px 0 0;padding:0}
+.vid li.v{padding:12px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.45}.vid li.v:first-child{border-top:none}
+.vid .vh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.vid .vd{flex:0 0 auto;min-width:64px;font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.vid .vt{font-weight:600;color:var(--txt);min-width:0;overflow-wrap:anywhere}.vid .vt a{color:inherit;text-decoration:none}.vid .vt a:hover{color:var(--acc)}
+.vid .vm{color:var(--mut);font-size:12px;margin:2px 0 0 74px}.vid .vp{margin:6px 0 0 74px;padding-left:16px;color:var(--txt)}.vid .vp li{margin:3px 0}
+@media(max-width:600px){.vid .vm,.vid .vp{margin-left:0}.vid .vh{gap:4px 10px}}
 </style>
 </head>
 <body>
@@ -709,6 +715,7 @@ function overview() {
   const tvd = L('delayed');
   let h = `<h2>${L('Overview')}</h2>
   ${weeklyCard()}
+  ${videoCard()}
   <div class="card" style="margin-bottom:14px"><h3 style="margin:0 0 6px">${L('MU live price chart')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView')} · ${TV_FRESHNESS()}</span></h3>
   <div class="tvchart" id="tvchart"></div></div>
   <div class="grid g4">
@@ -808,6 +815,12 @@ function overview() {
     })
   });
 }
+function videoCard(){const V=D.video;if(!V||!V.items||!V.items.length)return '';
+const fd=s=>{const d=new Date(s+'T12:00:00Z');return d.getUTCDate()+' '+d.toLocaleString('en-US',{month:'short',timeZone:'UTC'})};
+const li=V.items.map(i=>`<li class="v"><div class="vh"><span class="vd">${fd(i.date)}</span><span class="vt"><a href="https://www.youtube.com/watch?v=${esc(i.id)}" target="_blank" rel="noopener">${esc(i.title)}</a></span></div>
+<div class="vm">${esc(i.channel)} · ${esc(i.who)}${i.aired&&i.aired!==i.date?` · <span class="nw">aired ${fd(i.aired)}</span>`:''}</div>
+<ul class="vp">${i.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></li>`).join('');
+return `<div class="card vid"><h3 style="margin:0">YouTube / video <span class="mut" style="font-size:12px;font-weight:400">· material points from captions/transcripts · newest first</span></h3><ul>${li}</ul></div>`;}
 function weeklyCard() {
   const W = D.weekly;
   if (!W) return '';
