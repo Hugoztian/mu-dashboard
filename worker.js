@@ -1,8 +1,8 @@
 // micron-dashboard Worker: serves the static dashboard (assets) + GET /api/quote (live quote, keyless, CORS *).
-// ?symbol= optional: MU (default), LMND, SPCX, NVDA, TSLA or META (allowlist; anything else -> 400). Market hours/holidays: XNAS calendar for both.
+// ?symbol= optional: MU (default), LMND, SPCX, NVDA, TSLA, META, GOOGL, GOOG, BRK.B, BRK.A (allowlist; anything else -> 400). Market hours/holidays: XNAS calendar for both.
 // Sources, in order: Robinhood public quotes (bounds=24_5: Nasdaq last sale + extended/overnight prints, no key),
 // then Nasdaq.com quote API. Cached in-isolate ~12 s.
-const SYMBOLS = { MU: { exchange: 'Nasdaq' }, LMND: { exchange: 'NYSE' }, SPCX: { exchange: 'Nasdaq' }, NVDA: { exchange: 'Nasdaq' }, TSLA: { exchange: 'Nasdaq' }, META: { exchange: 'Nasdaq' }, GOOGL: { exchange: 'Nasdaq' }, GOOG: { exchange: 'Nasdaq' } }; // allowlist
+const SYMBOLS = { MU: { exchange: 'Nasdaq' }, LMND: { exchange: 'NYSE' }, SPCX: { exchange: 'Nasdaq' }, NVDA: { exchange: 'Nasdaq' }, TSLA: { exchange: 'Nasdaq' }, META: { exchange: 'Nasdaq' }, GOOGL: { exchange: 'Nasdaq' }, GOOG: { exchange: 'Nasdaq' }, 'BRK.B': { exchange: 'NYSE' }, 'BRK.A': { exchange: 'NYSE' } }; // allowlist
 const DEFAULT_SYMBOL = 'MU';
 const TTL_MS = 12000;
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
