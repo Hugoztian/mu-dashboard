@@ -1,7 +1,7 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-02 08:49 SGT",
+ "updated": "2026-11-02 08:53 SGT",
  "from": "2026-10-26",
  "to": "2026-11-02",
  "items": [
@@ -207,6 +207,18 @@
    "date": "2026-10-30",
    "headline": "CXMT Q3 2026: revenue RMB 118.71B (+613% YoY, +19.3% QoQ, slowing from +95.9% in Q2), attributable net profit RMB 54.4B (+3% QoQ), gross margin 89.5%; sixth-generation DRAM samples completed validation; RMB 1-2B buyback approved. Its first results since the July IPO fed CXMT competition worries in memory stocks (The Standard (Reuters) / Invezz, 2026-10-30)",
    "url": "https://www.thestandard.com.hk/innovation/article/347055/Chinas-CXMT-reports-quarterly-profit-after-Asias-biggest-IPO-this-year",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-01",
+   "headline": "Korea October 2026 chip exports $56.44B (+259.4% YoY, second-highest month after September's $60.3B); memory exports $50.14B (+360.5%). Ministry fixed-price series: DDR5 16Gb $48.0 (Sep) to $50.0 (Oct); NAND 128Gb flat at $30.6 (Korea MOTIR / Korea JoongAng Daily, 2026-11-01)",
+   "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172360/view",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-01",
+   "headline": "CXMT says it has completed engineering-sample validation of a sixth-generation DRAM platform on 4F² cell architecture, with mass production to follow gradually on customer validation and demand; it pushed back on Micron's view that capacitor spacing limits 4F² density gains (Seoul Economic Daily (Yicai via Reuters-Yonhap), 2026-11-01)",
+   "url": "https://en.sedaily.com/international/2026/11/01/chinas-cxmt-says-it-has-validated-4f2-dram-samples",
    "kind": "news"
   }
  ]
