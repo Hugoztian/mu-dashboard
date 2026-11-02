@@ -1,0 +1,213 @@
+{
+ "ticker": "MU",
+ "name": "Micron",
+ "updated": "2026-11-02 08:49 SGT",
+ "from": "2026-10-26",
+ "to": "2026-11-02",
+ "items": [
+  {
+   "date": "2026-10-26",
+   "headline": "MU closed up 3.0% at $903.70 on 26 Oct (from $877.55 on 23 Oct) as memory stocks rebounded on BofA's tight-supply note and SK hynix's special-dividend reports; it traded about 1.6% higher at $918.25 in the overnight session (Blue Ocean ATS, 8:57 p.m. ET) (Robinhood real-time quote (Nasdaq official close) / CNBC, 2026-10-26)",
+   "url": "https://www.cnbc.com/2026/10/25/stock-market-today-live-updates.html",
+   "kind": "price"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "MU closed up 2.8% at $928.76 on 27 Oct (from $903.70 on 26 Oct; range $910.67–$935.87) on AI/robotics memory-demand commentary and tight supply; it traded about 1.8% higher at $946.11 in the overnight session (Blue Ocean ATS, 8:55 p.m. ET) ahead of SK hynix's results (Robinhood real-time quote (Nasdaq official close) / MarketBeat, 2026-10-27)",
+   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-stock-jumps-28-heres-what-happened-2026-10-27/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "MU closed up 5.9% at $983.23 on 28 Oct (from $928.76; range $959.34–$990.00, ~30M shares), a fourth straight gain, after SK hynix's record Q3 and 'sold out through 2029' comments; it slipped about 1–2% after hours/overnight (~$959–971) as Alphabet and Microsoft reported (Robinhood real-time quote (Nasdaq official close) / StockAnalysis, 2026-10-28)",
+   "url": "https://stockanalysis.com/stocks/mu/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "MU closed $884.74 on 2026-10-30, +0.8% vs $877.55 on 2026-10-23 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "MU closed -5.30% at $884.74 on 30 Oct (range $861.59–$906.54, 30.5M shares) as the Nasdaq fell ~2.2% on Amazon and AI-capex worries, with CXMT's results adding pressure; ~$889 after hours (Nasdaq close (MarketMinute) / MarketBeat, 2026-10-30)",
+   "url": "https://kvoa.marketminute.com/quote/NQ:MU/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-10-26",
+   "headline": "Bank of America (Vivek Arya) reiterated Buy and a $1,550 target after meeting Micron executives in New York and Boston: 'incrementally more positive' as management sees supply tightening further in 2027–28; customer agreements now run 3–5 years (about 35% of sales, aiming for 50% by 2030; 2031 deals under discussion); BofA estimates $150–200B annual free cash flow in 2027–28 (third-party est.) (TipRanks / StockAnalysis, 2026-10-26)",
+   "url": "https://www.tipranks.com/news/bank-of-america-sees-77-upside-in-micron-stock-mu-after-executive-meetings-heres-why",
+   "kind": "target"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "Bernstein (Mark Li) reiterated Buy and a $1,300 target in a 27 Oct client note, citing a DRAM shortage more acute and prolonged than expected (no change) (Finbold, 2026-10-28)",
+   "url": "https://finbold.com/analyst-sets-micron-mu-stock-price-target-for-the-next-12-months/",
+   "kind": "target"
+  },
+  {
+   "date": "2026-10-26",
+   "headline": "SK hynix said in a 26 Oct clarification filing that nothing is finalized on a reported ~₩16T special dividend funded by Kioxia stake gains; it will announce additional shareholder returns with its Q3 results on 28 Oct after a board resolution (Chosun Biz (SK hynix disclosure), 2026-10-26)",
+   "url": "https://biz.chosun.com/en/en-it/2026/10/26/EQMLSD2O2ZCKDJ6ZEOJWAWVPG4/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-26",
+   "headline": "Korean press, citing foreign media (third-party est.; HBM generation not disclosed): Samsung's average HBM quote is about $4.50/Gb vs Micron about $4.00 and SK hynix $3.60–3.80; TrendForce forecasts 2027 HBM ASP up 121% as HBM4 mix rises (estimate) (Businesskorea / Digital Times, 2026-10-26)",
+   "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279697",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-26",
+   "headline": "Meta said it plans to raise $95B ($35B underwritten equity, then a $60B at-the-market program) to fund AI infrastructure; Nvidia, AMD and Broadcom may buy up to $5B of shares. Meta's 2026 capex guide is $135–145B (hyperscaler demand read-through for DRAM/HBM) (CNBC, 2026-10-26)",
+   "url": "https://www.cnbc.com/2026/10/26/meta-stock-offering-ai.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "Micron's second round of wage talks with the Taoyuan union ended on 27 Oct without a deal; the union still wants 15% of operating profit paid quarterly plus a one-off 83-month bonus, and the next round is set for 6 Nov at 2 p.m. Taichung's earlier deal faces a member petition; no production disruption reported (Domino Theory, 2026-10-27)",
+   "url": "https://dominotheory.com/micron-wage-negotiations-in-taiwan-stall-as-u-s-memory-chip-maker-fails-to-address-union-demands/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "Micron plans its G11 NAND (about 400 layers) with wafer-to-wafer hybrid bonding, shipping in 2H 2027: density targeted at 42 Gb/mm² vs 21 for G9, I/O 5,400 MT/s vs 3,600, and about 25% lower transfer energy per bit (TechPowerUp, 2026-10-27)",
+   "url": "https://www.techpowerup.com/354167/micron-plans-400-layer-3d-nand-with-wafer-to-wafer-bonding-in-2027",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "Alibaba, Tencent and ByteDance have proposed long-term DRAM and NAND supply agreements of up to 10 years with Samsung and SK hynix (industry sources); Micron is effectively shut out of China's domestic market, so it is not part of these talks. SK hynix ADRs rose 3% premarket (Maeil Business (MK) / Seeking Alpha, 2026-10-27)",
+   "url": "https://www.mk.co.kr/en/business/12187432",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "Elon Musk warned of a possible memory glut from Chinese supply after 2028, while Nvidia's Jensen Huang expects AI demand to outpace supply for years; Korean analysts quoted see tightness until at least 2030, citing CXMT/YMTC's lack of EUV access (opinion/analysis) (Korea JoongAng Daily, 2026-10-27)",
+   "url": "https://www.koreajoongangdaily.com/business/musk-warned-of-a-chip-glut-from-china-in-2028-but-experts-arent-so-sure/12939507",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "DigiTimes: DRAM price growth has slowed sharply in Q4 2026, but supply shortages are intensifying as manufacturers restrict shipments, with supply to some buyers cut by up to 50% (third-party report) (DigiTimes, 2026-10-27)",
+   "url": "https://www.digitimes.com/news/a20261027PD211/dram-price-growth-demand-2026.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-27",
+   "headline": "Micron announced over $67M of new Idaho community investments tied to its Boise fab build-out: $11.6M for public transit, $10.5M for housing and more than $45M for children's savings accounts (Micron (GlobeNewswire), 2026-10-27)",
+   "url": "https://www.globenewswire.com/news-release/2026/10/27/3389489/14450/en/micron-announces-over-67-million-in-new-idaho-community-investments-for-transportation-housing-and-children.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "SK hynix Q3 2026: record revenue ₩104.6T (+32% QoQ, +328% YoY) and operating profit ₩83.3T (80% margin), above LSEG SmartEstimates of ₩98.3T / ₩76.7T (CNBC). HBM4 to overtake HBM3E in shipments and revenue in Q4 as M15X ramps; LTAs with 14 customers cover >50% of 2027–28 capacity with market-linked price ranges; investment to rise significantly in 2027; demand seen exceeding supply through 2030; ~₩100T 2026 shareholder returns incl. a Kioxia-gain special dividend; Solidigm IPO review halted (SK hynix newsroom / CNBC, 2026-10-28)",
+   "url": "https://news.skhynix.com/en/q3-2026-business-results/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "SK hynix on its Q3 call: DRAM and HBM volumes are 'effectively sold out' through 2029 on signed LTAs plus demand under discussion (LTA customers up to 14 from 10); customer HBM requests exceed available supply by more than 2x (MoneyToday); Q3 DRAM ASP rose in the high-20s% and NAND ASP mid-20s% QoQ; HBM4 yields stable and HBM4 pricing to lift 2027 HBM revenue. KOSPI +6.63% to 6,012.44, SK hynix +10.89%, Samsung +9.01% on 28 Oct (Korea JoongAng Daily / MoneyToday (SK hynix Q3 call), 2026-10-28)",
+   "url": "https://www.koreajoongangdaily.com/business/sk-hynix-says-dram-hbm-booked-through-2029-as-profit-soars-to-62b/12942008",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "Reuters (sources): CXMT plans limited HBM3E production within about two months despite yields of only ~20–30% (vs ~70% at SK hynix); it has sampled HBM3E to several Chinese AI chip designers. US HBM export curbs to China have applied since Dec 2024 (Reuters (via U.S. News), 2026-10-28)",
+   "url": "https://money.usnews.com/investing/news/articles/2026-10-28/exclusive-chinas-cxmt-to-start-advanced-ai-memory-production-despite-poor-yields-sources-say",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "TrendForce (third-party, 28 Oct): DDR4 supply tightening as the big three phase out mature nodes, lifting consumer DRAM contract prices moderately this quarter; spot momentum stalled on weak demand and typhoon disruption; suppliers' inventory 'extremely low' on AI and extra US CSP orders, but PC OEMs have cut 2027 purchase volumes, smartphone brands turned cautious and some CSPs face cash-flow constraints (TrendForce DRAM Market Bulletin, 2026-10-28)",
+   "url": "https://www.trendforce.com/research/download/RP261028TO",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "Susquehanna's Mehdi Hosseini (CNBC, 28 Oct) kept SK hynix at Neutral and said he prefers Micron for its broader server-DRAM portfolio as AI shifts from training to inference; sees the memory cycle supportive for 'a couple more years', with margins possibly normalising but no significant downturn (CNBC International / Benzinga, 2026-10-28)",
+   "url": "https://www.benzinga.com/markets/tech/26/10/62646640/why-is-micron-technology-stock-surging-wednesday-2",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "Alphabet Q3: capex $51.4B (below the ~$55.1B expected), 2026 capex guide held at $195–205B, and the CFO said capex will 'increase significantly' in 2027 (details on the Q4 call); free cash flow was negative $9.1B and the stock fell about 10% after hours (CNBC, 2026-10-28)",
+   "url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "Microsoft Q1 FY27: capex including finance leases $45.2B (+~30% YoY) vs a $50.7B StreetAccount estimate; Azure grew 48%. Microsoft now frames calendar-2026 capex at about $175B after shifting future data-centre leases from finance to operating leases (spend plans otherwise unchanged) and still expects FY27 capex to grow; neocloud stocks fell ~3–5% after hours (CNBC, 2026-10-28)",
+   "url": "https://www.cnbc.com/2026/10/28/neocloud-stocks-drop-after-microsoft-revises-capex-down.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-28",
+   "headline": "TrendForce weekly spot (third-party): 512Gb TLC NAND wafer spot fell 9.19% in the week as Chinese phone brands cut prices for Double 11 and spot sellers turned aggressive; DRAM spot was thin, with mainstream DDR4 1Gx8 3200 up 0.55% to $47.04 (27 Oct). Spot only; contract prices are set separately (TrendForce, 2026-10-28)",
+   "url": "https://www.trendforce.com/news/2026/10/28/insights-memory-spot-price-update-nand-spot-price-cuts-accelerate-amid-china-phone-discounts-512gb-tlc-sink-9-19/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-29",
+   "headline": "Samsung Q3 2026: record revenue ₩195.3T and operating profit ₩107.4T (chip division ₩106.5T), broadly in line with LSEG, but net profit ₩75.1T missed (~₩86T FactSet) and shareholder-return details were pushed to late January; shares fell 4.1% in Seoul. Samsung expects 2027 AI memory demand to 'far exceed' industry supply (Samsung Newsroom / CNBC, 2026-10-29)",
+   "url": "https://www.cnbc.com/2026/10/29/samsung-electronics-third-quarter-earnings.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-29",
+   "headline": "Samsung Q3 call: DRAM ASP rose ~20% QoQ and NAND ASP high teens; HBM4 revenue more than tripled QoQ to ~60% of HBM sales, HBM share now on par with its DRAM share; 2027 HBM volumes sold out at target prices; HBM4E mass production 1H27; Q4 bit growth guided mid-to-high teens for DRAM, mid-teens for NAND (The Asia Business Daily (Samsung call), 2026-10-29)",
+   "url": "https://www.asiae.co.kr/en/article/enterprise-CEO/2026102911191454019",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-29",
+   "headline": "MU fell ~3% early on 29 Oct (~$955 vs $983.23 close) as Samsung's net-profit miss and Alphabet's post-earnings drop hit memory peers (SanDisk, SK hynix ADR also lower); SanDisk reports FQ1 FY27 after the US close tonight (Investing.com, 2026-10-29)",
+   "url": "https://www.investing.com/news/stock-market-news/why-is-micron-technology-stock-sliding-today-93CH-4983337",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "Sandisk FQ1 FY27: revenue $11.03B (+23% QoQ, ~60% volume / ~40% price) and non-GAAP EPS $49.51 beat (~$10.7B / ~$47.15 expected); gross margin 85.1%; data-centre revenue +61% QoQ to $4.8B; FQ2 guide $12.2–12.6B. On the call it said NAND prices should keep rising modestly through FY27, bits stay allocated beyond CY2027, and long-term agreements cover ~50% of 2027 bits; announced an 8-for-1 split. Shares fell ~2.6% after hours (Sandisk (press release / Investing.com call transcript), 2026-10-30)",
+   "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-sandisk-beats-q1-2027-estimates-shares-fall-93CH-4985403",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "Amazon held 2026 cash capex at ~$220B (Q3 $75.9B, mostly AWS and AI) and expects to spend 'meaningfully more' in 2027; trailing free cash flow -$42.4B. After Microsoft's trim and Alphabet's hold, all three hyperscalers still point to higher 2027 spending (Amazon / CNBC, 2026-10-30)",
+   "url": "https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "MU closed -4.98% at $934.27 on 29 Oct (range $927.24–$971.01, 21.6M shares) as Samsung's net-profit miss and Alphabet's slide weighed on memory stocks, giving back most of the 28 Oct gain (Nasdaq close (MarketMinute), 2026-10-30)",
+   "url": "https://wnbc.marketminute.com/quote/NQ:MU/historical",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "Intel guided 4Q26 below expectations, saying soaring memory prices are cutting PC demand; CFO Zinsner said Intel is 'not optimistic about next year in terms of memory' and does not expect supply to improve in 2027, and it will shift Panther Lake laptop capacity to Granite Rapids server CPUs. Intel shares fell ~21–25%, a demand-destruction signal for PC DRAM/NAND (Zero One digest (Intel 29 Oct call), 2026-10-30)",
+   "url": "https://01.co/theblade/reports/digest/2026-10-30",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "MU opened ~5.5% lower on 30 Oct (~$883 at 09:33 ET vs $934.27 close) in a broad tech sell-off: Amazon fell ~7% premarket on a Q3 miss and a second quarter of negative free cash flow (Q3 capex ~$77B, ~$20B above estimates) and Intel ~25% on its guide; Sandisk, SK hynix ADR, WDC and STX also lower despite Sandisk's beat. No Micron-specific news (CNBC / TipRanks, 2026-10-30)",
+   "url": "https://www.cnbc.com/2026/10/30/amazon-intel-earnings-big-tech-ai-spending-concerns.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "Samsung has signed memory long-term supply agreements with 10 major customers and is negotiating with 10 more, with LTA demand spreading from hyperscalers, OEMs and SoC makers to mobile, automotive and networking; Samsung says 2027 HBM is sold out at target prices and tight supply will persist into 2028 (Electronic Times (etnews), 2026-10-30)",
+   "url": "https://en.etnews.com/20261030200001",
+   "kind": "news"
+  },
+  {
+   "date": "2026-10-30",
+   "headline": "CXMT Q3 2026: revenue RMB 118.71B (+613% YoY, +19.3% QoQ, slowing from +95.9% in Q2), attributable net profit RMB 54.4B (+3% QoQ), gross margin 89.5%; sixth-generation DRAM samples completed validation; RMB 1-2B buyback approved. Its first results since the July IPO fed CXMT competition worries in memory stocks (The Standard (Reuters) / Invezz, 2026-10-30)",
+   "url": "https://www.thestandard.com.hk/innovation/article/347055/Chinas-CXMT-reports-quarterly-profit-after-Asias-biggest-IPO-this-year",
+   "kind": "news"
+  }
+ ]
+}
