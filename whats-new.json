@@ -1,7 +1,7 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-02 08:53 SGT",
+ "updated": "2026-11-02 21:34 SGT",
  "from": "2026-10-26",
  "to": "2026-11-02",
  "items": [
@@ -33,6 +33,12 @@
    "date": "2026-10-30",
    "headline": "MU closed -5.30% at $884.74 on 30 Oct (range $861.59–$906.54, 30.5M shares) as the Nasdaq fell ~2.2% on Amazon and AI-capex worries, with CXMT's results adding pressure; ~$889 after hours (Nasdaq close (MarketMinute) / MarketBeat, 2026-10-30)",
    "url": "https://kvoa.marketminute.com/quote/NQ:MU/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-02",
+   "headline": "MU traded ~1–2% higher pre-market on 2 Nov ($903.35 at 07:20 ET; $893.88 at 08:32 ET) vs the $884.74 close on 30 Oct as US futures recovered from Friday's tech sell-off; the regular session opens 22:30 SGT (Robinhood real-time quote / StockAnalysis, 2026-11-02)",
+   "url": "https://stockanalysis.com/stocks/mu/history/",
    "kind": "price"
   },
   {
@@ -210,6 +216,12 @@
    "kind": "news"
   },
   {
+   "date": "2026-10-30",
+   "headline": "TrendForce (third-party, 30 Oct): consumer DRAM contract gains narrowed to flat-to-slightly up in October as buyers turn cautious into year-end; spot prices have fallen markedly from peaks and decoupled from contract, with some legacy chips now trading below contract; it still expects contract shortages and gradual quarterly increases in 2027 (TrendForce (Specialty DRAM Price, Oct 2026), 2026-10-30)",
+   "url": "https://www.trendforce.com/research/download/RP261030HH",
+   "kind": "news"
+  },
+  {
    "date": "2026-11-01",
    "headline": "Korea October 2026 chip exports $56.44B (+259.4% YoY, second-highest month after September's $60.3B); memory exports $50.14B (+360.5%). Ministry fixed-price series: DDR5 16Gb $48.0 (Sep) to $50.0 (Oct); NAND 128Gb flat at $30.6 (Korea MOTIR / Korea JoongAng Daily, 2026-11-01)",
    "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172360/view",
@@ -219,6 +231,36 @@
    "date": "2026-11-01",
    "headline": "CXMT says it has completed engineering-sample validation of a sixth-generation DRAM platform on 4F² cell architecture, with mass production to follow gradually on customer validation and demand; it pushed back on Micron's view that capacitor spacing limits 4F² density gains (Seoul Economic Daily (Yicai via Reuters-Yonhap), 2026-11-01)",
    "url": "https://en.sedaily.com/international/2026/11/01/chinas-cxmt-says-it-has-validated-4f2-dram-samples",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-02",
+   "headline": "Kioxia guided December-quarter operating profit to ¥2.0T vs ~¥2.35T consensus (Sep quarter ¥1.99T), implying nearly flat NAND pricing after mid-20% ASP growth in the Sep quarter (70% in the June quarter); it blamed shipment timing, said 2027 output is sold out and over half of 2028 allocated; shares fell as much as 15% in Tokyo on 2 Nov (Bloomberg (via CNBC-TV18 / The Japan Times), 2026-11-02)",
+   "url": "https://www.cnbctv18.com/market/kioxia-shares-tumble-after-outlook-suggests-demand-levelling-off-20024463.htm",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-02",
+   "headline": "OpenAI CEO Sam Altman made a surprise weekend visit to Korea, meeting ~50 Samsung executives in Yongin and SK Group's Chey Tae-won with SK hynix executives; no new agreements were announced. The report cites TrendForce (third-party est.) forecasting HBM blended ASP up 121% in 2027 vs 2026 (The Korea Herald, 2026-11-02)",
+   "url": "https://www.koreaherald.com/article/10922884",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-02",
+   "headline": "KOSPI rebounded 2.24% to 5,859.08 on 2 Nov; SK hynix closed +3.81% at ₩1,472,000 and Samsung +1.78% at ₩229,000. SK hynix began buying back 14.92M shares on 29 Oct (through 28 Jan 2027), about 500k (~₩734B) executed so far (Yonhap / Yonhap Infomax, 2026-11-02)",
+   "url": "https://en.yna.co.kr/view/AEN20261102007651320",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-02",
+   "headline": "CXMT plans to send customers samples of its first server-grade DRAM on 4F² architecture by end-2026 (earnings-briefing summary released 31 Oct); no mass-production timeline was given, and SCMP frames 4F² as a route around US equipment curbs that Micron has chosen to bypass (South China Morning Post, 2026-11-02)",
+   "url": "https://www.scmp.com/tech/tech-war/article/3372997/chinas-cxmt-defends-bet-risky-new-dram-architecture-circumvent-us-chip-curbs",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-02",
+   "headline": "TrendForce Weekly Radar (third-party, 2 Nov): DRAM lead times eased to 19 weeks but supply stays 'Very Tight', especially 32GB/64GB RDIMMs; GPU supply moves from Balanced to Tightening as the Rubin transition begins (TrendForce Weekly Radar 008, 2026-11-02)",
+   "url": "https://insights.trendforce.com/p/weekly-radar-008",
    "kind": "news"
   }
  ]
