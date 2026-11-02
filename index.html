@@ -2448,6 +2448,20 @@ function people() {
   el.innerHTML = `<h2>${L('Key people')}</h2><div class="mut" style="font-size:12px;margin-bottom:14px">${L('Verbatim quotes, dated and linked. Q&amp;A items come from third-party transcripts and are labelled. No X posts are quoted: none from these executives’ verified accounts was found that adds to the filings and calls.')}</div>
   <div class="grid g2">${V.people.map(card).join('')}</div><h3>${L('Industry voices')}</h3><div class="grid g2">${V.industry.map(card).join('')}</div>`;
 }
+function lawSec(W) {
+  const ttl = `<h3>${L('Lawmakers (U.S. Congress)')}</h3>`;
+  if (!W || W.status !== 'ok') return ttl + v3na();
+  const usd = n => n >= 1e6 ? '$' + (n / 1e6).toFixed(n % 1e6 ? 2 : 0) + 'M' : '$' + Math.round(n / 1e3) + 'K',
+    rng = (lo, hi) => `${usd(lo)}–${usd(hi)}`,
+    side = s => [s.buys ? `<span class="pos">${s.buys} ${L(s.buys > 1 ? 'buys' : 'buy')}</span> (${rng(s.buyLo, s.buyHi)})` : '', s.sells ? `<span class="neg">${s.sells} ${L(s.sells > 1 ? 'sells' : 'sell')}</span> (${rng(s.sellLo, s.sellHi)})` : ''].filter(Boolean).join('<br>') || '<span class="mut">—</span>',
+    cls = c => /buyer/.test(c) ? 'pos' : /seller/.test(c) ? 'neg' : 'mut',
+    w = W.window, p = W.priorWindow;
+  const body = W.rows.length ? `<div class="tblwrap"><table><thead><tr><th>${L('Name')}</th><th>${L('Chamber')}</th><th class="nw">${L('Disclosed trades')}<br><span class="mut" style="font-weight:400">${fd(w[0])} – ${fd(w[1])}</span></th><th class="nw">${L('Prior window')}<br><span class="mut" style="font-weight:400">${fd(p[0])} – ${fd(p[1])}</span></th><th>${L('Change vs prior')}</th><th>${L('Latest disclosure')}</th><th>${L('Source')}</th></tr></thead><tbody>
+  ${W.rows.map(r => `<tr><td><b>${esc(r.name)}</b></td><td class="nw">${esc(r.chamber)}${r.party ? ' (' + esc(r.party) + ')' : ''}</td><td>${side(r.cur)}</td><td>${side(r.prior)}</td><td class="${cls(r.changeLabel)}">${esc(r.changeLabel)}</td><td class="nw">${fd(r.lastFiled)}<br><span class="mut" style="font-size:11px">${L('traded')} ${fd(r.lastTraded)}</span></td><td><a href="${esc(r.url)}" target="_blank" rel="noopener">${L('trade')}</a></td></tr>`).join('')}</tbody></table></div>` : `<div class="card mut">${L('No MU trades disclosed by members of Congress')} ${fd(p[0])} – ${fd(w[1])}.</div>`;
+  return ttl + `<div class="mut" style="font-size:12px;margin-bottom:10px">${L('MU stock trades disclosed by members of the House and Senate under the STOCK Act, by trade date: last 6 months vs the 6 months before. Congress reports trades in dollar ranges, not share counts or current positions.')}</div>` + body +
+  `<ul class="notes"><li>${L('Source')}: <a href="${esc(W.source.url)}" target="_blank" rel="noopener">${esc(W.source.name)}</a>, ${L('fetched')} ${esc(W.fetchedAt.replace('T', ' '))} SGT; ${L('latest filing in data')} ${fd(W.latestFiled)}. ${L('Official filings')}: ${W.official.map(o => `<a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.name)}</a>`).join(', ')}.</li>
+  <li>${L('Ranges are the disclosure bands (for example $1,001–$15,000) summed per member; buys and sells are shown separately, not netted. Trades must be disclosed within 45 days, so the latest weeks may be incomplete. Includes spouse/dependent accounts as reported; members who have since left office may appear.')}</li></ul>`;
+}
 function holders() {
   const el = $('#s-holders'),
     H = V.h13f;
@@ -2475,7 +2489,7 @@ function holders() {
   <ul class="notes"><li>${L('Source: SEC Form 13F data sets (quarterly bulk files from sec.gov), the same method as the SPCX dashboard. Amendments count only when they restate the full holdings.')}</li>
   <li>${L('Vanguard split its 13F reporting across several entities from Q1 2026 (Vanguard Capital Management, Vanguard Portfolio Management, Vanguard Fiduciary Trust; before that Vanguard Group Inc.); they are combined in one row so the series stays comparable.')}</li>
   <li>${L('“—” means no matching 13F-HR row for that quarter (for example, Norges Bank has no matching row for Q3 and Q1 quarters in the data set).')}</li>
-  ${(H.excluded || []).map(x => `<li>${L('Excluded as a filer data error')}: ${esc(x[0])}, ${L('as of')} ${fd(x[1])}, ${(x[2] / 1e6).toFixed(0)}M ${L('shares reported (more than MU’s shares outstanding)')} · <a href="${esc(x[3])}" target="_blank" rel="noopener">${L('filing')}</a></li>`).join('')}</ul>`;
+  ${(H.excluded || []).map(x => `<li>${L('Excluded as a filer data error')}: ${esc(x[0])}, ${L('as of')} ${fd(x[1])}, ${(x[2] / 1e6).toFixed(0)}M ${L('shares reported (more than MU’s shares outstanding)')} · <a href="${esc(x[3])}" target="_blank" rel="noopener">${L('filing')}</a></li>`).join('')}</ul>${lawSec(V.hLaw)}`;
   const pal = [C.dram, C.y, C.up, C.o, C.dn, C.b];
   chart('h13A', {
     type: 'line',
