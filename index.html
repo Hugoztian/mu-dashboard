@@ -683,7 +683,7 @@ function liveQuote() {
 function header(start) {
   const p = D.price,
     k = D.kpi;
-  $('#updated').innerHTML = `© 2026 Hugo Tian. All rights reserved.`;
+  {const b=(D.meta&&D.meta.built_sgt)||'';const m=b.match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}:\d{2})/);const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const t=m?`${+m[3]} ${M[+m[2]-1]} ${m[1]}, ${m[4]} SGT`:(b||'—');$('#updated').innerHTML=`Last updated: <b>${t}</b>`;}
   const chg = p.status === 'ok' ? (p.close / p.prev_close - 1) * 100 : null;
   const X = p.ext || {},
     ON = X.overnight && X.regular ? X.overnight : null,
