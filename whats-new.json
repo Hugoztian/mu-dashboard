@@ -1,16 +1,10 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-02 21:34 SGT",
- "from": "2026-10-26",
- "to": "2026-11-02",
+ "updated": "2026-11-03 08:57 SGT",
+ "from": "2026-10-27",
+ "to": "2026-11-03",
  "items": [
-  {
-   "date": "2026-10-26",
-   "headline": "MU closed up 3.0% at $903.70 on 26 Oct (from $877.55 on 23 Oct) as memory stocks rebounded on BofA's tight-supply note and SK hynix's special-dividend reports; it traded about 1.6% higher at $918.25 in the overnight session (Blue Ocean ATS, 8:57 p.m. ET) (Robinhood real-time quote (Nasdaq official close) / CNBC, 2026-10-26)",
-   "url": "https://www.cnbc.com/2026/10/25/stock-market-today-live-updates.html",
-   "kind": "price"
-  },
   {
    "date": "2026-10-27",
    "headline": "MU closed up 2.8% at $928.76 on 27 Oct (from $903.70 on 26 Oct; range $910.67–$935.87) on AI/robotics memory-demand commentary and tight supply; it traded about 1.8% higher at $946.11 in the overnight session (Blue Ocean ATS, 8:55 p.m. ET) ahead of SK hynix's results (Robinhood real-time quote (Nasdaq official close) / MarketBeat, 2026-10-27)",
@@ -42,34 +36,16 @@
    "kind": "price"
   },
   {
-   "date": "2026-10-26",
-   "headline": "Bank of America (Vivek Arya) reiterated Buy and a $1,550 target after meeting Micron executives in New York and Boston: 'incrementally more positive' as management sees supply tightening further in 2027–28; customer agreements now run 3–5 years (about 35% of sales, aiming for 50% by 2030; 2031 deals under discussion); BofA estimates $150–200B annual free cash flow in 2027–28 (third-party est.) (TipRanks / StockAnalysis, 2026-10-26)",
-   "url": "https://www.tipranks.com/news/bank-of-america-sees-77-upside-in-micron-stock-mu-after-executive-meetings-heres-why",
-   "kind": "target"
+   "date": "2026-11-02",
+   "headline": "MU fell ~5.8% on 2 Nov to ~$833 (Nasdaq last sale $833.06; open ~$890.66, low $829.24, ~29M shares) after an early gain faded, extending the 30 Oct -5.3% drop; memory/storage peers SanDisk, Western Digital and Seagate fell ~6–8% as Kioxia's soft guide and AI-capex worries hit chips (chip stocks lost over $400B of market value on the day, per Investing.com) (Robinhood real-time quote (Nasdaq last sale) / MarketBeat, 2026-11-02)",
+   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-shares-down-58-whats-next-2026-11-02/",
+   "kind": "price"
   },
   {
    "date": "2026-10-28",
    "headline": "Bernstein (Mark Li) reiterated Buy and a $1,300 target in a 27 Oct client note, citing a DRAM shortage more acute and prolonged than expected (no change) (Finbold, 2026-10-28)",
    "url": "https://finbold.com/analyst-sets-micron-mu-stock-price-target-for-the-next-12-months/",
    "kind": "target"
-  },
-  {
-   "date": "2026-10-26",
-   "headline": "SK hynix said in a 26 Oct clarification filing that nothing is finalized on a reported ~₩16T special dividend funded by Kioxia stake gains; it will announce additional shareholder returns with its Q3 results on 28 Oct after a board resolution (Chosun Biz (SK hynix disclosure), 2026-10-26)",
-   "url": "https://biz.chosun.com/en/en-it/2026/10/26/EQMLSD2O2ZCKDJ6ZEOJWAWVPG4/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-26",
-   "headline": "Korean press, citing foreign media (third-party est.; HBM generation not disclosed): Samsung's average HBM quote is about $4.50/Gb vs Micron about $4.00 and SK hynix $3.60–3.80; TrendForce forecasts 2027 HBM ASP up 121% as HBM4 mix rises (estimate) (Businesskorea / Digital Times, 2026-10-26)",
-   "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279697",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-26",
-   "headline": "Meta said it plans to raise $95B ($35B underwritten equity, then a $60B at-the-market program) to fund AI infrastructure; Nvidia, AMD and Broadcom may buy up to $5B of shares. Meta's 2026 capex guide is $135–145B (hyperscaler demand read-through for DRAM/HBM) (CNBC, 2026-10-26)",
-   "url": "https://www.cnbc.com/2026/10/26/meta-stock-offering-ai.html",
-   "kind": "news"
   },
   {
    "date": "2026-10-27",
@@ -261,6 +237,18 @@
    "date": "2026-11-02",
    "headline": "TrendForce Weekly Radar (third-party, 2 Nov): DRAM lead times eased to 19 weeks but supply stays 'Very Tight', especially 32GB/64GB RDIMMs; GPU supply moves from Balanced to Tightening as the Rubin transition begins (TrendForce Weekly Radar 008, 2026-11-02)",
    "url": "https://insights.trendforce.com/p/weekly-radar-008",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-03",
+   "headline": "Counterpoint Research (third-party est.) projects HBM4 unit price rising from ~$2/Gb now to ~$4/Gb in 2027; TrendForce (est.) sees 2027 HBM ASP +121%. DRAMeXchange: PC DDR4 8Gb module fixed price $27.50 on 30 Oct (~4x a year ago), so commodity DRAM currently out-earns HBM; Samsung and SK hynix say 2027 HBM volumes and prices are settled (Edaily (citing Counterpoint Research, TrendForce, DRAMeXchange), 2026-11-03)",
+   "url": "https://en.edaily.co.kr/news/eda202611025537/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-03",
+   "headline": "Samsung (-5.0% to ₩217,500) and SK hynix (-5.5% to ₩1,391,000) fell over 5% early on 3 Nov, giving back 2 Nov gains as US tech weakness and AI-capex return worries spread; KOSPI slipped back below 5,700. KB Securities raised Samsung's 2027 operating-profit estimate 15% to ₩640T (HBM ASP +150% est.) (Aju Press (Korea Exchange data), 2026-11-03)",
+   "url": "https://www.ajupress.com/view/20261103092070208",
    "kind": "news"
   }
  ]
