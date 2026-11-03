@@ -715,6 +715,7 @@ function overview() {
   const tvd = L('delayed');
   let h = `<h2>${L('Overview')}</h2>
   ${weeklyCard()}
+  ${comingUpCard()}
   ${videoCard()}
   <div class="card" style="margin-bottom:14px"><h3 style="margin:0 0 6px">${L('MU live price chart')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView')} · ${TV_FRESHNESS()}</span></h3>
   <div class="tvchart" id="tvchart"></div></div>
@@ -821,6 +822,13 @@ const li=V.items.map(i=>`<li class="v"><div class="vh"><span class="vd">${fd(i.d
 <div class="vm">${esc(i.channel)} · ${esc(i.who)}${i.aired&&i.aired!==i.date?` · <span class="nw">aired ${fd(i.aired)}</span>`:''}</div>
 <ul class="vp">${i.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></li>`).join('');
 return `<div class="card vid"><h3 style="margin:0">YouTube / video <span class="mut" style="font-size:12px;font-weight:400">· material points from captions/transcripts · newest first</span></h3><ul>${li}</ul></div>`;}
+function comingUpCard() {
+  const C = ((D.v3 || {}).cat || []);
+  const today = new Date().toLocaleDateString('en-CA', {timeZone: 'Asia/Singapore'});
+  const up = C.filter(c => c.d >= (c.d.length === 7 ? today.slice(0, 7) : today)).sort((a, b) => a.d.localeCompare(b.d));
+  if (!up.length) return '';
+  return `<div class="card wk"><h3 style="margin:0">${L('Coming up')} <span class="mut" style="font-size:12px;font-weight:400">· ${L('upcoming catalysts, SGT')}</span></h3><ul>${up.map(c => `<li><span class="nw" style="font-weight:600;margin-right:8px">${esc(c.d)}</span><span>${BE(c.ev)}${c.time ? ` <span class="mut">· ${BE(c.time)}</span>` : ''}</span></li>`).join('')}</ul></div>`;
+}
 function weeklyCard() {
   const W = D.weekly;
   if (!W) return '';
@@ -832,7 +840,11 @@ function weeklyCard() {
     target: ['Target', ""],
     news: ['News', ""]
   };
-  const it = (W.items || []).map(i => `<li><span class="tag${''}">${L(...(TAG[i.kind] || ['Item', ""]))}</span><span>${E(i.text)}${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener">${L('link')}</a>` : ''}</span></li>`).join('');
+  const RK = {filing:0, rating:1, target:1, estimate:2, price:2, news:3};
+  const ref = ((D.meta && D.meta.built_sgt) || new Date().toISOString()).slice(0, 10);
+  const dd = x => (Date.parse(ref) - Date.parse(x)) / 864e5;
+  const items = (W.items || []).filter(i => !i.date || dd(i.date) <= 7).sort((a, b) => (b.date || '').localeCompare(a.date || '') || (RK[a.kind] ?? 9) - (RK[b.kind] ?? 9));
+  const it = items.map(i => `<li style="${i.date && dd(i.date) <= 2 ? 'color:var(--ink,#000);font-weight:600' : 'opacity:.62'}"><span class="mut nw" style="font-size:12px;margin-right:6px">${esc(i.date || '')}</span><span class="tag${''}">${L(...(TAG[i.kind] || ['Item', ""]))}</span><span>${E(i.text)}${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener">${L('link')}</a>` : ''}</span></li>`).join('');
   return `<div class="card wk"><h3 style="margin:0">${L('What’s new this week')} <span class="mut" style="font-size:12px;font-weight:400">· ${W.from ? L(`since <span class="nw">${esc(W.from)}</span>`) : ''} · ${L('updates with every scheduled build')}</span></h3>
   <ul>${it || `<li>${L('No changes recorded this week.')}</li>`}</ul>${W.note ? `<div class="mut" style="font-size:12px;margin-top:6px">${E(W.note)}</div>` : ''}</div>`;
 }
