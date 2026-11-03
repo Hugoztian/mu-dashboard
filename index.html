@@ -101,7 +101,7 @@ table.c0tight th:first-child,table.c0tight td:first-child{min-width:0;width:1%;w
 .subtabs button{font-family:inherit;background:transparent;color:var(--txt);border:0;border-radius:8px;padding:6px 18px;cursor:pointer;font-weight:500;font-size:13px}
 .subtabs button.on{background:var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
 .chartbox{position:relative;height:300px}
-.wk{margin-bottom:14px}.wk ul{list-style:none;margin:6px 0 0;padding:0}.wk li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.45}.wk li:first-child{border-top:none}.wk .tag{flex:0 0 auto;min-width:64px;font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}.wk .tag.zh{text-transform:none;letter-spacing:0}
+.wk{margin-bottom:14px}.wk ul{list-style:none;margin:6px 0 0;padding:0}.wk li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.45}.wk li.fresh{color:var(--txt);font-weight:600}.wk li.fresh .nw{color:var(--acc);font-weight:700}.wk li.aged{color:var(--mut);opacity:.72}.wk li.aged .nw{color:var(--mut2)}.wk li:first-child{border-top:none}.wk .tag{flex:0 0 auto;min-width:64px;font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}.wk .tag.zh{text-transform:none;letter-spacing:0}
 details.pts{margin-top:10px}details.pts summary{cursor:pointer;color:var(--mut);font-size:12.5px}
 td.hl{font-weight:600}.takeaways{margin:0;padding-left:18px;line-height:1.55;font-size:13.5px}.takeaways li{margin:5px 0}
 .pill{display:inline-block;padding:2px 9px;border-radius:980px;font-size:11px;font-weight:600}
@@ -844,7 +844,10 @@ function weeklyCard() {
   const ref = ((D.meta && D.meta.built_sgt) || new Date().toISOString()).slice(0, 10);
   const dd = x => (Date.parse(ref) - Date.parse(x)) / 864e5;
   const items = (W.items || []).filter(i => !i.date || dd(i.date) <= 7).sort((a, b) => (b.date || '').localeCompare(a.date || '') || (RK[a.kind] ?? 9) - (RK[b.kind] ?? 9));
-  const it = items.map(i => `<li style="${i.date && dd(i.date) <= 2 ? 'color:var(--ink,#000);font-weight:600' : 'opacity:.62'}"><span class="mut nw" style="font-size:12px;margin-right:6px">${esc(i.date || '')}</span><span class="tag${''}">${L(...(TAG[i.kind] || ['Item', ""]))}</span><span>${E(i.text)}${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener">${L('link')}</a>` : ''}</span></li>`).join('');
+  const it = items.map(i => {
+    const fresh = i.date && dd(i.date) <= 2;
+    return `<li class="${fresh ? 'fresh' : 'aged'}"><span class="nw" style="font-size:12px;margin-right:6px">${esc(i.date || '')}</span><span class="tag${''}">${L(...(TAG[i.kind] || ['Item', ""]))}</span><span>${E(i.text)}${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener">${L('link')}</a>` : ''}</span></li>`;
+  }).join('');
   return `<div class="card wk"><h3 style="margin:0">${L('What’s new this week')} <span class="mut" style="font-size:12px;font-weight:400">· ${W.from ? L(`since <span class="nw">${esc(W.from)}</span>`) : ''} · ${L('updates with every scheduled build')}</span></h3>
   <ul>${it || `<li>${L('No changes recorded this week.')}</li>`}</ul>${W.note ? `<div class="mut" style="font-size:12px;margin-top:6px">${E(W.note)}</div>` : ''}</div>`;
 }
