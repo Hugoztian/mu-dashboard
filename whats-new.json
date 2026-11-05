@@ -1,10 +1,64 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-05 07:45 SGT",
- "from": "2026-10-29",
- "to": "2026-11-05",
+ "updated": "2026-11-06 07:48 SGT",
+ "from": "2026-10-30",
+ "to": "2026-11-06",
  "items": [
+  {
+   "date": "2026-11-06",
+   "headline": "FY27 consensus EPS: $177.03 → $175.19 (-1.0%) — Nasdaq.com / Zacks",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
+   "kind": "estimate"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "FY28 consensus EPS: $207.57 → $211.51 (+1.9%) — Nasdaq.com / Zacks",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
+   "kind": "estimate"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "SEC filing: 8-K — FORM 8-K (filed 2026-11-05)",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926123389/0001104659-26-123389-index.htm",
+   "kind": "filing"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "MU closed $656.39 on 2026-11-05, -29.7% vs $934.27 on 2026-10-29 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "MU fell 17.5% on 5 Nov to close at $656.39 (from $795.23; low $650.00, ~75M shares) in a broad chip rout on midterm AI data-center regulation fears, plus Bloomberg’s report Micron paused its $4.5B Taoyuan Fab 11E; SanDisk ~-22%, AMD ~-17%, NVDA ~-9% (MarketBeat; Investing.com, 2026-11-05)",
+   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-stock-falls-175-should-you-sell-2026-11-05/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "Bloomberg (people familiar): Micron has all but halted construction of Fab 11E in Taoyuan (~$3–4.5B, HBM/DRAM with ASML tools, was due 2028) over a Taoyuan-union profit-sharing dispute; Micron said Taiwan ops continue as normal and talks continue; Taiwan ~60% of Micron DRAM output (Bloomberg (via Taipei Times / Reuters), 2026-11-05)",
+   "url": "https://www.taipeitimes.com/News/biz/archives/2026/11/06/2003867231",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "Counterpoint Research (third-party): Q3 DRAM revenue share Samsung 38% (flat), SK hynix 29% (+4pp QoQ; HBM3E + higher prices), Micron 21% (−3pp), CXMT 9% (−1pp after briefly >10%); SK hynix still leads HBM (~50% in Q2) but Counterpoint expects Samsung HBM4 to challenge for #1 in 2027 (Seoul Economic Daily (Counterpoint Research), 2026-11-05)",
+   "url": "https://en.sedaily.com/finance/2026/11/05/samsung-holds-no-1-spot-in-dram-as-sk-hynix-narrows-gap",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "Korea Times: Democratic midterm wins and governors-elect in Texas/Ohio/Georgia pledging data-center pauses fueled memory-demand fears; on 5 Nov Samsung closed −7.6% to ₩201,500 and SK hynix −9.5% to ₩1,264,000; analysts say nationwide halt unlikely but regional rules could slow AI buildout (The Korea Times, 2026-11-05)",
+   "url": "https://www.koreatimes.co.kr/business/tech-science/20261105/us-midterm-blue-wave-puts-pressure-on-memory-chip-demand",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "Micron 8-K (5 Nov): director Linnie M. Haynesworth will retire from the board at the annual meeting expected 14 Jan 2027 (joined Feb 2021; chaired Security Committee 2024–2026); board to be eight directors afterward; remaining directors renominated (Micron / SEC 8-K, 2026-11-05)",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926123389/tm2629062d1_ex99-1.htm",
+   "kind": "news"
+  },
   {
    "date": "2026-11-04",
    "headline": "MU fell 7.0% on 4 Nov to close at $795.23 (from $855.10; low $782.00, ~35.1M shares) as memory stocks sold off on worries that Democratic midterm wins, including Texas, could slow the AI data-center buildout; SK hynix fell ~5.4% and SanDisk over 8% (MarketBeat; Invezz, 2026-11-04)",
@@ -34,12 +88,6 @@
    "headline": "Mixed memory signals: Kioxia guided only ~1% QoQ December-quarter revenue growth (stronger yen, order timing, mix; still sees supply tight through 2027) while Apple guided gross margin to 45–46% largely on higher memory costs and expects prices to keep rising beyond December (BigGo Finance, 2026-11-04)",
    "url": "https://finance.biggo.com/news/37504315-ed0f-44c5-9f50-093650740758",
    "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "MU closed $855.10 on 2026-11-03, -7.9% vs $928.76 on 2026-10-27 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
-   "kind": "price"
   },
   {
    "date": "2026-11-03",
@@ -207,24 +255,6 @@
    "date": "2026-10-30",
    "headline": "TrendForce (third-party, 30 Oct): consumer DRAM contract gains narrowed to flat-to-slightly up in October as buyers turn cautious into year-end; spot prices have fallen markedly from peaks and decoupled from contract, with some legacy chips now trading below contract; it still expects contract shortages and gradual quarterly increases in 2027 (TrendForce (Specialty DRAM Price, Oct 2026), 2026-10-30)",
    "url": "https://www.trendforce.com/research/download/RP261030HH",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-29",
-   "headline": "Samsung Q3 2026: record revenue ₩195.3T and operating profit ₩107.4T (chip division ₩106.5T), broadly in line with LSEG, but net profit ₩75.1T missed (~₩86T FactSet) and shareholder-return details were pushed to late January; shares fell 4.1% in Seoul. Samsung expects 2027 AI memory demand to 'far exceed' industry supply (Samsung Newsroom / CNBC, 2026-10-29)",
-   "url": "https://www.cnbc.com/2026/10/29/samsung-electronics-third-quarter-earnings.html",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-29",
-   "headline": "Samsung Q3 call: DRAM ASP rose ~20% QoQ and NAND ASP high teens; HBM4 revenue more than tripled QoQ to ~60% of HBM sales, HBM share now on par with its DRAM share; 2027 HBM volumes sold out at target prices; HBM4E mass production 1H27; Q4 bit growth guided mid-to-high teens for DRAM, mid-teens for NAND (The Asia Business Daily (Samsung call), 2026-10-29)",
-   "url": "https://www.asiae.co.kr/en/article/enterprise-CEO/2026102911191454019",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-29",
-   "headline": "MU fell ~3% early on 29 Oct (~$955 vs $983.23 close) as Samsung's net-profit miss and Alphabet's post-earnings drop hit memory peers (SanDisk, SK hynix ADR also lower); SanDisk reports FQ1 FY27 after the US close tonight (Investing.com, 2026-10-29)",
-   "url": "https://www.investing.com/news/stock-market-news/why-is-micron-technology-stock-sliding-today-93CH-4983337",
    "kind": "news"
   }
  ]
