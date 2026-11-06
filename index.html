@@ -187,7 +187,15 @@ footer b{color:var(--txt);font-weight:500}
 <script>
 const D = window.MU_DATA,
   Q = D.meta.quarters;
-const TABS = [['overview', 'Overview', ""], ['financials', 'Financials', ""], ['revenue', 'Revenue & Pricing', ""], ['cycle', 'Memory Cycle', ""], ['capacity-capex', 'Capacity & Capex', ""], ['fabs', 'Fabs & HBM', ""], ['buybacks', 'Buybacks & CHIPS', ""], ['insiders', 'Insiders', ""], ['calls', 'Earnings Calls', ""], ['estimates', 'Wall Street Estimates', ""], ['competition', 'Competition', ""], ['china', 'China Risk', ""], ['people', 'Key People', ""], ['holders', '13F Holders', ""], ['catalysts', 'Catalysts', ""], ['sources', 'Sources & Live feed', ""]];
+const TABS = [['overview', 'Overview', ""], ['financials-returns', 'Financials & Returns', ""], ['memory-capacity', 'Memory & Capacity', ""], ['earnings-street', 'Earnings & Street', ""], ['comp-china', 'Competition & China', ""], ['people-sources', 'People & Sources', ""]];
+const TAB_GROUPS = {
+  overview: ['overview'],
+  'financials-returns': ['financials', 'revenue', 'buybacks'],
+  'memory-capacity': ['cycle', 'capacity-capex', 'fabs'],
+  'earnings-street': ['calls', 'estimates', 'catalysts'],
+  'comp-china': ['competition', 'china'],
+  'people-sources': ['insiders', 'people', 'holders', 'sources']
+};
 const $ = s => document.querySelector(s);
 const fmt = (v, d = 0) => v == null ? 'n/a' : Number(v).toLocaleString('en-US', {
   minimumFractionDigits: d,
@@ -2633,26 +2641,62 @@ const R = {
   },
   done = {};
 const ALIAS = {
+  // legacy short names → section key, then section → group below
   capacity: 'capacity-capex',
-  capex: 'capacity-capex'
-}; // old #capacity / #capex links land on the merged tab, at their section
+  capex: 'capacity-capex',
+  // old single-section tabs → group tabs (≤6 top menu)
+  financials: 'financials-returns',
+  revenue: 'financials-returns',
+  buybacks: 'financials-returns',
+  cycle: 'memory-capacity',
+  'capacity-capex': 'memory-capacity',
+  fabs: 'memory-capacity',
+  calls: 'earnings-street',
+  estimates: 'earnings-street',
+  catalysts: 'earnings-street',
+  competition: 'comp-china',
+  china: 'comp-china',
+  insiders: 'people-sources',
+  people: 'people-sources',
+  holders: 'people-sources',
+  sources: 'people-sources'
+}; // old hashes land on the merged group; optional scroll to the old section
 function route() {
   let [t, sub] = (location.hash.slice(1) || 'overview').split('/');
-  const anchor = ALIAS[t] ? t : null;
-  if (anchor) {
+  let anchor = null; // old section key to scroll to after render
+  // capacity/capex → capacity-capex first
+  if (t === 'capacity' || t === 'capex') {
+    anchor = 'capacity-capex';
     t = ALIAS[t];
-    history.replaceState(null, '', '#' + t);
   }
-  const tab = R[t] ? t : 'overview';
-  document.querySelectorAll('section').forEach(s => s.classList.toggle('on', s.id === 's-' + tab));
-  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('on', a.dataset.t === tab));
-  if (tab === 'financials') financials(sub || 'is');else if (!done[tab]) {
-    R[tab]();
-    done[tab] = 1;
+  // old section key → group key
+  if (ALIAS[t] && !TAB_GROUPS[t]) {
+    if (!anchor) anchor = t;
+    t = ALIAS[t];
+  }
+  const group = TAB_GROUPS[t] ? t : 'overview';
+  const members = TAB_GROUPS[group];
+  // normalize aliased hashes to the group (keep financials sub path)
+  const want = sub && group === 'financials-returns' ? group + '/' + sub : group;
+  const cur = (location.hash.slice(1) || 'overview');
+  if (cur !== want) history.replaceState(null, '', '#' + want);
+  document.querySelectorAll('section').forEach(s => {
+    const key = s.id.slice(2);
+    s.classList.toggle('on', members.includes(key));
+  });
+  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('on', a.dataset.t === group));
+  for (const m of members) {
+    if (m === 'financials') {
+      financials(sub || 'is');
+      done[m] = 1;
+    } else if (!done[m] && R[m]) {
+      R[m]();
+      done[m] = 1;
+    }
   }
   window.scrollTo(0, 0);
-  if (anchor && anchor !== 'capacity') {
-    const e = document.getElementById(anchor);
+  if (anchor) {
+    const e = document.getElementById('s-' + anchor);
     if (e) e.scrollIntoView();
   }
   const nv = $('#nav'),
