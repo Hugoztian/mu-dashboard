@@ -1,33 +1,51 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-06 07:48 SGT",
- "from": "2026-10-30",
- "to": "2026-11-06",
+ "updated": "2026-11-07 07:51 SGT",
+ "from": "2026-10-31",
+ "to": "2026-11-07",
  "items": [
   {
-   "date": "2026-11-06",
+   "date": "2026-11-07",
    "headline": "FY27 consensus EPS: $177.03 → $175.19 (-1.0%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-06",
+   "date": "2026-11-07",
    "headline": "FY28 consensus EPS: $207.57 → $211.51 (+1.9%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "MU closed $690.00 on 2026-11-06, -22.0% vs $884.74 on 2026-10-30 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "MU rebounded 5.12% on 6 Nov to close at $690.00 (from $656.39; range $676.00–$724.80, ~44.8M shares) as chip stocks bounced from Thursday’s 17.5% rout on bargain-hunting and AI memory demand (Nasdaq.com / The Motley Fool, 2026-11-06)",
+   "url": "https://www.fool.com/coverage/stock-market-today/2026/11/06/stock-market-today-nov-6-micron-technology-jumps-as-chip-stocks-rebound-from-thursday-s-rout/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "TrendForce/DRAMeXchange spot (third-party, 6 Nov GMT+8): DDR4 8Gb (1Gx8) 3200 session avg $45.607 (−0.93%), DDR5 16Gb (2Gx8) $60.167 (−0.82%), DDR4 16Gb $80.815 (−1.06%); spot still soft vs firm contract prices (TrendForce / DRAMeXchange, 2026-11-06)",
+   "url": "https://www.trendforce.com/price/dram/dram_spot",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "Yonhap Infomax: amid Korea memory selloff, analysts stress Micron-style SCAs/LTAs are hard to cancel (volume take-or-pay, price floors/ceilings, cash deposits; Micron had ~$22B deposits as of June); iM Securities stress-test says cancellation incentive only if DRAM falls ~60% from 4Q27 peak (Yonhap Infomax, 2026-11-06)",
+   "url": "https://en.infomaxai.com/news/articleView.html?idxno=147358",
+   "kind": "news"
   },
   {
    "date": "2026-11-05",
    "headline": "SEC filing: 8-K — FORM 8-K (filed 2026-11-05)",
    "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926123389/0001104659-26-123389-index.htm",
    "kind": "filing"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "MU closed $656.39 on 2026-11-05, -29.7% vs $934.27 on 2026-10-29 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
-   "kind": "price"
   },
   {
    "date": "2026-11-05",
@@ -57,6 +75,12 @@
    "date": "2026-11-05",
    "headline": "Micron 8-K (5 Nov): director Linnie M. Haynesworth will retire from the board at the annual meeting expected 14 Jan 2027 (joined Feb 2021; chaired Security Committee 2024–2026); board to be eight directors afterward; remaining directors renominated (Micron / SEC 8-K, 2026-11-05)",
    "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926123389/tm2629062d1_ex99-1.htm",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-05",
+   "headline": "Counterpoint Research (third-party, 5 Nov): Q3 2026 DRAM revenue nearly $200B (+369% YoY) on ASP ~$1.9/Gb; bit shipments only ~+4%; DDR revenue ~+500% YoY and LPDDR ~+400% outpaced HBM (pricing super-cycle, not yet volume) (Counterpoint Research, 2026-11-05)",
+   "url": "https://counterpointresearch.com/en/insights/dram-super-cycle-nears-dollar-200b",
    "kind": "news"
   },
   {
@@ -138,6 +162,12 @@
    "kind": "news"
   },
   {
+   "date": "2026-11-03",
+   "headline": "Korea MOTIE: October SSD exports $5.64B (+584% YoY from $824M), ninth straight month of triple-digit growth; Samsung and SK hynix cite AI-inference KV-cache demand; Samsung plans 256TB QLC SSD early 2027; SK hynix to lift 321-layer share above 50% (The Herald Business (MOTIE), 2026-11-03)",
+   "url": "https://biz.heraldcorp.com/article/10925215",
+   "kind": "news"
+  },
+  {
    "date": "2026-11-02",
    "headline": "MU traded ~1–2% higher pre-market on 2 Nov ($903.35 at 07:20 ET; $893.88 at 08:32 ET) vs the $884.74 close on 30 Oct as US futures recovered from Friday's tech sell-off; the regular session opens 22:30 SGT (Robinhood real-time quote / StockAnalysis, 2026-11-02)",
    "url": "https://stockanalysis.com/stocks/mu/history/",
@@ -201,60 +231,6 @@
    "date": "2026-11-01",
    "headline": "CXMT says it has completed engineering-sample validation of a sixth-generation DRAM platform on 4F² cell architecture, with mass production to follow gradually on customer validation and demand; it pushed back on Micron's view that capacitor spacing limits 4F² density gains (Seoul Economic Daily (Yicai via Reuters-Yonhap), 2026-11-01)",
    "url": "https://en.sedaily.com/international/2026/11/01/chinas-cxmt-says-it-has-validated-4f2-dram-samples",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "MU closed -5.30% at $884.74 on 30 Oct (range $861.59–$906.54, 30.5M shares) as the Nasdaq fell ~2.2% on Amazon and AI-capex worries, with CXMT's results adding pressure; ~$889 after hours (Nasdaq close (MarketMinute) / MarketBeat, 2026-10-30)",
-   "url": "https://kvoa.marketminute.com/quote/NQ:MU/historical",
-   "kind": "price"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "Sandisk FQ1 FY27: revenue $11.03B (+23% QoQ, ~60% volume / ~40% price) and non-GAAP EPS $49.51 beat (~$10.7B / ~$47.15 expected); gross margin 85.1%; data-centre revenue +61% QoQ to $4.8B; FQ2 guide $12.2–12.6B. On the call it said NAND prices should keep rising modestly through FY27, bits stay allocated beyond CY2027, and long-term agreements cover ~50% of 2027 bits; announced an 8-for-1 split. Shares fell ~2.6% after hours (Sandisk (press release / Investing.com call transcript), 2026-10-30)",
-   "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-sandisk-beats-q1-2027-estimates-shares-fall-93CH-4985403",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "Amazon held 2026 cash capex at ~$220B (Q3 $75.9B, mostly AWS and AI) and expects to spend 'meaningfully more' in 2027; trailing free cash flow -$42.4B. After Microsoft's trim and Alphabet's hold, all three hyperscalers still point to higher 2027 spending (Amazon / CNBC, 2026-10-30)",
-   "url": "https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "MU closed -4.98% at $934.27 on 29 Oct (range $927.24–$971.01, 21.6M shares) as Samsung's net-profit miss and Alphabet's slide weighed on memory stocks, giving back most of the 28 Oct gain (Nasdaq close (MarketMinute), 2026-10-30)",
-   "url": "https://wnbc.marketminute.com/quote/NQ:MU/historical",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "Intel guided 4Q26 below expectations, saying soaring memory prices are cutting PC demand; CFO Zinsner said Intel is 'not optimistic about next year in terms of memory' and does not expect supply to improve in 2027, and it will shift Panther Lake laptop capacity to Granite Rapids server CPUs. Intel shares fell ~21–25%, a demand-destruction signal for PC DRAM/NAND (Zero One digest (Intel 29 Oct call), 2026-10-30)",
-   "url": "https://01.co/theblade/reports/digest/2026-10-30",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "MU opened ~5.5% lower on 30 Oct (~$883 at 09:33 ET vs $934.27 close) in a broad tech sell-off: Amazon fell ~7% premarket on a Q3 miss and a second quarter of negative free cash flow (Q3 capex ~$77B, ~$20B above estimates) and Intel ~25% on its guide; Sandisk, SK hynix ADR, WDC and STX also lower despite Sandisk's beat. No Micron-specific news (CNBC / TipRanks, 2026-10-30)",
-   "url": "https://www.cnbc.com/2026/10/30/amazon-intel-earnings-big-tech-ai-spending-concerns.html",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "Samsung has signed memory long-term supply agreements with 10 major customers and is negotiating with 10 more, with LTA demand spreading from hyperscalers, OEMs and SoC makers to mobile, automotive and networking; Samsung says 2027 HBM is sold out at target prices and tight supply will persist into 2028 (Electronic Times (etnews), 2026-10-30)",
-   "url": "https://en.etnews.com/20261030200001",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "CXMT Q3 2026: revenue RMB 118.71B (+613% YoY, +19.3% QoQ, slowing from +95.9% in Q2), attributable net profit RMB 54.4B (+3% QoQ), gross margin 89.5%; sixth-generation DRAM samples completed validation; RMB 1-2B buyback approved. Its first results since the July IPO fed CXMT competition worries in memory stocks (The Standard (Reuters) / Invezz, 2026-10-30)",
-   "url": "https://www.thestandard.com.hk/innovation/article/347055/Chinas-CXMT-reports-quarterly-profit-after-Asias-biggest-IPO-this-year",
-   "kind": "news"
-  },
-  {
-   "date": "2026-10-30",
-   "headline": "TrendForce (third-party, 30 Oct): consumer DRAM contract gains narrowed to flat-to-slightly up in October as buyers turn cautious into year-end; spot prices have fallen markedly from peaks and decoupled from contract, with some legacy chips now trading below contract; it still expects contract shortages and gradual quarterly increases in 2027 (TrendForce (Specialty DRAM Price, Oct 2026), 2026-10-30)",
-   "url": "https://www.trendforce.com/research/download/RP261030HH",
    "kind": "news"
   }
  ]
