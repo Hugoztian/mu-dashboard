@@ -1,21 +1,39 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-07 07:51 SGT",
- "from": "2026-10-31",
- "to": "2026-11-07",
+ "updated": "2026-11-09 07:52 SGT",
+ "from": "2026-11-02",
+ "to": "2026-11-09",
  "items": [
   {
-   "date": "2026-11-07",
+   "date": "2026-11-09",
    "headline": "FY27 consensus EPS: $177.03 → $175.19 (-1.0%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-07",
+   "date": "2026-11-09",
    "headline": "FY28 consensus EPS: $207.57 → $211.51 (+1.9%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-08",
+   "headline": "Post-midterm data-center regulation risk: Samsung says its 2027 HBM is sold out at negotiated prices and SK hynix says DRAM/HBM is effectively sold out through 2029 (LTAs >50% of 2027–28 capacity), but some analysts estimate about half of planned 2028 US data-center additions could fall under new permitting curbs; customers delaying acceptance could shift quarterly revenue even if volumes hold (Financial News (Korea), 2026-11-08)",
+   "url": "https://www.fnnews.com/news/202611081815385415",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-08",
+   "headline": "Weekly DRAM spot (third-party, DRAMeXchange session averages, week to 6 Nov): DDR4 chips avg $47.81 (−1.0% w/w, third straight weekly fall), DDR5 $61.06 (−0.6% w/w, still +4.5% over 4 weeks, near its 40-week high); no contract-price reset seen (DDRWatcher (DRAMeXchange data), 2026-11-08)",
+   "url": "https://ddrwatcher.com/briefs/week-2026-45",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-07",
+   "headline": "The Information (6 Nov, two people familiar) reported TSMC has begun preparing plans to make 3D DRAM at Nvidia’s request, led by VP Hsu Kuo-chin (ex-head of Micron’s Taiwan operations), via a new fab or a converted plant; TSMC effectively denied it on 7 Nov, saying it stays a dedicated logic foundry. Winbond’s chair also sees in-house TSMC DRAM as unlikely (patents, process know-how). Unconfirmed report; any supply would be years away (Tom's Hardware (The Information report), 2026-11-07)",
+   "url": "https://www.tomshardware.com/pc-components/dram/tsmc-denies-exploring-3d-dram-at-nvidias-request-advanced-memory-tech-is-still-years-from-market-viability",
+   "kind": "news"
   },
   {
    "date": "2026-11-06",
@@ -39,6 +57,18 @@
    "date": "2026-11-06",
    "headline": "Yonhap Infomax: amid Korea memory selloff, analysts stress Micron-style SCAs/LTAs are hard to cancel (volume take-or-pay, price floors/ceilings, cash deposits; Micron had ~$22B deposits as of June); iM Securities stress-test says cancellation incentive only if DRAM falls ~60% from 4Q27 peak (Yonhap Infomax, 2026-11-06)",
    "url": "https://en.infomaxai.com/news/articleView.html?idxno=147358",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "Micron and its Taoyuan union ended a third round of talks (6 Nov, Taoyuan mayor attending) without agreement; Micron is building an employee bonus calculator showing expected quarterly payouts, due to go live the week of 9 Nov, with a fourth round set for 17 Nov. Micron says Taiwan operations are normal and it has a deal with the Taichung union, which represents most staff (PTS News (Taiwan), 2026-11-06)",
+   "url": "https://news.pts.org.tw/article/834680",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-06",
+   "headline": "Competitor: SK hynix’s HBM4 cumulative yield has reportedly reached the mid-60% range, above plan, and it expects HBM4 to overtake HBM3E in Q4 shipments and revenue; customer HBM requests exceed twice its supply. Counterpoint (third-party est.) put Q2 HBM revenue share at SK hynix 50%, Samsung 33%, Micron 18%; Q3 shares due this month (Newspim, 2026-11-06)",
+   "url": "https://www.newspim.com/news/view/20261106000396",
    "kind": "news"
   },
   {
@@ -219,18 +249,6 @@
    "date": "2026-11-02",
    "headline": "KB Securities (third-party est.) keeps sector 'Positive', expects a W-shaped memory-stock rebound starting Nov–Dec; forecasts 2027 commodity DRAM prices +40%, NAND +32% and HBM +121% year over year (Financial News (fnnews), 2026-11-02)",
    "url": "https://en.fnnews.com/news/202611020851306461",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-01",
-   "headline": "Korea October 2026 chip exports $56.44B (+259.4% YoY, second-highest month after September's $60.3B); memory exports $50.14B (+360.5%). Ministry fixed-price series: DDR5 16Gb $48.0 (Sep) to $50.0 (Oct); NAND 128Gb flat at $30.6 (Korea MOTIR / Korea JoongAng Daily, 2026-11-01)",
-   "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172360/view",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-01",
-   "headline": "CXMT says it has completed engineering-sample validation of a sixth-generation DRAM platform on 4F² cell architecture, with mass production to follow gradually on customer validation and demand; it pushed back on Micron's view that capacitor spacing limits 4F² density gains (Seoul Economic Daily (Yicai via Reuters-Yonhap), 2026-11-01)",
-   "url": "https://en.sedaily.com/international/2026/11/01/chinas-cxmt-says-it-has-validated-4f2-dram-samples",
    "kind": "news"
   }
  ]
