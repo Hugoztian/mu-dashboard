@@ -1,21 +1,87 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-09 07:52 SGT",
- "from": "2026-11-02",
- "to": "2026-11-09",
+ "updated": "2026-11-10 07:54 SGT",
+ "from": "2026-11-03",
+ "to": "2026-11-10",
  "items": [
   {
-   "date": "2026-11-09",
+   "date": "2026-11-10",
    "headline": "FY27 consensus EPS: $177.03 → $175.19 (-1.0%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-09",
+   "date": "2026-11-10",
    "headline": "FY28 consensus EPS: $207.57 → $211.51 (+1.9%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "Mean price target: $1,621.67 → $1,624.42 (+0.2%) — Nasdaq.com / Zacks",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
+   "kind": "estimate"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "Korea follow-through: SK hynix (+6.8% to ₩1.213M) and Samsung (+5.9% to ₩201,000) jumped in Nextrade pre-market on 10 Nov after the US chip rebound (SK hynix ADR +5.5%) and a 4–6% drop in oil prices (Seoul Economic Daily, 2026-11-10)",
+   "url": "https://en.sedaily.com/finance/2026/11/10/samsung-sk-hynix-jump-over-5-percent-in-premarket-as-us",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "SEC filing: 144 (filed 2026-11-09)",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726010899/0001950047-26-010899-index.htm",
+   "kind": "filing"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "MU closed $733.15 on 2026-11-09, -12.0% vs $833.59 on 2026-11-02 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "MU rose 6.25% on 9 Nov to close at $733.15 (from $690.00; range $689.65–$744.74, ~31.9M shares) as chip stocks extended their rebound from last week's midterm-driven rout (SOX nearly +7%, AMD +13%), while Nvidia fell 4.3% (Nasdaq.com / The Motley Fool, 2026-11-09)",
+   "url": "https://www.fool.com/investing/2026/11/09/why-micron-technology-stock-gained-on-monday/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "Insider: Form 144 (filed 9 Nov) gives notice that EVP and Chief Business Officer Sumit Sadana plans to sell 5,000 MU shares (~$3.65M, about $730/share) via Morgan Stanley around 9 Nov; the shares came from performance shares vested 13 Oct. He sold 15,000 shares on 18 Aug (~$14.0M). No 10b5-1 plan date given; the Form 4 is still to come (SEC Form 144, 2026-11-09)",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726010899/0001950047-26-010899-index.htm",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "Key HBM customer: Nvidia's board opened an independent investigation after NYT/FT reports that CEO Jensen Huang was the target of a foreign intelligence effort through a relationship with a Megaspeed executive; NVDA closed −4.27% on 9 Nov (intraday −8.8%). Nvidia says it has no reason to believe secrets were compromised; no change to memory supply contracts has been reported (CNBC, 2026-11-09)",
+   "url": "https://www.cnbc.com/2026/11/09/nvidia-jensen-huang-chinese-spy-investigation.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "Morgan Stanley (third-party est., 9 Nov) told clients to buy the AI dip after the midterms, keeping hyperscaler capex forecasts at $1.6T for 2027 and $1.8T for 2028 (with downside risk to 2028); it expects about 20% of US data-center projects planned for 2028 (~5 GW) to slip into 2029 because of permitting friction in Texas and Ohio, and warns suppliers could face a 2028 downcycle if powered buildings become the bottleneck (investingLive (Morgan Stanley note), 2026-11-09)",
+   "url": "https://investinglive.com/stocks/morgan-stanley-says-buy-the-ai-dip-sees-3-4-trillion-in-hyperscaler-spending-through-2028/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 9 Nov GMT+8): DDR4 8Gb (1Gx8) 3200 session avg $45.214 (−0.86%), DDR4 16Gb $80.236 (−0.72%), DDR5 16Gb $60.167 (flat); buyers make only price-probing inquiries. TrendForce Weekly Radar 009 says DRAM stays 'Very Tight' though lead times eased to 18 weeks (from 19), with US demand robust while Chinese buyers scale back (TrendForce / DRAMeXchange, 2026-11-09)",
+   "url": "https://www.trendforce.com/price/dram/dram_spot",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "SK hynix told Aju Press no significant changes to supply arrangements or delivery schedules have emerged since the US midterms; its LTAs with 14 customers cover more than half of 2027–28 capacity, with quantities and timing adjustable only within agreed limits. Industry officials see an immediate memory-demand drop as unlikely (Aju Press, 2026-11-09)",
+   "url": "https://www.ajupress.com/view/20261109155746040",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-09",
+   "headline": "Potential new supply (long-dated, unconfirmed): Elon Musk's Terafab reportedly told equipment makers it targets ~1M wafers/month by 2032, ~700K of them for memory (close to Samsung's ~650–700K DRAM wafer capacity), with mass production starting 2H28; memory partners and HBM/LPDDR split not disclosed (TrendForce (citing Nikkei / Financial News), 2026-11-09)",
+   "url": "https://www.trendforce.com/news/2026/11/09/news-terafab-reportedly-eyes-1m-wafers-monthly-by-2032-with-700k-for-memory-near-samsungs-total-dram-capacity/",
+   "kind": "news"
   },
   {
    "date": "2026-11-08",
@@ -34,12 +100,6 @@
    "headline": "The Information (6 Nov, two people familiar) reported TSMC has begun preparing plans to make 3D DRAM at Nvidia’s request, led by VP Hsu Kuo-chin (ex-head of Micron’s Taiwan operations), via a new fab or a converted plant; TSMC effectively denied it on 7 Nov, saying it stays a dedicated logic foundry. Winbond’s chair also sees in-house TSMC DRAM as unlikely (patents, process know-how). Unconfirmed report; any supply would be years away (Tom's Hardware (The Information report), 2026-11-07)",
    "url": "https://www.tomshardware.com/pc-components/dram/tsmc-denies-exploring-3d-dram-at-nvidias-request-advanced-memory-tech-is-still-years-from-market-viability",
    "kind": "news"
-  },
-  {
-   "date": "2026-11-06",
-   "headline": "MU closed $690.00 on 2026-11-06, -22.0% vs $884.74 on 2026-10-30 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
-   "kind": "price"
   },
   {
    "date": "2026-11-06",
@@ -195,60 +255,6 @@
    "date": "2026-11-03",
    "headline": "Korea MOTIE: October SSD exports $5.64B (+584% YoY from $824M), ninth straight month of triple-digit growth; Samsung and SK hynix cite AI-inference KV-cache demand; Samsung plans 256TB QLC SSD early 2027; SK hynix to lift 321-layer share above 50% (The Herald Business (MOTIE), 2026-11-03)",
    "url": "https://biz.heraldcorp.com/article/10925215",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "MU traded ~1–2% higher pre-market on 2 Nov ($903.35 at 07:20 ET; $893.88 at 08:32 ET) vs the $884.74 close on 30 Oct as US futures recovered from Friday's tech sell-off; the regular session opens 22:30 SGT (Robinhood real-time quote / StockAnalysis, 2026-11-02)",
-   "url": "https://stockanalysis.com/stocks/mu/history/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "MU fell ~5.8% on 2 Nov to ~$833 (Nasdaq last sale $833.06; open ~$890.66, low $829.24, ~29M shares) after an early gain faded, extending the 30 Oct -5.3% drop; memory/storage peers SanDisk, Western Digital and Seagate fell ~6–8% as Kioxia's soft guide and AI-capex worries hit chips (chip stocks lost over $400B of market value on the day, per Investing.com) (Robinhood real-time quote (Nasdaq last sale) / MarketBeat, 2026-11-02)",
-   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-shares-down-58-whats-next-2026-11-02/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "Kioxia guided December-quarter operating profit to ¥2.0T vs ~¥2.35T consensus (Sep quarter ¥1.99T), implying nearly flat NAND pricing after mid-20% ASP growth in the Sep quarter (70% in the June quarter); it blamed shipment timing, said 2027 output is sold out and over half of 2028 allocated; shares fell as much as 15% in Tokyo on 2 Nov (Bloomberg (via CNBC-TV18 / The Japan Times), 2026-11-02)",
-   "url": "https://www.cnbctv18.com/market/kioxia-shares-tumble-after-outlook-suggests-demand-levelling-off-20024463.htm",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "OpenAI CEO Sam Altman made a surprise weekend visit to Korea, meeting ~50 Samsung executives in Yongin and SK Group's Chey Tae-won with SK hynix executives; no new agreements were announced. The report cites TrendForce (third-party est.) forecasting HBM blended ASP up 121% in 2027 vs 2026 (The Korea Herald, 2026-11-02)",
-   "url": "https://www.koreaherald.com/article/10922884",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "KOSPI rebounded 2.24% to 5,859.08 on 2 Nov; SK hynix closed +3.81% at ₩1,472,000 and Samsung +1.78% at ₩229,000. SK hynix began buying back 14.92M shares on 29 Oct (through 28 Jan 2027), about 500k (~₩734B) executed so far (Yonhap / Yonhap Infomax, 2026-11-02)",
-   "url": "https://en.yna.co.kr/view/AEN20261102007651320",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "CXMT plans to send customers samples of its first server-grade DRAM on 4F² architecture by end-2026 (earnings-briefing summary released 31 Oct); no mass-production timeline was given, and SCMP frames 4F² as a route around US equipment curbs that Micron has chosen to bypass (South China Morning Post, 2026-11-02)",
-   "url": "https://www.scmp.com/tech/tech-war/article/3372997/chinas-cxmt-defends-bet-risky-new-dram-architecture-circumvent-us-chip-curbs",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "TrendForce Weekly Radar (third-party, 2 Nov): DRAM lead times eased to 19 weeks but supply stays 'Very Tight', especially 32GB/64GB RDIMMs; GPU supply moves from Balanced to Tightening as the Rubin transition begins (TrendForce Weekly Radar 008, 2026-11-02)",
-   "url": "https://insights.trendforce.com/p/weekly-radar-008",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "Long-term supply agreements spread: SK hynix has LTAs with 14 customers (mostly ~5-year terms) covering over half of its 2027–28 capacity, with DRAM/HBM effectively sold out through 2029; Samsung has 10 signed, 10 more in talks, and is targeting 60–70% of capacity under LTAs by 2030. TrendForce (est.) sees new fabs adding meaningful DRAM supply around 2028 (Korea JoongAng Daily, 2026-11-02)",
-   "url": "https://www.koreajoongangdaily.com/business/samsung-sk-hynix-build-longterm-order-pipelines-on-back-of-continued-ai-chip-demand/12949893",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-02",
-   "headline": "KB Securities (third-party est.) keeps sector 'Positive', expects a W-shaped memory-stock rebound starting Nov–Dec; forecasts 2027 commodity DRAM prices +40%, NAND +32% and HBM +121% year over year (Financial News (fnnews), 2026-11-02)",
-   "url": "https://en.fnnews.com/news/202611020851306461",
    "kind": "news"
   }
  ]
