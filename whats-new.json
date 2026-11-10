@@ -1,27 +1,39 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-10 07:54 SGT",
- "from": "2026-11-03",
- "to": "2026-11-10",
+ "updated": "2026-11-11 07:50 SGT",
+ "from": "2026-11-04",
+ "to": "2026-11-11",
  "items": [
   {
-   "date": "2026-11-10",
-   "headline": "FY27 consensus EPS: $177.03 → $175.19 (-1.0%) — Nasdaq.com / Zacks",
+   "date": "2026-11-11",
+   "headline": "FY27 consensus EPS: $177.03 → $175.22 (-1.0%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-10",
+   "date": "2026-11-11",
    "headline": "FY28 consensus EPS: $207.57 → $211.51 (+1.9%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-10",
+   "date": "2026-11-11",
    "headline": "Mean price target: $1,621.67 → $1,624.42 (+0.2%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "MU closed $725.11 on 2026-11-10, -15.2% vs $855.10 on 2026-11-03 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "MU slipped 1.10% on 10 Nov to close at $725.11 (from $733.15; range $699.63–$745.64, ~27.5M shares, about 32% below average volume) after an intraday dip of as much as 4.6% (Nasdaq.com / MarketBeat, 2026-11-10)",
+   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-shares-down-11-should-you-sell-2026-11-10/",
+   "kind": "price"
   },
   {
    "date": "2026-11-10",
@@ -30,16 +42,28 @@
    "kind": "news"
   },
   {
+   "date": "2026-11-10",
+   "headline": "Goldman Sachs (James Schneider, Neutral) reiterated its $1,250 price target (no change) and said risk/reward is becoming more attractive, with MU nearing tangible book value and a high probability of strong free cash flow in coming quarters; KeyBanc (John Vinh) also reiterated its $1,750 target on 9 Nov, citing October cloud data (TipRanks (Goldman Sachs note), 2026-11-10)",
+   "url": "https://www.tipranks.com/news/goldman-sachs-sees-70-upside-for-micron-stock-heres-why",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "Competitor pricing (third-party reports): Samsung is reportedly asking Nvidia for HBM4 pricing at parity with SK hynix (reported mid-$500s per 12-high stack vs mid-$300s for HBM3E 12-high), with a deal expected before year-end; Reuters reported HBM-first allocation is squeezing legacy DRAM, with supplier inventories at two to four weeks (TrendForce) and Samsung keeping its DDR4 line running (Daily Silicon (citing Reuters / Global Economic), 2026-11-10)",
+   "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-10-en/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "Rumour check: a Korean report citing DigiTimes claimed Micron's HBM4 needed a redesign and could slip to 2027; Daily Silicon judged it overstated, noting Micron said at its 21 Oct webinar that HBM4 is in high-volume manufacturing and Nvidia confirmed all three suppliers in production for Rubin. No Micron statement on the new report (Daily Silicon (fact-check of ChoiceStock / DigiTimes report), 2026-11-10)",
+   "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-10-en/",
+   "kind": "news"
+  },
+  {
    "date": "2026-11-09",
    "headline": "SEC filing: 144 (filed 2026-11-09)",
    "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726010899/0001950047-26-010899-index.htm",
    "kind": "filing"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "MU closed $733.15 on 2026-11-09, -12.0% vs $833.59 on 2026-11-02 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
-   "kind": "price"
   },
   {
    "date": "2026-11-09",
@@ -201,60 +225,6 @@
    "date": "2026-11-04",
    "headline": "Mixed memory signals: Kioxia guided only ~1% QoQ December-quarter revenue growth (stronger yen, order timing, mix; still sees supply tight through 2027) while Apple guided gross margin to 45–46% largely on higher memory costs and expects prices to keep rising beyond December (BigGo Finance, 2026-11-04)",
    "url": "https://finance.biggo.com/news/37504315-ed0f-44c5-9f50-093650740758",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "MU rebounded 2.6% on 3 Nov to close at $855.10 (from $833.59; range $845.25–$871.49, ~20.7M shares, about half average volume) as chip stocks bounced after Monday's selloff; ~$865 after hours (MarketBeat, 2026-11-03)",
-   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-shares-climb-26-still-a-buy-2026-11-03/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "Counterpoint Research (third-party est.) projects HBM4 unit price rising from ~$2/Gb now to ~$4/Gb in 2027; TrendForce (est.) sees 2027 HBM ASP +121%. DRAMeXchange: PC DDR4 8Gb module fixed price $27.50 on 30 Oct (~4x a year ago), so commodity DRAM currently out-earns HBM; Samsung and SK hynix say 2027 HBM volumes and prices are settled (Edaily (citing Counterpoint Research, TrendForce, DRAMeXchange), 2026-11-03)",
-   "url": "https://en.edaily.co.kr/news/eda202611025537/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "Samsung (-5.0% to ₩217,500) and SK hynix (-5.5% to ₩1,391,000) fell over 5% early on 3 Nov, giving back 2 Nov gains as US tech weakness and AI-capex return worries spread; KOSPI slipped back below 5,700. KB Securities raised Samsung's 2027 operating-profit estimate 15% to ₩640T (HBM ASP +150% est.) (Aju Press (Korea Exchange data), 2026-11-03)",
-   "url": "https://www.ajupress.com/view/20261103092070208",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "Memory names led the 3 Nov rebound after Apple said rising memory costs are squeezing its gross margin and expects memory prices to keep climbing into next year, read as confirmation the pricing upcycle is intact; Micron may lift buybacks after CHIPS Act restrictions lapse around 9 Dec (reported) (Investing.com, 2026-11-03)",
-   "url": "https://www.investing.com/news/stock-market-news/why-is-micron-technology-stock-rallying-today-93CH-4995679",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "Memory chip prices have roughly doubled in a year; Micron, Samsung and SK hynix are prioritising data-center customers over PC and consumer makers, and the Korean firms are locking in five-year supply deals (Nikkei report) (Semafor (citing Nikkei), 2026-11-03)",
-   "url": "https://www.semafor.com/article/11/03/2026/chipmakers-prioritize-data-centers-clients",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "US Commerce has not approved SK hynix's export licenses for tools to expand its Dalian, China plant, complicating Solidigm's planned ~$45B NAND fabs in Marcy, New York (sources); Under Secretary Kessler held that no US tools may upgrade or expand China capacity (Reuters via Investing.com, 2026-11-03)",
-   "url": "https://www.investing.com/news/economy-news/sk-hynixs-new-york-chip-plans-hit-snag-over-us-restrictions-on-china-sources-say-4996231",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "Smugglers reportedly bring Samsung/SK hynix HBM into China by co-packaging it with weak processors to exploit a BIS rule exemption; Huawei's Ascend 960DT faces an HBM shortage, and CXMT's HBM3E yields are reportedly only 20–30% vs ~70% at SK hynix (TrendForce (citing The Information, Reuters), 2026-11-03)",
-   "url": "https://www.trendforce.com/news/2026/11/03/news-china-reportedly-obtains-smuggled-hbm-via-server-packages-huawei-960dt-faces-domestic-hbm-shortage/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "NVIDIA has reportedly asked Samsung, SK hynix and Micron to use TSMC 3nm for the base dies of its custom NVHBM (unveiled in August), to standardise performance and validation across suppliers (report, unconfirmed) (Global Advanced Packaging (citing Seoul Economic Daily), 2026-11-03)",
-   "url": "https://globaladvancedpackaging.net/nvidia-reportedly-pushes-tsmc-3nm-nvhbm-base-dies-for-samsung-sk-hynix-micron-uniting-foundry-rivals/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-03",
-   "headline": "Korea MOTIE: October SSD exports $5.64B (+584% YoY from $824M), ninth straight month of triple-digit growth; Samsung and SK hynix cite AI-inference KV-cache demand; Samsung plans 256TB QLC SSD early 2027; SK hynix to lift 321-layer share above 50% (The Herald Business (MOTIE), 2026-11-03)",
-   "url": "https://biz.heraldcorp.com/article/10925215",
    "kind": "news"
   }
  ]
