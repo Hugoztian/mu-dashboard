@@ -1,33 +1,63 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-11 07:50 SGT",
- "from": "2026-11-04",
- "to": "2026-11-11",
+ "updated": "2026-11-12 07:44 SGT",
+ "from": "2026-11-05",
+ "to": "2026-11-12",
  "items": [
   {
-   "date": "2026-11-11",
+   "date": "2026-11-12",
    "headline": "FY27 consensus EPS: $177.03 → $175.22 (-1.0%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-11",
-   "headline": "FY28 consensus EPS: $207.57 → $211.51 (+1.9%) — Nasdaq.com / Zacks",
+   "date": "2026-11-12",
+   "headline": "FY28 consensus EPS: $207.57 → $212.33 (+2.3%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-11",
+   "date": "2026-11-12",
    "headline": "Mean price target: $1,621.67 → $1,624.42 (+0.2%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-10",
-   "headline": "MU closed $725.11 on 2026-11-10, -15.2% vs $855.10 on 2026-11-03 (Nasdaq.com official closes)",
+   "date": "2026-11-11",
+   "headline": "MU closed $811.30 on 2026-11-11, +2.0% vs $795.23 on 2026-11-04 (Nasdaq.com official closes)",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
    "kind": "price"
+  },
+  {
+   "date": "2026-11-11",
+   "headline": "MU jumped 11.89% on 11 Nov to close at $811.30 (from $725.11; range $763.05–$827.58, ~35.5M shares) as CoreWeave's Q3 beat and raised outlook eased AI-spending fears; SanDisk rose about 11% and CoreWeave about 25%. MU then eased about 2% in after-hours trading (Nasdaq.com / The Motley Fool, 2026-11-11)",
+   "url": "https://www.fool.com/investing/2026/11/11/why-micron-stock-popped-today/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-11",
+   "headline": "Customer demand: CoreWeave raised its 2026 revenue guidance to $13.0–13.3B (from $12.4–13.2B), guided capex of $37–39B and an exit run-rate of $20–21B; Micron has said more than 75% of its FY27 output is already committed (Benzinga, 2026-11-11)",
+   "url": "https://www.benzinga.com/trading-ideas/movers/26/11/63152060/micron-stock-jumps-13-as-coreweave-outlook-eases-ai-spending-fears",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-11",
+   "headline": "Analyst lists: Bank of America removed Micron, Nvidia and Lam Research from its US 1 top-picks list on 10 Nov without giving a reason, but kept its Buy rating on all three (no rating or price-target change) (TIKR (Bank of America / Goldman Sachs), 2026-11-11)",
+   "url": "https://www.tikr.com/blog/goldman-calls-micron-a-screaming-buy-bank-of-america-just-dropped-it-from-its-top-picks-whos-right",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-11",
+   "headline": "HBM customer base: Google is expanding sales of its TPUs to outside cloud providers, widening HBM demand beyond Nvidia; Counterpoint (third-party est.) sees HBM bit demand for custom AI chips growing 35-fold from 2024 to 2028. The article focuses on Samsung and SK hynix supply (The Korea Herald (Counterpoint estimate), 2026-11-11)",
+   "url": "https://www.koreaherald.com/article/10933783",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-11",
+   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 11 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.233 (+0.11%), DDR4 16Gb 3200 $79.867 (−0.15%), DDR4 8Gb 3200 $44.893 (−0.24%); DDR4 still drifting lower, DDR5 flat (TrendForce / DRAMeXchange, 2026-11-11)",
+   "url": "https://www.trendforce.com/price/dram/dram_spot",
+   "kind": "news"
   },
   {
    "date": "2026-11-10",
@@ -57,6 +87,18 @@
    "date": "2026-11-10",
    "headline": "Rumour check: a Korean report citing DigiTimes claimed Micron's HBM4 needed a redesign and could slip to 2027; Daily Silicon judged it overstated, noting Micron said at its 21 Oct webinar that HBM4 is in high-volume manufacturing and Nvidia confirmed all three suppliers in production for Rubin. No Micron statement on the new report (Daily Silicon (fact-check of ChoiceStock / DigiTimes report), 2026-11-10)",
    "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-10-en/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "Strategic investment: Anthropic's updated IPO prospectus (10 Nov) shows Micron agreed to buy about $1.0B of Anthropic Class N stock (~13.5M shares at the $74 midpoint) in a $26B concurrent private placement alongside Google, Nvidia, AMD, Broadcom, Microsoft and TSMC, at the IPO price and contingent on the IPO; Nasdaq debut expected 19 Nov (ticker ANT). No Micron 8-K on it so far (Reuters (via U.S. News) / Anthropic prospectus, 2026-11-10)",
+   "url": "https://money.usnews.com/investing/news/articles/2026-11-10/exclusive-anthropic-ipo-to-raise-as-much-as-64-4-billion-latest-draft-prospectus-shows",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-10",
+   "headline": "Demand mix (UBS, third-party est.): DRAM's share of 2027 AI-data-centre memory spending is seen at 74% (from 68% in 2026), with server DDR at 57% and HBM rising from 13% to 17%, while NAND falls from 32% to 26%; Samsung expects HBM to take ~30% of industry DRAM wafer capacity in 2027 (from ~20%) (Edaily (UBS estimate), 2026-11-10)",
+   "url": "https://en.edaily.co.kr/news/eda202611105736/",
    "kind": "news"
   },
   {
@@ -195,36 +237,6 @@
    "date": "2026-11-05",
    "headline": "Counterpoint Research (third-party, 5 Nov): Q3 2026 DRAM revenue nearly $200B (+369% YoY) on ASP ~$1.9/Gb; bit shipments only ~+4%; DDR revenue ~+500% YoY and LPDDR ~+400% outpaced HBM (pricing super-cycle, not yet volume) (Counterpoint Research, 2026-11-05)",
    "url": "https://counterpointresearch.com/en/insights/dram-super-cycle-nears-dollar-200b",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-04",
-   "headline": "MU fell 7.0% on 4 Nov to close at $795.23 (from $855.10; low $782.00, ~35.1M shares) as memory stocks sold off on worries that Democratic midterm wins, including Texas, could slow the AI data-center buildout; SK hynix fell ~5.4% and SanDisk over 8% (MarketBeat; Invezz, 2026-11-04)",
-   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-stock-falls-7-heres-why-2026-11-04/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-04",
-   "headline": "TrendForce (third-party est.) weekly spot: DDR4 1Gx8 3200MT/s spot dipped 0.09% to $46.82 (3 Nov) from $46.86, as spot sits above suppliers' official quotes and buyers wait for a correction; some DDR5 buyers raised target prices under delivery pressure; 512Gb TLC NAND wafer spot fell 4.33% to $16.152 (TrendForce, 2026-11-04)",
-   "url": "https://www.trendforce.com/news/2026/11/04/insights-memory-spot-price-update-mainstream-ddr4-prices-dip-0-09-as-spot-premium-keeps-buyers-on-sidelines/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-04",
-   "headline": "Micron roadmap detail: it has dropped 4F² DRAM cells (unlike CXMT, Samsung, SK hynix) in favour of wafer bonding, High-NA EUV and eventually 3D DRAM; 1δ DRAM volume production planned for 2H 2027; standard and custom HBM4E, then custom HBM5E and vertically stacked vHBM on top of ASICs (Tom's Hardware, 2026-11-04)",
-   "url": "https://www.tomshardware.com/pc-components/dram/micron-details-ambitious-dram-and-nand-roadmap-3d-nand-high-na-euv-new-materials-and-custom-silicon-makes-a-comeback",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-04",
-   "headline": "Samsung DS (₩10.65T) and SK hynix (₩8.33T) Q3 operating profit totalled ~₩19T, driven by price rather than volume (Samsung DRAM/NAND ASP +20%/+17% QoQ vs bits +3%/+4%, Hana Securities est.); Korea Investment & Securities (est.) sees SK hynix Q4 DRAM/NAND prices +18%/+13% QoQ (Yonhap Infomax, 2026-11-04)",
-   "url": "https://en.infomaxai.com/news/articleView.html?idxno=146764",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-04",
-   "headline": "Mixed memory signals: Kioxia guided only ~1% QoQ December-quarter revenue growth (stronger yen, order timing, mix; still sees supply tight through 2027) while Apple guided gross margin to 45–46% largely on higher memory costs and expects prices to keep rising beyond December (BigGo Finance, 2026-11-04)",
-   "url": "https://finance.biggo.com/news/37504315-ed0f-44c5-9f50-093650740758",
    "kind": "news"
   }
  ]
