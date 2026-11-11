@@ -176,6 +176,7 @@ footer b{color:var(--txt);font-weight:500}
 <section id="s-capacity-capex"></section>
 <section id="s-fabs"></section>
 <section id="s-buybacks"></section>
+<section id="s-live-chart"></section>
 <section id="s-insiders"></section>
 <section id="s-calls"></section>
 <section id="s-estimates"></section>
@@ -193,7 +194,7 @@ const D = window.MU_DATA,
 const TABS = [['overview', 'Overview', ""], ['financials-returns', 'Financials & Returns', ""], ['memory-capacity', 'Memory & Capacity', ""], ['earnings-street', 'Earnings & Street', ""], ['comp-china', 'Competition & China', ""], ['people-sources', 'People & Sources', ""]];
 const TAB_GROUPS = {
   overview: ['overview'],
-  'financials-returns': ['financials', 'revenue', 'buybacks'],
+  'financials-returns': ['financials', 'revenue', 'buybacks', 'live-chart'],
   'memory-capacity': ['cycle', 'capacity-capex', 'fabs'],
   'earnings-street': ['calls', 'estimates', 'catalysts'],
   'comp-china': ['competition', 'china'],
@@ -504,6 +505,7 @@ const baseOpts = (extra = {}) => Object.assign({
 
 /* ---------- header ---------- */
 /* ---------- TradingView live widgets (client-side, keyless) ---------- */
+const TV_FRESHNESS = () => L('Delayed quote (TradingView marks NASDAQ:MU "Data is delayed"; Cboe One feed; free widgets cannot show real-time US stock data; checked 8 Oct 2026)');
 const TVLOC = () => 'en';
 function tvEmbed(el, widget, cfg, onFail) {
   if (!el) return;
@@ -844,6 +846,34 @@ function feedTable(n) {
   return `<table><thead><tr><th>${L('Form')}</th><th>${L('Filed')}</th><th>${L('Report date')}</th><th>${L('Description / items')}</th><th>${L('Link')}</th></tr></thead><tbody>${D.filings.slice(0, n).map(f => `<tr><td><b>${esc(f.form)}</b></td><td>${f.date}</td><td>${f.report || ''}</td><td class="wrap">${E(f.desc)} ${f.items ? '<span class="mut">' + L('items ') + esc(f.items) + '</span>' : ''}</td><td><a href="${f.url}" target="_blank">${L('doc')}</a> · <a href="${f.index}" target="_blank">${L('index')}</a></td></tr>`).join('')}</tbody></table>`;
 }
 
+/* ---------- live price chart (Financials & Returns, bottom) ---------- */
+function livePriceChart() {
+  const el = $('#s-live-chart');
+  if (!el) return;
+  el.innerHTML = `<div class="card" id="live-price-chart" style="margin-top:14px;margin-bottom:14px"><h3 style="margin:0 0 6px">${L('Live price chart')} <span class="mut" style="font-size:12px;font-weight:400">· NASDAQ:MU ${L('via TradingView')} · ${TV_FRESHNESS()}</span></h3>
+  <div class="tvchart" id="tvchart"></div></div>`;
+  const unav = why => L(`Live chart unavailable (${esc(why)}).`),
+    lastc = () => D.price.status === 'ok' ? L(` Last official close (Nasdaq.com, build-time): $${fmt(D.price.close, 2)} on ${D.price.close_date}.`) : '';
+  tvEmbed($('#tvchart'), 'advanced-chart', {
+    autosize: true,
+    symbol: 'NASDAQ:MU',
+    interval: 'D',
+    range: '12M',
+    timezone: 'Asia/Singapore',
+    theme: DARK ? 'dark' : 'light',
+    style: '1',
+    locale: TVLOC(),
+    backgroundColor: DARK ? 'rgba(28,28,30,1)' : 'rgba(255,255,255,1)',
+    gridColor: DARK ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+    allow_symbol_change: false,
+    hide_side_toolbar: true,
+    calendar: false,
+    support_host: 'https://www.tradingview.com'
+  }, why => {
+    $('#tvchart').innerHTML = `<div class="tvfail">${unav(why)}${lastc()}</div>`;
+    $('#tvchart').style.height = 'auto';
+  });
+}
 /* ---------- financials ---------- */
 function financials(sub = 'is') {
   const s = D.fin.series;
@@ -2606,6 +2636,7 @@ function china() {
 const R = {
     overview,
     financials,
+    'live-chart': livePriceChart,
     revenue,
     cycle,
     'capacity-capex': capacityCapex,
@@ -2642,7 +2673,7 @@ const ALIAS = {
   people: 'people-sources',
   holders: 'people-sources',
   sources: 'people-sources',
-  // old chart hashes → top of Financials & Returns (handled in route)
+  // Overview chart moved to Financials & Returns (handled in route)
   chart: 'financials-returns',
   price: 'financials-returns',
   tvchart: 'financials-returns',
@@ -2657,8 +2688,9 @@ function route() {
     anchor = 'capacity-capex';
     t = ALIAS[t];
   }
-  // old chart hashes → top of Financials & Returns
+  // old Overview chart anchors → Financials & Returns live chart
   if (t === 'chart' || t === 'price' || t === 'tvchart' || t === 'live-price-chart' || t === 'live-chart') {
+    anchor = 'live-chart';
     t = 'financials-returns';
   }
   // old section key → group key
