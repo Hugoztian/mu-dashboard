@@ -1,33 +1,87 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-12 07:44 SGT",
- "from": "2026-11-05",
- "to": "2026-11-12",
+ "updated": "2026-11-13 07:49 SGT",
+ "from": "2026-11-06",
+ "to": "2026-11-13",
  "items": [
   {
-   "date": "2026-11-12",
-   "headline": "FY27 consensus EPS: $177.03 → $175.22 (-1.0%) — Nasdaq.com / Zacks",
+   "date": "2026-11-13",
+   "headline": "FQ1 FY27 consensus EPS: $37.93 → $37.95 (+0.1%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-12",
-   "headline": "FY28 consensus EPS: $207.57 → $212.33 (+2.3%) — Nasdaq.com / Zacks",
+   "date": "2026-11-13",
+   "headline": "FY27 consensus EPS: $175.19 → $174.19 (-0.6%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-12",
+   "date": "2026-11-13",
+   "headline": "FY28 consensus EPS: $211.51 → $212.33 (+0.4%) — Nasdaq.com / Zacks",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
+   "kind": "estimate"
+  },
+  {
+   "date": "2026-11-13",
    "headline": "Mean price target: $1,621.67 → $1,624.42 (+0.2%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-11",
-   "headline": "MU closed $811.30 on 2026-11-11, +2.0% vs $795.23 on 2026-11-04 (Nasdaq.com official closes)",
+   "date": "2026-11-12",
+   "headline": "SEC filing: 144 (filed 2026-11-12)",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726011002/0001950047-26-011002-index.htm",
+   "kind": "filing"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "SEC filing: 144 (filed 2026-11-12)",
+   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726011000/0001950047-26-011000-index.htm",
+   "kind": "filing"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "Insider filing: EVP & CBO Sumit Sadana filed Form 144 (12 Nov) for a proposed sale of 14,000 shares from vested performance shares (~$11.41M aggregate value, approx. sale date 11 Nov, via Morgan Stanley); his second Form 144 this week after 5,000 shares on 9 Nov. A Form 4 should follow (SEC EDGAR (Form 144), 2026-11-12)",
+   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=144&dateb=&owner=include&count=40",
+   "kind": "filing"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "MU closed $798.44 on 2026-11-12, +21.6% vs $656.39 on 2026-11-05 (Nasdaq.com official closes)",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
    "kind": "price"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "MU slipped 1.59% on 12 Nov to close at $798.44 (from $811.30; range $764.57–$799.70, ~27M shares), recovering from an early drop of about 4–6% after Nvidia CEO Jensen Huang resigned (StockAnalysis / MarketBeat, 2026-11-12)",
+   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-stock-falls-16-whats-next-2026-11-12/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "Largest HBM customer: Nvidia CEO Jensen Huang resigned on 12 Nov after the board probe of his ties to an alleged Chinese spy; CFO Colette Kress is interim CEO. AI hardware stocks fell (MU was down ~5.8% pre-market, SK hynix ~3%), while AMD and Broadcom rose. No change to memory orders has been announced (CNA (Reuters), 2026-11-12)",
+   "url": "https://www.channelnewsasia.com/business/global-ai-stocks-sink-nvidia-ceos-exit-deepens-sector-selloff-6546411",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "Pricing: leading memory makers have reportedly told distributors verbally of new price hikes for enterprise-grade memory (DRAM contract and enterprise SSD); channel prices are already rising while consumer segments stay weak. TrendForce (third-party est.) expects Q4 enterprise SSD contract prices +15–20% (TrendForce (citing Lanjing News), 2026-11-12)",
+   "url": "https://www.trendforce.com/news/2026/11/12/news-memory-makers-reportedly-plan-new-price-hikes-while-ai-demand-widens-enterprise-consumer-divide/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "Competitor HBM4: SK hynix's HBM4 production yield has reportedly passed 70% (industry sources, not disclosed by the company); Samsung was said to be near 80% in September. Yield bases differ by vendor, so comparisons with Micron are not like-for-like (Chosun Biz, 2026-11-12)",
+   "url": "https://biz.chosun.com/en/en-it/2026/11/12/7XTICBS4V5BJPD4IYCNFKP7DWE/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-12",
+   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 12 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.233 (flat), DDR4 16Gb 3200 $79.75 (−0.15%), DDR4 8Gb 3200 $44.714 (−0.40%); DDR4 still drifting lower, DDR5 flat (TrendForce / DRAMeXchange, 2026-11-12)",
+   "url": "https://www.trendforce.com/price/dram/dram_spot",
+   "kind": "news"
   },
   {
    "date": "2026-11-11",
@@ -195,48 +249,6 @@
    "date": "2026-11-06",
    "headline": "Competitor: SK hynix’s HBM4 cumulative yield has reportedly reached the mid-60% range, above plan, and it expects HBM4 to overtake HBM3E in Q4 shipments and revenue; customer HBM requests exceed twice its supply. Counterpoint (third-party est.) put Q2 HBM revenue share at SK hynix 50%, Samsung 33%, Micron 18%; Q3 shares due this month (Newspim, 2026-11-06)",
    "url": "https://www.newspim.com/news/view/20261106000396",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "SEC filing: 8-K — FORM 8-K (filed 2026-11-05)",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926123389/0001104659-26-123389-index.htm",
-   "kind": "filing"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "MU fell 17.5% on 5 Nov to close at $656.39 (from $795.23; low $650.00, ~75M shares) in a broad chip rout on midterm AI data-center regulation fears, plus Bloomberg’s report Micron paused its $4.5B Taoyuan Fab 11E; SanDisk ~-22%, AMD ~-17%, NVDA ~-9% (MarketBeat; Investing.com, 2026-11-05)",
-   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-stock-falls-175-should-you-sell-2026-11-05/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "Bloomberg (people familiar): Micron has all but halted construction of Fab 11E in Taoyuan (~$3–4.5B, HBM/DRAM with ASML tools, was due 2028) over a Taoyuan-union profit-sharing dispute; Micron said Taiwan ops continue as normal and talks continue; Taiwan ~60% of Micron DRAM output (Bloomberg (via Taipei Times / Reuters), 2026-11-05)",
-   "url": "https://www.taipeitimes.com/News/biz/archives/2026/11/06/2003867231",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "Counterpoint Research (third-party): Q3 DRAM revenue share Samsung 38% (flat), SK hynix 29% (+4pp QoQ; HBM3E + higher prices), Micron 21% (−3pp), CXMT 9% (−1pp after briefly >10%); SK hynix still leads HBM (~50% in Q2) but Counterpoint expects Samsung HBM4 to challenge for #1 in 2027 (Seoul Economic Daily (Counterpoint Research), 2026-11-05)",
-   "url": "https://en.sedaily.com/finance/2026/11/05/samsung-holds-no-1-spot-in-dram-as-sk-hynix-narrows-gap",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "Korea Times: Democratic midterm wins and governors-elect in Texas/Ohio/Georgia pledging data-center pauses fueled memory-demand fears; on 5 Nov Samsung closed −7.6% to ₩201,500 and SK hynix −9.5% to ₩1,264,000; analysts say nationwide halt unlikely but regional rules could slow AI buildout (The Korea Times, 2026-11-05)",
-   "url": "https://www.koreatimes.co.kr/business/tech-science/20261105/us-midterm-blue-wave-puts-pressure-on-memory-chip-demand",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "Micron 8-K (5 Nov): director Linnie M. Haynesworth will retire from the board at the annual meeting expected 14 Jan 2027 (joined Feb 2021; chaired Security Committee 2024–2026); board to be eight directors afterward; remaining directors renominated (Micron / SEC 8-K, 2026-11-05)",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000110465926123389/tm2629062d1_ex99-1.htm",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-05",
-   "headline": "Counterpoint Research (third-party, 5 Nov): Q3 2026 DRAM revenue nearly $200B (+369% YoY) on ASP ~$1.9/Gb; bit shipments only ~+4%; DDR revenue ~+500% YoY and LPDDR ~+400% outpaced HBM (pricing super-cycle, not yet volume) (Counterpoint Research, 2026-11-05)",
-   "url": "https://counterpointresearch.com/en/insights/dram-super-cycle-nears-dollar-200b",
    "kind": "news"
   }
  ]
