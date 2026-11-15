@@ -1,33 +1,63 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-14 07:52 SGT",
- "from": "2026-11-07",
- "to": "2026-11-14",
+ "updated": "2026-11-16 07:45 SGT",
+ "from": "2026-11-09",
+ "to": "2026-11-16",
  "items": [
   {
-   "date": "2026-11-14",
+   "date": "2026-11-16",
    "headline": "FQ1 FY27 consensus EPS: $37.93 → $37.95 (+0.1%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-14",
+   "date": "2026-11-16",
    "headline": "FY27 consensus EPS: $175.19 → $174.19 (-0.6%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-14",
+   "date": "2026-11-16",
    "headline": "FY28 consensus EPS: $211.51 → $212.33 (+0.4%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-14",
+   "date": "2026-11-16",
    "headline": "Mean price target: $1,621.67 → $1,624.42 (+0.2%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-16",
+   "headline": "Taiwan labour: after the Micron Taoyuan union said on 12 Nov it would quit talks, Taoyuan's mayor had the city labour bureau start statutory mediation, and both sides agreed to resume negotiations on the afternoon of 17 Nov over bonuses and profit sharing; no production impact reported (China Times, 2026-11-16)",
+   "url": "https://www.chinatimes.com/newspapers/20261116000525-260107",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-15",
+   "headline": "Legal: US District Judge Noël Wise (N.D. Cal.) denied Micron, Samsung and SK hynix's joint motion to dismiss a proposed consumer class action (Garciaguirre v. Samsung) alleging coordinated conventional-DRAM supply cuts and a pivot to HBM; a pleading-stage ruling, nothing proven. Answers are due 7 Dec; first case conference 12 Jan 2027 (Tom's Hardware / TechPowerUp, 2026-11-15)",
+   "url": "https://www.tomshardware.com/tech-industry/big-tech/judge-denies-motion-to-dismiss-dram-price-fixing-lawsuit-against-micron-samsung-and-sk-hynix-says-chipmakers-acted-like-hawks-flying-in-formation-finds-evidence-of-dram-collusion-plausible-after-500-percent-price-surge",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-15",
+   "headline": "Week ahead: Nvidia, Micron's largest HBM customer, reports FQ3 after the US close on 17 Nov (about 05:20 SGT 18 Nov), its first results since Jensen Huang's exit, against its $108B guide; consensus ~$109.2B revenue (LSEG, third-party est.). Applied Materials guided 2027 wafer-fab-equipment spending up more than 30% (Daily Silicon (LSEG consensus est.), 2026-11-15)",
+   "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-15-en/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-15",
+   "headline": "Policy: the US and eight partners (Japan, South Korea, UK, Australia, Israel, India, Qatar, UAE) signed the Pax Silica 'San Francisco Declaration' on 15 Nov, setting a shared list of sensitive AI technologies and supply links incl. semiconductors and advanced packaging; full text and enforcement annexes not yet published; EU, Germany, Netherlands and Sweden deferred (East Asia Brief, 2026-11-15)",
+   "url": "https://eastasiabrief.com/trade-policy/us-signs-multilateral-ai-supply-chain-pact-eight-allies-1463",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-14",
+   "headline": "HBM share (Hana Securities, third-party est., 13 Nov): 2027 HBM shipments of 39.2B Gb split SK hynix 47%, Samsung 41%, Micron 12% (4.8B Gb), with Samsung seen leading on revenue; Micron's HBM wafer capacity est. 60K/month in 2026 rising to 80K in 2027; 2027 hyperscaler HBM demand ~44B Gb exceeds supply, with balance seen only in 2H28 (Daily Silicon (Hana Securities estimate), 2026-11-14)",
+   "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-14-en/",
+   "kind": "news"
   },
   {
    "date": "2026-11-13",
@@ -231,24 +261,6 @@
    "date": "2026-11-09",
    "headline": "Potential new supply (long-dated, unconfirmed): Elon Musk's Terafab reportedly told equipment makers it targets ~1M wafers/month by 2032, ~700K of them for memory (close to Samsung's ~650–700K DRAM wafer capacity), with mass production starting 2H28; memory partners and HBM/LPDDR split not disclosed (TrendForce (citing Nikkei / Financial News), 2026-11-09)",
    "url": "https://www.trendforce.com/news/2026/11/09/news-terafab-reportedly-eyes-1m-wafers-monthly-by-2032-with-700k-for-memory-near-samsungs-total-dram-capacity/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-08",
-   "headline": "Post-midterm data-center regulation risk: Samsung says its 2027 HBM is sold out at negotiated prices and SK hynix says DRAM/HBM is effectively sold out through 2029 (LTAs >50% of 2027–28 capacity), but some analysts estimate about half of planned 2028 US data-center additions could fall under new permitting curbs; customers delaying acceptance could shift quarterly revenue even if volumes hold (Financial News (Korea), 2026-11-08)",
-   "url": "https://www.fnnews.com/news/202611081815385415",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-08",
-   "headline": "Weekly DRAM spot (third-party, DRAMeXchange session averages, week to 6 Nov): DDR4 chips avg $47.81 (−1.0% w/w, third straight weekly fall), DDR5 $61.06 (−0.6% w/w, still +4.5% over 4 weeks, near its 40-week high); no contract-price reset seen (DDRWatcher (DRAMeXchange data), 2026-11-08)",
-   "url": "https://ddrwatcher.com/briefs/week-2026-45",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-07",
-   "headline": "The Information (6 Nov, two people familiar) reported TSMC has begun preparing plans to make 3D DRAM at Nvidia’s request, led by VP Hsu Kuo-chin (ex-head of Micron’s Taiwan operations), via a new fab or a converted plant; TSMC effectively denied it on 7 Nov, saying it stays a dedicated logic foundry. Winbond’s chair also sees in-house TSMC DRAM as unlikely (patents, process know-how). Unconfirmed report; any supply would be years away (Tom's Hardware (The Information report), 2026-11-07)",
-   "url": "https://www.tomshardware.com/pc-components/dram/tsmc-denies-exploring-3d-dram-at-nvidias-request-advanced-memory-tech-is-still-years-from-market-viability",
    "kind": "news"
   }
  ]
