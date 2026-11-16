@@ -1,38 +1,68 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-16 07:45 SGT",
- "from": "2026-11-09",
- "to": "2026-11-16",
+ "updated": "2026-11-17 07:45 SGT",
+ "from": "2026-11-10",
+ "to": "2026-11-17",
  "items": [
   {
-   "date": "2026-11-16",
+   "date": "2026-11-17",
    "headline": "FQ1 FY27 consensus EPS: $37.93 → $37.95 (+0.1%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-16",
+   "date": "2026-11-17",
    "headline": "FY27 consensus EPS: $175.19 → $174.19 (-0.6%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-16",
+   "date": "2026-11-17",
    "headline": "FY28 consensus EPS: $211.51 → $212.33 (+0.4%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
    "date": "2026-11-16",
-   "headline": "Mean price target: $1,621.67 → $1,624.42 (+0.2%) — Nasdaq.com / Zacks",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
-   "kind": "estimate"
+   "headline": "MU closed $719.02 on 2026-11-16, -1.9% vs $733.15 on 2026-11-09 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-16",
+   "headline": "MU fell 7.62% on 16 Nov to close at $719.02 (from $778.31; range $716.38–$739.12, ~26.5M shares), its third straight decline, as chip stocks sold off ahead of Nvidia's FQ3 results (SanDisk −8.6%, Nvidia −4.1%, S&P 500 −1.9%); new US AI-chip export rules and the DRAM antitrust ruling added pressure (Nasdaq.com / Investing.com, 2026-11-16)",
+   "url": "https://www.investing.com/news/stock-market-news/us-chip-stocks-slide-as-traders-unwind-nvidia-rival-bets-before-earnings-5030435",
+   "kind": "price"
   },
   {
    "date": "2026-11-16",
    "headline": "Taiwan labour: after the Micron Taoyuan union said on 12 Nov it would quit talks, Taoyuan's mayor had the city labour bureau start statutory mediation, and both sides agreed to resume negotiations on the afternoon of 17 Nov over bonuses and profit sharing; no production impact reported (China Times, 2026-11-16)",
    "url": "https://www.chinatimes.com/newspapers/20261116000525-260107",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-16",
+   "headline": "Export policy: a Commerce (BIS) interim final rule now requires licences to ship advanced AI chips to Indonesia, Malaysia, Singapore, Thailand and Brazil (US-headquartered buyers exempt if they report) and to serve significant compute to China-headquartered firms from overseas data centres (90 days for existing customers). It targets AI processors, not memory directly; HBM to China was already restricted. Singapore's MDDI/METI said on 17 Nov they are studying the impact (Fortune / NBC News, 2026-11-16)",
+   "url": "https://fortune.com/2026/11/16/new-commerce-rule-nvidia-chip-singapore-malaysia-china/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-16",
+   "headline": "NAND pricing turn (Bank of America, third-party est.): NAND spot prices have fallen about 20% since mid-to-late October and 512Gb wafer spot is $14.30 (−12% w/w, −32% q/q) on weaker PC/smartphone and Chinese cloud orders; BofA sees general-IT NAND down another 5–10% in 1Q27 but kept DRAM forecasts of +8% in 4Q26 and +5% in 1Q27, and says AI data-centre (enterprise) demand is intact. Samsung fell 4.5%, SK hynix 7.9% and Kioxia 7.7% on 16 Nov (Seoul Economic Daily (BofA estimate), 2026-11-16)",
+   "url": "https://en.sedaily.com/market/2026/11/16/nand-spot-prices-fall-20-percent-clouding-memory-super-cycle",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-16",
+   "headline": "Competitor HBM: SK hynix's Q3 report shows its largest customer (believed to be Nvidia) at ₩34.98T of 9M revenue (14.8%), with about ₩17.4T in Q3 alone; DRAM ASP rose by the high-20s % q/q on a larger HBM4 mix, and LTAs with 14 customers cover more than half of 2027–28 capacity (MoneyToday, 2026-11-16)",
+   "url": "https://www.mt.co.kr/en/industry/2026/11/16/2026111616522964804",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-16",
+   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 16 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.333 (+0.11%), DDR4 16Gb 3200 $79.375 (−0.16%), DDR4 8Gb 3200 $44.357 (−0.40%); DDRWatcher (est.) says DDR4 is in a fifth straight weekly decline while DDR5 sits 1.8% below its 42-week high, with no contract reset yet (TrendForce / DRAMeXchange, 2026-11-16)",
+   "url": "https://www.trendforce.com/price/dram/dram_spot",
    "kind": "news"
   },
   {
@@ -54,16 +84,16 @@
    "kind": "news"
   },
   {
+   "date": "2026-11-15",
+   "headline": "Largest HBM customer: Treasury Secretary Scott Bessent gave Nvidia's board 10 days to answer whether shell companies were used to evade China export controls, said nothing above the H200 may be sold to China and urged an outside CEO; on 16 Nov CNBC (source) reported the board is not considering bringing back Jensen Huang (CNBC, 2026-11-15)",
+   "url": "https://www.cnbc.com/2026/11/15/bessent-nvidia-ceo-lutnick-megaspeed.html",
+   "kind": "news"
+  },
+  {
    "date": "2026-11-14",
    "headline": "HBM share (Hana Securities, third-party est., 13 Nov): 2027 HBM shipments of 39.2B Gb split SK hynix 47%, Samsung 41%, Micron 12% (4.8B Gb), with Samsung seen leading on revenue; Micron's HBM wafer capacity est. 60K/month in 2026 rising to 80K in 2027; 2027 hyperscaler HBM demand ~44B Gb exceeds supply, with balance seen only in 2H28 (Daily Silicon (Hana Securities estimate), 2026-11-14)",
    "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-14-en/",
    "kind": "news"
-  },
-  {
-   "date": "2026-11-13",
-   "headline": "MU closed $778.31 on 2026-11-13, +12.8% vs $690.00 on 2026-11-06 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
-   "kind": "price"
   },
   {
    "date": "2026-11-13",
@@ -213,54 +243,6 @@
    "date": "2026-11-10",
    "headline": "Demand mix (UBS, third-party est.): DRAM's share of 2027 AI-data-centre memory spending is seen at 74% (from 68% in 2026), with server DDR at 57% and HBM rising from 13% to 17%, while NAND falls from 32% to 26%; Samsung expects HBM to take ~30% of industry DRAM wafer capacity in 2027 (from ~20%) (Edaily (UBS estimate), 2026-11-10)",
    "url": "https://en.edaily.co.kr/news/eda202611105736/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "SEC filing: 144 (filed 2026-11-09)",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726010899/0001950047-26-010899-index.htm",
-   "kind": "filing"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "MU rose 6.25% on 9 Nov to close at $733.15 (from $690.00; range $689.65–$744.74, ~31.9M shares) as chip stocks extended their rebound from last week's midterm-driven rout (SOX nearly +7%, AMD +13%), while Nvidia fell 4.3% (Nasdaq.com / The Motley Fool, 2026-11-09)",
-   "url": "https://www.fool.com/investing/2026/11/09/why-micron-technology-stock-gained-on-monday/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "Insider: Form 144 (filed 9 Nov) gives notice that EVP and Chief Business Officer Sumit Sadana plans to sell 5,000 MU shares (~$3.65M, about $730/share) via Morgan Stanley around 9 Nov; the shares came from performance shares vested 13 Oct. He sold 15,000 shares on 18 Aug (~$14.0M). No 10b5-1 plan date given; the Form 4 is still to come (SEC Form 144, 2026-11-09)",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726010899/0001950047-26-010899-index.htm",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "Key HBM customer: Nvidia's board opened an independent investigation after NYT/FT reports that CEO Jensen Huang was the target of a foreign intelligence effort through a relationship with a Megaspeed executive; NVDA closed −4.27% on 9 Nov (intraday −8.8%). Nvidia says it has no reason to believe secrets were compromised; no change to memory supply contracts has been reported (CNBC, 2026-11-09)",
-   "url": "https://www.cnbc.com/2026/11/09/nvidia-jensen-huang-chinese-spy-investigation.html",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "Morgan Stanley (third-party est., 9 Nov) told clients to buy the AI dip after the midterms, keeping hyperscaler capex forecasts at $1.6T for 2027 and $1.8T for 2028 (with downside risk to 2028); it expects about 20% of US data-center projects planned for 2028 (~5 GW) to slip into 2029 because of permitting friction in Texas and Ohio, and warns suppliers could face a 2028 downcycle if powered buildings become the bottleneck (investingLive (Morgan Stanley note), 2026-11-09)",
-   "url": "https://investinglive.com/stocks/morgan-stanley-says-buy-the-ai-dip-sees-3-4-trillion-in-hyperscaler-spending-through-2028/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 9 Nov GMT+8): DDR4 8Gb (1Gx8) 3200 session avg $45.214 (−0.86%), DDR4 16Gb $80.236 (−0.72%), DDR5 16Gb $60.167 (flat); buyers make only price-probing inquiries. TrendForce Weekly Radar 009 says DRAM stays 'Very Tight' though lead times eased to 18 weeks (from 19), with US demand robust while Chinese buyers scale back (TrendForce / DRAMeXchange, 2026-11-09)",
-   "url": "https://www.trendforce.com/price/dram/dram_spot",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "SK hynix told Aju Press no significant changes to supply arrangements or delivery schedules have emerged since the US midterms; its LTAs with 14 customers cover more than half of 2027–28 capacity, with quantities and timing adjustable only within agreed limits. Industry officials see an immediate memory-demand drop as unlikely (Aju Press, 2026-11-09)",
-   "url": "https://www.ajupress.com/view/20261109155746040",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-09",
-   "headline": "Potential new supply (long-dated, unconfirmed): Elon Musk's Terafab reportedly told equipment makers it targets ~1M wafers/month by 2032, ~700K of them for memory (close to Samsung's ~650–700K DRAM wafer capacity), with mass production starting 2H28; memory partners and HBM/LPDDR split not disclosed (TrendForce (citing Nikkei / Financial News), 2026-11-09)",
-   "url": "https://www.trendforce.com/news/2026/11/09/news-terafab-reportedly-eyes-1m-wafers-monthly-by-2032-with-700k-for-memory-near-samsungs-total-dram-capacity/",
    "kind": "news"
   }
  ]
