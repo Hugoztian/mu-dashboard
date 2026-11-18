@@ -1,33 +1,81 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-18 07:44 SGT",
- "from": "2026-11-11",
- "to": "2026-11-18",
+ "updated": "2026-11-19 07:41 SGT",
+ "from": "2026-11-12",
+ "to": "2026-11-19",
  "items": [
   {
-   "date": "2026-11-18",
+   "date": "2026-11-19",
    "headline": "FQ1 FY27 consensus EPS: $37.93 → $37.95 (+0.1%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-18",
+   "date": "2026-11-19",
    "headline": "FY27 consensus EPS: $175.22 → $174.19 (-0.6%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
    "date": "2026-11-18",
-   "headline": "FY28 consensus EPS: $211.51 → $212.33 (+0.4%) — Nasdaq.com / Zacks",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
-   "kind": "estimate"
+   "headline": "RBC Capital (Srini Pajjuri) reiterated Outperform and a $1,500 target after an investor meeting with Micron IR (Satya Kumar): management expects tighter industry supply in 2027–28, is not worried about de-spec'ing, sounded confident SCAs are enforceable, and intends to return 100% of excess cash over time, mainly via buybacks; RBC calls the pullback an opportunity (MU ~4.2x CY27E EPS, RBC est.) (Investing.com / MarketBeat, 2026-11-18)",
+   "url": "https://www.investing.com/news/analyst-ratings/rbc-capital-reiterates-micron-technology-stock-rating-on-ai-demand-outlook-93CH-5036157",
+   "kind": "target"
   },
   {
-   "date": "2026-11-17",
-   "headline": "MU closed $712.42 on 2026-11-17, -1.8% vs $725.11 on 2026-11-10 (Nasdaq.com official closes)",
+   "date": "2026-11-18",
+   "headline": "MU closed $705.27 on 2026-11-18, -13.1% vs $811.30 on 2026-11-11 (Nasdaq.com official closes)",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
    "kind": "price"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "MU fell 1.00% on 18 Nov to close at $705.27 (from $712.42; range $687.34–$722.95, ~27M shares), its fifth straight decline, giving back a ~4.8% after-hours gain from Nvidia's results as NAND-glut worries (GF Securities) kept memory names under pressure (SanDisk −2.6% ahead of its 8-for-1 split); MU traded ~$714 after hours (Nasdaq.com, 6:38 pm ET) (Nasdaq.com / 24/7 Wall St., 2026-11-18)",
+   "url": "https://247wallst.com/investing/2026/11/18/sandisk-slides-4-ahead-of-8-for-1-stock-split-as-nand-glut-worries-linger-micron-drops-3-seagate-edges-lower/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "Management comments: at the TomorrowX Summit in Austin, CEO Sanjay Mehrotra said demand is robust, supply tight and pricing constructive, that calendar 2027 and 2028 will be even tighter than 2026, and that 75% of Micron's 2027 output is already sold out with 2028 commitments under discussion; Micron cited 26 supply and collaboration agreements with $32B of upfront cash and financial commitments, said it still works closely with Nvidia, and reiterated that shareholder returns step up after CHIPS restrictions lapse on 9 Dec (Investing.com (event transcript) / Seeking Alpha, 2026-11-18)",
+   "url": "https://www.investing.com/news/transcripts/micron-at-tomorrowx-summit-ai-memory-demand-reshapes-outlook-93CH-5036868",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "DRAM/HBM pricing outlook (TrendForce Seoul roadshow, third-party est.): conventional DRAM ASPs +10–15% q/q in 4Q26, then slowing to +5–10%, +3–8%, 0–5% and 0–5% q/q through 1Q–4Q27; HBM4 seen at $3–5.5/Gb in 2027 vs ≥$2.05/Gb in 2026, with HBM4E discussed above $5/Gb (Chosun Biz / FXBus (TrendForce estimate), 2026-11-18)",
+   "url": "https://biz.chosun.com/en/en-it/2026/11/18/YCDJTCE5CVFFND7AW5NJRISJDA/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "Spot pricing (TrendForce weekly, third-party): DRAM buyers stay on the sidelines even as some suppliers offer lower prices; DDR4 8Gb 3200 fell 1.43% w/w to $44.25 (17 Nov) while branded DDR5 held steady; NAND sellers are cutting prices to clear inventory and the NAND spot–contract gap now exceeds 20%. 18 Nov session: DDR5 16Gb $60.50 (+0.28%), DDR4 16Gb $78.95 (−0.22%), DDR4 8Gb $44.03 (−0.50%) (TrendForce / DRAMeXchange; Newspim, 2026-11-18)",
+   "url": "https://www.trendforce.com/news/2026/11/18/insights-memory-spot-price-update-nand-spot-contract-price-gap-exceeds-20-amid-weak-demand/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "Competitors: Korean coverage of Nvidia's results notes $203B of its $390B supply commitments fall in FY28; Samsung's Q3 filing says demand keeps outrunning its output increases and it has long-term memory deals with 10 large customers (10 more in talks), while SK hynix says DRAM/HBM output through 2029 is booked and is adding HBM4 packaging/test capacity for 1H27 (etnews) (Aju News / Financial News (Korea), 2026-11-18)",
+   "url": "https://www.ajunews.com/view/20261118155548755",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "China competitor: CXMT CEO Mark Cao said at its 17 Nov Q3 briefing that it has signed long-term DRAM supply agreements with several tier-one customers, while its 4F² DRAM production is still awaiting customer validation (DigiTimes, 2026-11-18)",
+   "url": "https://www.digitimes.com/news/a20261118PD226/cxmt-dram-production-demand-president.html?chid=10",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "Anthropic IPO: priced at $83 a share, above the $70–78 range (sources told CNBC; ~$1.4–1.5T valuation), with Nasdaq trading (ANT) due 19 Nov; Micron's ~$1.0B Class N purchase in the private placement is at the IPO price (CNBC, 2026-11-18)",
+   "url": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-18",
+   "headline": "Export policy: CNBC reports the new BIS AI-chip licence rule puts Southeast Asia's data-centre build-out (Singapore, Malaysia, Thailand, Indonesia) at risk; the rule targets AI processors and servers rather than memory directly (CNBC, 2026-11-18)",
+   "url": "https://www.cnbc.com/2026/11/18/nvidia-us-ai-chip-export-controls-data-centers-.html",
+   "kind": "news"
   },
   {
    "date": "2026-11-17",
@@ -224,36 +272,6 @@
   {
    "date": "2026-11-12",
    "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 12 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.233 (flat), DDR4 16Gb 3200 $79.75 (−0.15%), DDR4 8Gb 3200 $44.714 (−0.40%); DDR4 still drifting lower, DDR5 flat (TrendForce / DRAMeXchange, 2026-11-12)",
-   "url": "https://www.trendforce.com/price/dram/dram_spot",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-11",
-   "headline": "MU jumped 11.89% on 11 Nov to close at $811.30 (from $725.11; range $763.05–$827.58, ~35.5M shares) as CoreWeave's Q3 beat and raised outlook eased AI-spending fears; SanDisk rose about 11% and CoreWeave about 25%. MU then eased about 2% in after-hours trading (Nasdaq.com / The Motley Fool, 2026-11-11)",
-   "url": "https://www.fool.com/investing/2026/11/11/why-micron-stock-popped-today/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-11",
-   "headline": "Customer demand: CoreWeave raised its 2026 revenue guidance to $13.0–13.3B (from $12.4–13.2B), guided capex of $37–39B and an exit run-rate of $20–21B; Micron has said more than 75% of its FY27 output is already committed (Benzinga, 2026-11-11)",
-   "url": "https://www.benzinga.com/trading-ideas/movers/26/11/63152060/micron-stock-jumps-13-as-coreweave-outlook-eases-ai-spending-fears",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-11",
-   "headline": "Analyst lists: Bank of America removed Micron, Nvidia and Lam Research from its US 1 top-picks list on 10 Nov without giving a reason, but kept its Buy rating on all three (no rating or price-target change) (TIKR (Bank of America / Goldman Sachs), 2026-11-11)",
-   "url": "https://www.tikr.com/blog/goldman-calls-micron-a-screaming-buy-bank-of-america-just-dropped-it-from-its-top-picks-whos-right",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-11",
-   "headline": "HBM customer base: Google is expanding sales of its TPUs to outside cloud providers, widening HBM demand beyond Nvidia; Counterpoint (third-party est.) sees HBM bit demand for custom AI chips growing 35-fold from 2024 to 2028. The article focuses on Samsung and SK hynix supply (The Korea Herald (Counterpoint estimate), 2026-11-11)",
-   "url": "https://www.koreaherald.com/article/10933783",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-11",
-   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 11 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.233 (+0.11%), DDR4 16Gb 3200 $79.867 (−0.15%), DDR4 8Gb 3200 $44.893 (−0.24%); DDR4 still drifting lower, DDR5 flat (TrendForce / DRAMeXchange, 2026-11-11)",
    "url": "https://www.trendforce.com/price/dram/dram_spot",
    "kind": "news"
   }
