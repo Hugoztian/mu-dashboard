@@ -1,33 +1,63 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-19 07:41 SGT",
- "from": "2026-11-12",
- "to": "2026-11-19",
+ "updated": "2026-11-20 07:42 SGT",
+ "from": "2026-11-13",
+ "to": "2026-11-20",
  "items": [
   {
-   "date": "2026-11-19",
-   "headline": "FQ1 FY27 consensus EPS: $37.93 → $37.95 (+0.1%) — Nasdaq.com / Zacks",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
-   "kind": "estimate"
+   "date": "2026-11-20",
+   "headline": "Contract vs spot (KB Securities, third-party est., 20 Nov): KB sees 2027 DRAM demand +25% against supply +18%, with key customers receiving only ~70% of what they need, and forecasts Samsung/SK hynix contract DRAM ASPs +40% and NAND +30% in 2027; it says DRAM and NAND spot fell ~5% and ~20% in the past month while contract prices kept rising, putting the spot–contract gap above 20%, and calls chip-stock pessimism 'near its peak'. Samsung and SK hynix were down ~4% and ~5% in Korean pre-market trading after the US chip sell-off (Edaily (KB Securities estimate); Financial News, 2026-11-20)",
+   "url": "https://en.edaily.co.kr/news/eda202611205065/",
+   "kind": "news"
   },
   {
    "date": "2026-11-19",
-   "headline": "FY27 consensus EPS: $175.22 → $174.19 (-0.6%) — Nasdaq.com / Zacks",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
-   "kind": "estimate"
+   "headline": "Lynx Equity (KC Rajkumar) named Micron its top semiconductor pick and kept a $1,325 target, calling the stock 'ridiculously cheap' at ~2.3x his calendar-2028 EPS estimate; he argues slower data-centre permitting does not mean weaker DRAM/NAND demand (Investing.com, 2026-11-19)",
+   "url": "https://www.investing.com/news/stock-market-news/micron-valuation-looks-ridiculously-cheap-as-anthropic-ipo-could-revive-ai-trade-5038695",
+   "kind": "target"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "MU closed $690.44 on 2026-11-19, -13.5% vs $798.44 on 2026-11-12 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "MU fell 2.10% on 19 Nov to close at $690.44 (from $705.27; range $689.27–$760.00, ~35M shares), its sixth straight decline and lowest close since 6 Nov, after opening near $740 on Anthropic's Nasdaq debut and reversing as AI and chip stocks sold off (S&P 500 −2.0%, Nasdaq −2.25%, SOX −2.4%; Nvidia −3.3%; AMD −7.7% on a Hunterbrook short report on China exports); MU traded ~$678.70 after hours (Nasdaq.com, 6:39 pm ET) (Nasdaq.com / Reuters (via Investing.com), 2026-11-19)",
+   "url": "https://www.investing.com/news/stock-market-news/wall-street-ends-sharply-lower-asanthropics-debut-fails-to-revive-ai-fervor-5040108",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "Earnings date confirmed: Micron will hold its FQ1 FY27 earnings call on Thursday 17 Dec 2026 at 2:30 pm Mountain time (4:30 pm ET; 05:30 SGT Fri 18 Dec), replacing the third-party 16 Dec / 23 Dec estimates. The guide is revenue $60–63B and non-GAAP EPS $38.15 ± $1.00 (Micron press release (GlobeNewswire), 2026-11-19)",
+   "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-to-Report-Fiscal-First-Quarter-Results-on-December-17-2026/default.aspx",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "Anthropic debut: ANT opened at $111.50 against the $83 IPO price, reached $115 (+38.6%) and closed up 17.1% (Reuters), but the rally faded across AI hardware as investors sold chip names to fund ANT positions (MarketWatch). Dashboard arithmetic, not a company figure: Micron's ~$1.0B Class N purchase at $83 would be marked up ~17% (~$170M, unrealised) at that close (Reuters (via Investing.com); MarketWatch, 2026-11-19)",
+   "url": "https://www.investing.com/news/stock-market-news/wall-street-ends-sharply-lower-asanthropics-debut-fails-to-revive-ai-fervor-5040108",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "Customer LTAs: Apple is in final-stage talks with Samsung on a 4–5-year DRAM supply deal starting 1H27 (minimum volumes, market-based pricing), after reportedly signing one with SK hynix, a break from its short-contract buying; the paper contrasts Micron's stricter SCA terms (price floors/ceilings, cash deposits, take-or-pay) (The Korea Herald, 2026-11-19)",
+   "url": "https://www.koreaherald.com/article/10942672",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "Spot pricing (TrendForce / DRAMeXchange, third-party, 19 Nov GMT+8): DRAM spot 'no demand inquiries at all'; DDR5 16Gb $60.667 (+0.28%), DDR4 16Gb $78.75 (−0.25%), DDR4 8Gb $43.921 (−0.25%). NAND: TLC 512Gb wafer spot $14.20 (−24% m/m) and 1Tb −14%; TrendForce (est.) now sees overall NAND contract prices −0–5% q/q in 1Q27 as lower Chinese CSP enterprise-SSD demand offsets North America (TrendForce / DRAMeXchange; MoneyToday, 2026-11-19)",
+   "url": "https://www.mt.co.kr/en/industry/2026/11/19/2026111916105559721",
+   "kind": "news"
   },
   {
    "date": "2026-11-18",
    "headline": "RBC Capital (Srini Pajjuri) reiterated Outperform and a $1,500 target after an investor meeting with Micron IR (Satya Kumar): management expects tighter industry supply in 2027–28, is not worried about de-spec'ing, sounded confident SCAs are enforceable, and intends to return 100% of excess cash over time, mainly via buybacks; RBC calls the pullback an opportunity (MU ~4.2x CY27E EPS, RBC est.) (Investing.com / MarketBeat, 2026-11-18)",
    "url": "https://www.investing.com/news/analyst-ratings/rbc-capital-reiterates-micron-technology-stock-rating-on-ai-demand-outlook-93CH-5036157",
    "kind": "target"
-  },
-  {
-   "date": "2026-11-18",
-   "headline": "MU closed $705.27 on 2026-11-18, -13.1% vs $811.30 on 2026-11-11 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
-   "kind": "price"
   },
   {
    "date": "2026-11-18",
@@ -133,6 +163,12 @@
   },
   {
    "date": "2026-11-16",
+   "headline": "Zacks Research cut Micron from Strong Buy to Hold (Zacks Rank #3, a quantitative estimate-revision model). MarketBeat consensus as of 19 Nov: 'Moderate Buy', 40 Buy / 5 Hold, mean target $1,435.58 (third-party) (MarketBeat, 2026-11-16)",
+   "url": "https://www.marketbeat.com/instant-alerts/analyst-micron-technology-nasdaq-mu-cut-to-hold-at-zacks-research-2026-11-18/",
+   "kind": "rating"
+  },
+  {
+   "date": "2026-11-16",
    "headline": "MU fell 7.62% on 16 Nov to close at $719.02 (from $778.31; range $716.38–$739.12, ~26.5M shares), its third straight decline, as chip stocks sold off ahead of Nvidia's FQ3 results (SanDisk −8.6%, Nvidia −4.1%, S&P 500 −1.9%); new US AI-chip export rules and the DRAM antitrust ruling added pressure (Nasdaq.com / Investing.com, 2026-11-16)",
    "url": "https://www.investing.com/news/stock-market-news/us-chip-stocks-slide-as-traders-unwind-nvidia-rival-bets-before-earnings-5030435",
    "kind": "price"
@@ -224,54 +260,6 @@
   {
    "date": "2026-11-13",
    "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 13 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.267 (+0.06%), DDR4 16Gb 3200 $79.50 (−0.31%), DDR4 8Gb 3200 $44.536 (−0.40%); DDRWatcher (est.) flags DDR4 spot down a fourth straight week (−2.7% w/w) and DDR5 −1.4% w/w, with module and contract prices still firm (TrendForce / DRAMeXchange, 2026-11-13)",
-   "url": "https://www.trendforce.com/price/dram/dram_spot",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "SEC filing: 144 (filed 2026-11-12)",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726011002/0001950047-26-011002-index.htm",
-   "kind": "filing"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "SEC filing: 144 (filed 2026-11-12)",
-   "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726011000/0001950047-26-011000-index.htm",
-   "kind": "filing"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "Insider filing: EVP & CBO Sumit Sadana filed Form 144 (12 Nov) for a proposed sale of 14,000 shares from vested performance shares (~$11.41M aggregate value, approx. sale date 11 Nov, via Morgan Stanley); his second Form 144 this week after 5,000 shares on 9 Nov. A Form 4 should follow (SEC EDGAR (Form 144), 2026-11-12)",
-   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=144&dateb=&owner=include&count=40",
-   "kind": "filing"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "MU slipped 1.59% on 12 Nov to close at $798.44 (from $811.30; range $764.57–$799.70, ~27M shares), recovering from an early drop of about 4–6% after Nvidia CEO Jensen Huang resigned (StockAnalysis / MarketBeat, 2026-11-12)",
-   "url": "https://www.marketbeat.com/instant-alerts/price-micron-technology-nasdaq-mu-stock-falls-16-whats-next-2026-11-12/",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "Largest HBM customer: Nvidia CEO Jensen Huang resigned on 12 Nov after the board probe of his ties to an alleged Chinese spy; CFO Colette Kress is interim CEO. AI hardware stocks fell (MU was down ~5.8% pre-market, SK hynix ~3%), while AMD and Broadcom rose. No change to memory orders has been announced (CNA (Reuters), 2026-11-12)",
-   "url": "https://www.channelnewsasia.com/business/global-ai-stocks-sink-nvidia-ceos-exit-deepens-sector-selloff-6546411",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "Pricing: leading memory makers have reportedly told distributors verbally of new price hikes for enterprise-grade memory (DRAM contract and enterprise SSD); channel prices are already rising while consumer segments stay weak. TrendForce (third-party est.) expects Q4 enterprise SSD contract prices +15–20% (TrendForce (citing Lanjing News), 2026-11-12)",
-   "url": "https://www.trendforce.com/news/2026/11/12/news-memory-makers-reportedly-plan-new-price-hikes-while-ai-demand-widens-enterprise-consumer-divide/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "Competitor HBM4: SK hynix's HBM4 production yield has reportedly passed 70% (industry sources, not disclosed by the company); Samsung was said to be near 80% in September. Yield bases differ by vendor, so comparisons with Micron are not like-for-like (Chosun Biz, 2026-11-12)",
-   "url": "https://biz.chosun.com/en/en-it/2026/11/12/7XTICBS4V5BJPD4IYCNFKP7DWE/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-12",
-   "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 12 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.233 (flat), DDR4 16Gb 3200 $79.75 (−0.15%), DDR4 8Gb 3200 $44.714 (−0.40%); DDR4 still drifting lower, DDR5 flat (TrendForce / DRAMeXchange, 2026-11-12)",
    "url": "https://www.trendforce.com/price/dram/dram_spot",
    "kind": "news"
   }
