@@ -1,10 +1,34 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-21 07:48 SGT",
- "from": "2026-11-14",
- "to": "2026-11-21",
+ "updated": "2026-11-23 07:47 SGT",
+ "from": "2026-11-16",
+ "to": "2026-11-23",
  "items": [
+  {
+   "date": "2026-11-23",
+   "headline": "Asia open (23 Nov): Samsung Electronics (−5.4%, ₩173,200) and SK hynix (−5.8%, ₩1.05M) fell in Korean pre-market trading after the 20 Nov US chip rout, in which SK hynix's US ADR fell 13.11% and KOSPI night futures 7.0%; Seoul readied its ₩10.76T market-stabilisation fund, eased buyback order caps for three months from 24 Nov and stepped up illegal short-selling checks (no short-sale ban) (Seoul Economic Daily; Aju Press; Hankyung, 2026-11-23)",
+   "url": "https://en.sedaily.com/market/2026/11/23/korea-stocks-face-policy-test-as-stabilization-fund-readied",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-22",
+   "headline": "HBM demand debate (third-party est.): SemiAnalysis reportedly cut its 2028 global HBM bit-demand forecast by ~30% and its 2028 AI-accelerator spending forecast to $758B from $1.054T; KB Securities sees 2027 HBM demand split Nvidia 38%, Google 37%, AMD 13%. SK hynix's largest customer (presumed Nvidia) fell to 14.8% of its 9M 2026 sales from 27% a year earlier; Samsung and SK hynix filings note contract volumes can change with customer demand (Korea JoongAng Daily (KB Securities, SemiAnalysis estimates), 2026-11-22)",
+   "url": "https://www.koreajoongangdaily.com/business/samsung-sk-hynix-face-ai-memory-doubts-despite-record-profits-as-shares-slide/12984231",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-22",
+   "headline": "Bear view (third-party opinion): Objective Analysis founder Jim Handy told The Korea Times the memory price surge is 'temporary' and that hyperscalers spending ~40% of revenue on capex are likely to slow at some point, which would cause memory prices to collapse, possibly back to 2024 levels; he did not give a timing (The Korea Times, 2026-11-22)",
+   "url": "https://www.koreatimes.co.kr/business/companies/20261122/cover-story-ai-spending-binge-puts-samsung-sk-at-risk-of-memory-price-collapse",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-21",
+   "headline": "Largest HBM customer: The New York Times reported on 21 Nov that the SEC's inquiry into Nvidia's accounting is at an early stage and may end without charges; its focus is unconfirmed, and reports note Nvidia's 2025 switch to reporting regional sales by customer headquarters, which removed Singapore from its breakdown. Nvidia and the SEC have not commented; Bloomberg separately reports California's attorney general says his probe also covers potential criminal violations of state law (AFP (via France 24); The New York Times, 2026-11-21)",
+   "url": "https://www.france24.com/en/live-news/20261121-nvidia-faces-us-accounting-probe-amid-deepening-turmoil-media",
+   "kind": "news"
+  },
   {
    "date": "2026-11-20",
    "headline": "MU closed $594.51 on 2026-11-20, -23.6% vs $778.31 on 2026-11-13 (Nasdaq.com official closes)",
@@ -13,9 +37,15 @@
   },
   {
    "date": "2026-11-20",
-   "headline": "MU fell 13.89% on 20 Nov to close at $594.51 (from $690.44; opened $658.40, regular-session low ~$589.53, ~58M shares), its seventh straight decline and lowest close since 4 May 2026, now ~51% below its 25 Jun record close, in a broad AI-chip sell-off (SOX −7–8%, Nasdaq 100 −3.7%, S&P 500 −2.1%; Nvidia −14%, SanDisk −16%, Western Digital −12%). MU traded ~$609 (+2.4%) after hours (Nasdaq.com, 6:44 pm ET) (Nasdaq.com / Dow Jones (MarketWatch via Morningstar), 2026-11-20)",
-   "url": "https://www.morningstar.com/news/marketwatch/20261120247/micron-and-sandisk-stocks-might-look-like-bargains-but-analysts-say-thats-actually-a-red-flag",
+   "headline": "MU fell 13.89% on 20 Nov to close at $594.51 (from $690.44; opened $665.46, range $585.25–$669.00, ~59.4M shares per Nasdaq.com), its seventh straight decline, lowest close since 4 May 2026 and ~23.6% down on the week, now ~51% below its 25 Jun record, in a broad AI-chip sell-off (PHLX Semiconductor index −10.73%, Nasdaq Composite −5.28%, S&P 500 −3.70% and in correction territory; Nvidia −14%, SanDisk −16%, Western Digital −12%). MU last traded $610.60 (+2.7%) in after-hours (StockAnalysis, 7:59 pm ET) (Nasdaq.com historical; AP; StockAnalysis, 2026-11-20)",
+   "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-c10b797a17c2acf37924d834efebe135",
    "kind": "price"
+  },
+  {
+   "date": "2026-11-20",
+   "headline": "Competitors: SoftBank's Masayoshi Son approached Wall Street institutions about financing a possible ~$1 trillion buyout of SK hynix (The Information); SoftBank says the idea is 'no longer under active consideration', and SK hynix says it has no knowledge of it and that any foreign acquisition would need Korean government approval (Reuters (via CNA), citing The Information, 2026-11-20)",
+   "url": "https://www.channelnewsasia.com/business/softbanks-son-explored-1-trillion-buyout-sk-hynix-information-reports-6571306",
+   "kind": "news"
   },
   {
    "date": "2026-11-20",
@@ -82,6 +112,12 @@
    "headline": "MU fell 2.10% on 19 Nov to close at $690.44 (from $705.27; range $689.27–$760.00, ~35M shares), its sixth straight decline and lowest close since 6 Nov, after opening near $740 on Anthropic's Nasdaq debut and reversing as AI and chip stocks sold off (S&P 500 −2.0%, Nasdaq −2.25%, SOX −2.4%; Nvidia −3.3%; AMD −7.7% on a Hunterbrook short report on China exports); MU traded ~$678.70 after hours (Nasdaq.com, 6:39 pm ET) (Nasdaq.com / Reuters (via Investing.com), 2026-11-19)",
    "url": "https://www.investing.com/news/stock-market-news/wall-street-ends-sharply-lower-asanthropics-debut-fails-to-revive-ai-fervor-5040108",
    "kind": "price"
+  },
+  {
+   "date": "2026-11-19",
+   "headline": "Taiwan labour: the Micron Taoyuan union says Micron made no new offer at the 17 Nov mediation, so members vote on the current proposal from 21 to 24 Nov, ahead of the second mediation on 26 Nov; Micron said it respects employees' rights and will keep talking through existing channels (TaiSounds, 2026-11-19)",
+   "url": "https://www.taisounds.com/news/content/77/310687",
+   "kind": "news"
   },
   {
    "date": "2026-11-19",
@@ -267,36 +303,6 @@
    "date": "2026-11-16",
    "headline": "DRAM spot (TrendForce / DRAMeXchange, third-party, 16 Nov GMT+8): DDR5 16Gb 4800/5600 session avg $60.333 (+0.11%), DDR4 16Gb 3200 $79.375 (−0.16%), DDR4 8Gb 3200 $44.357 (−0.40%); DDRWatcher (est.) says DDR4 is in a fifth straight weekly decline while DDR5 sits 1.8% below its 42-week high, with no contract reset yet (TrendForce / DRAMeXchange, 2026-11-16)",
    "url": "https://www.trendforce.com/price/dram/dram_spot",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-15",
-   "headline": "Legal: US District Judge Noël Wise (N.D. Cal.) denied Micron, Samsung and SK hynix's joint motion to dismiss a proposed consumer class action (Garciaguirre v. Samsung) alleging coordinated conventional-DRAM supply cuts and a pivot to HBM; a pleading-stage ruling, nothing proven. Answers are due 7 Dec; first case conference 12 Jan 2027 (Tom's Hardware / TechPowerUp, 2026-11-15)",
-   "url": "https://www.tomshardware.com/tech-industry/big-tech/judge-denies-motion-to-dismiss-dram-price-fixing-lawsuit-against-micron-samsung-and-sk-hynix-says-chipmakers-acted-like-hawks-flying-in-formation-finds-evidence-of-dram-collusion-plausible-after-500-percent-price-surge",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-15",
-   "headline": "Week ahead: Nvidia, Micron's largest HBM customer, reports FQ3 after the US close on 17 Nov (about 05:20 SGT 18 Nov), its first results since Jensen Huang's exit, against its $108B guide; consensus ~$109.2B revenue (LSEG, third-party est.). Applied Materials guided 2027 wafer-fab-equipment spending up more than 30% (Daily Silicon (LSEG consensus est.), 2026-11-15)",
-   "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-15-en/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-15",
-   "headline": "Policy: the US and eight partners (Japan, South Korea, UK, Australia, Israel, India, Qatar, UAE) signed the Pax Silica 'San Francisco Declaration' on 15 Nov, setting a shared list of sensitive AI technologies and supply links incl. semiconductors and advanced packaging; full text and enforcement annexes not yet published; EU, Germany, Netherlands and Sweden deferred (East Asia Brief, 2026-11-15)",
-   "url": "https://eastasiabrief.com/trade-policy/us-signs-multilateral-ai-supply-chain-pact-eight-allies-1463",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-15",
-   "headline": "Largest HBM customer: Treasury Secretary Scott Bessent gave Nvidia's board 10 days to answer whether shell companies were used to evade China export controls, said nothing above the H200 may be sold to China and urged an outside CEO; on 16 Nov CNBC (source) reported the board is not considering bringing back Jensen Huang (CNBC, 2026-11-15)",
-   "url": "https://www.cnbc.com/2026/11/15/bessent-nvidia-ceo-lutnick-megaspeed.html",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-14",
-   "headline": "HBM share (Hana Securities, third-party est., 13 Nov): 2027 HBM shipments of 39.2B Gb split SK hynix 47%, Samsung 41%, Micron 12% (4.8B Gb), with Samsung seen leading on revenue; Micron's HBM wafer capacity est. 60K/month in 2026 rising to 80K in 2027; 2027 hyperscaler HBM demand ~44B Gb exceeds supply, with balance seen only in 2H28 (Daily Silicon (Hana Securities estimate), 2026-11-14)",
-   "url": "https://www.vlsi.kr/en/daily-silicon-2026-11-14-en/",
    "kind": "news"
   }
  ]
