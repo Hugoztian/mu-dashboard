@@ -1,39 +1,87 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-26 07:41 SGT",
- "from": "2026-11-19",
- "to": "2026-11-26",
+ "updated": "2026-11-27 07:41 SGT",
+ "from": "2026-11-20",
+ "to": "2026-11-27",
  "items": [
   {
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "headline": "Ratings (buy/hold/sell): 26/1/0 → 26/2/0 — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "rating"
   },
   {
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "headline": "FY27 consensus EPS: $174.19 → $174.66 (+0.3%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "headline": "FY28 consensus EPS: $212.33 → $216.17 (+1.8%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "headline": "Mean price target: $1,624.42 → $1,573.52 (-3.1%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-26",
+   "date": "2026-11-27",
    "headline": "Low price target: $1,200.00 → $775.00 (-35.4%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Competitors (27 Nov, Asia): in Korean pre-market trading (Nextrade, 08:06 KST) Samsung Electronics was +0.29% at ₩171,800 and SK hynix −0.76% at ₩1.045M, with US markets shut for Thanksgiving. On 26 Nov the KOSPI closed +0.29% at 4,711.21 (Samsung +0.35% to ₩171,300, SK hynix +2.23% to ₩1.053M) after giving back an early 2.6% gain as the Bank of Korea raised its policy rate to 3.25% and Nvidia's Southeast Asia shipment halt was reported (Yonhap) (Newsis (Nextrade pre-market), 2026-11-27)",
+   "url": "https://www.newsis.com/view/NISX20261127_0003885495",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "No US session on 26 Nov (Thanksgiving); MU's last close is still $601.25 (25 Nov). It ended the 25 Nov after-hours session at ~$615.2 (+2.3%). Fri 27 Nov is a half-day session (1:00 pm ET close). Consensus targets unchanged: S&P Global mean $1,530 (49 analysts, low $361, high $3,000) (StockAnalysis; Public.com; NYSE holiday calendar, 2026-11-26)",
+   "url": "https://stockanalysis.com/stocks/mu/forecast/",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "Taiwan labour: the second Micron–Taoyuan union mediation, convened ex officio by the Taoyuan city government on 26 Nov, ended without a deal; the union agreed to hand Micron its own proposal on 2 Dec, and a third mediation is set for 4 Dec at 9:00 am Taiwan time (Liberty Times (Taoyuan city labour bureau), 2026-11-26)",
+   "url": "https://ec.ltn.com.tw/article/breakingnews/5654712",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "Pricing outlook cut (GF Securities, third-party est., 26 Nov): Jeff Pu cut his 2027 DRAM contract price forecast to +6%, +3%, 0% and 0% q/q for 1Q–4Q27 (from +10%, +7%, +5%, +3%), citing trimmed Chinese CSP server orders and soft consumer demand. His first 2028 scenarios put conventional DRAM at $8/GB in the base case (−50% from 2027's ~$16), $4 bear and $12 bull, with HBM −20% base. He still sees DRAM undersupplied (−5%/−5%/−4% sufficiency in 2026–28) and stays constructive on Micron and SK hynix (Wccftech (GF Securities note via Zhitong Finance), 2026-11-26)",
+   "url": "https://wccftech.com/analyst-jeff-pu-says-dram-prices-could-halve-in-2028-as-the-ai-memory-boom-cools-but-cheaper-ram-isnt-coming-next-year/",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "Spot pricing (TrendForce / DRAMeXchange, third-party, 26 Nov GMT+8): DDR5 16Gb $60.767 (flat), DDR4 16Gb $77.50 (−0.32%), DDR4 8Gb $43.125 (−0.21%). TrendForce says order visibility is poor, most buyers remain bearish and branded chip prices keep being revised down (TrendForce / DRAMeXchange, 2026-11-26)",
+   "url": "https://www.trendforce.com/presscenter/analysis?page=1",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "Largest HBM customer: Nvidia told server partners including Dell and Supermicro to stop shipping servers with its chips to Malaysia, Singapore, Thailand and Indonesia while it assesses compliance with the BIS licence rule in force since 19 Nov; it is unclear whether the halt is temporary (FT via Reuters). Fitch said the curbs will slow and narrow Asia-Pacific data-centre investment, with neocloud operators under the most pressure (Reuters (citing FT); Reuters (Fitch), 2026-11-26)",
+   "url": "https://www.investing.com/news/stock-market-news/nvidia-halts-server-shipments-to-four-southeast-asian-countries-ft-reports-5052112",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "Competitors (NAND): Kioxia rose as much as 14.5% to ¥7,895 in Tokyo on 26 Nov after a proof of concept with Nvidia extended effective GPU memory with SSDs: 144 Kioxia XD8 drives (~1.1 PB raw, ~80x the rack's 13.4 TB of HBM) in a GB200 NVL72 rack, said to support up to 2 trillion vectors; the companies are still evaluating performance. In US overnight trading SanDisk was ~+4% and MU ~+2% (Stocktwits) (Investing.com; Stocktwits, 2026-11-26)",
+   "url": "https://www.investing.com/news/stock-market-news/kioxia-jumps-14-after-nvidia-collaboration-as-chip-stocks-rebound-5052074",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-26",
+   "headline": "China competitors: Samsung and SK hynix have agreed to adopt parts of YMTC's Xtacking 3D NAND stacking technology through patent cross-licensing (Nikkei Asia). The draft ISSCC Feb 2027 program lists CXMT papers on next-generation DDR5 and an LPDDR6 interface and a Huawei next-generation HBM paper (data-pin density reportedly twice current mass-production parts); CXMT said earlier in November it had validated engineering samples of a 4F² sixth-generation DRAM platform (Financial News (citing Yicai, Nikkei Asia), 2026-11-26)",
+   "url": "https://en.fnnews.com/news/202611261821552363",
+   "kind": "news"
   },
   {
    "date": "2026-11-26",
@@ -279,60 +327,6 @@
    "date": "2026-11-20",
    "headline": "Contract vs spot (KB Securities, third-party est., 20 Nov): KB sees 2027 DRAM demand +25% against supply +18%, with key customers receiving only ~70% of what they need, and forecasts Samsung/SK hynix contract DRAM ASPs +40% and NAND +30% in 2027; it says DRAM and NAND spot fell ~5% and ~20% in the past month while contract prices kept rising, putting the spot–contract gap above 20%, and calls chip-stock pessimism 'near its peak'. Samsung and SK hynix were down ~4% and ~5% in Korean pre-market trading after the US chip sell-off (Edaily (KB Securities estimate); Financial News, 2026-11-20)",
    "url": "https://en.edaily.co.kr/news/eda202611205065/",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Lynx Equity (KC Rajkumar) named Micron its top semiconductor pick and kept a $1,325 target, calling the stock 'ridiculously cheap' at ~2.3x his calendar-2028 EPS estimate; he argues slower data-centre permitting does not mean weaker DRAM/NAND demand (Investing.com, 2026-11-19)",
-   "url": "https://www.investing.com/news/stock-market-news/micron-valuation-looks-ridiculously-cheap-as-anthropic-ipo-could-revive-ai-trade-5038695",
-   "kind": "target"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "MU fell 2.10% on 19 Nov to close at $690.44 (from $705.27; range $689.27–$760.00, ~35M shares), its sixth straight decline and lowest close since 6 Nov, after opening near $740 on Anthropic's Nasdaq debut and reversing as AI and chip stocks sold off (S&P 500 −2.0%, Nasdaq −2.25%, SOX −2.4%; Nvidia −3.3%; AMD −7.7% on a Hunterbrook short report on China exports); MU traded ~$678.70 after hours (Nasdaq.com, 6:39 pm ET) (Nasdaq.com / Reuters (via Investing.com), 2026-11-19)",
-   "url": "https://www.investing.com/news/stock-market-news/wall-street-ends-sharply-lower-asanthropics-debut-fails-to-revive-ai-fervor-5040108",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Taiwan labour: the Micron Taoyuan union says Micron made no new offer at the 17 Nov mediation, so members vote on the current proposal from 21 to 24 Nov, ahead of the second mediation on 26 Nov; Micron said it respects employees' rights and will keep talking through existing channels (TaiSounds, 2026-11-19)",
-   "url": "https://www.taisounds.com/news/content/77/310687",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Fabs/HBM: Micron moved the first process tool into the cleanroom of its US$7B Singapore HBM advanced-packaging facility on 19 Nov, with initial output expected in early 2027; TrendForce notes the Taoyuan union will put Micron's proposal to a member vote ahead of a second mediation session on 26 Nov (Singapore EDB; TrendForce, 2026-11-19)",
-   "url": "https://www.edb.gov.sg/en/news-and-insights/micron-marks-first-tool-move-in-at-singapore-hbm-advanced-packaging-facility",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Export policy: with the new BIS rules in force from 19 Nov, TSMC has told affected Chinese chip designers to halt orders at 16nm and below unless they obtain US licences, generally limiting them to 28/40nm without HBM or advanced packaging (sources); the FT reports TSMC and Samsung have also paused some shipments to Chinese customers (Reuters (via Investing.com), 2026-11-19)",
-   "url": "https://www.investing.com/news/stock-market-news/tsmc-tightens-china-ai-chip-curbs-as-new-us-rules-close-manufacturing-loophole-sources-say-5038806",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Earnings date confirmed: Micron will hold its FQ1 FY27 earnings call on Thursday 17 Dec 2026 at 2:30 pm Mountain time (4:30 pm ET; 05:30 SGT Fri 18 Dec), replacing the third-party 16 Dec / 23 Dec estimates. The guide is revenue $60–63B and non-GAAP EPS $38.15 ± $1.00 (Micron press release (GlobeNewswire), 2026-11-19)",
-   "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-to-Report-Fiscal-First-Quarter-Results-on-December-17-2026/default.aspx",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Anthropic debut: ANT opened at $111.50 against the $83 IPO price, reached $115 (+38.6%) and closed up 17.1% (Reuters), but the rally faded across AI hardware as investors sold chip names to fund ANT positions (MarketWatch). Dashboard arithmetic, not a company figure: Micron's ~$1.0B Class N purchase at $83 would be marked up ~17% (~$170M, unrealised) at that close (Reuters (via Investing.com); MarketWatch, 2026-11-19)",
-   "url": "https://www.investing.com/news/stock-market-news/wall-street-ends-sharply-lower-asanthropics-debut-fails-to-revive-ai-fervor-5040108",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Customer LTAs: Apple is in final-stage talks with Samsung on a 4–5-year DRAM supply deal starting 1H27 (minimum volumes, market-based pricing), after reportedly signing one with SK hynix, a break from its short-contract buying; the paper contrasts Micron's stricter SCA terms (price floors/ceilings, cash deposits, take-or-pay) (The Korea Herald, 2026-11-19)",
-   "url": "https://www.koreaherald.com/article/10942672",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-19",
-   "headline": "Spot pricing (TrendForce / DRAMeXchange, third-party, 19 Nov GMT+8): DRAM spot 'no demand inquiries at all'; DDR5 16Gb $60.667 (+0.28%), DDR4 16Gb $78.75 (−0.25%), DDR4 8Gb $43.921 (−0.25%). NAND: TLC 512Gb wafer spot $14.20 (−24% m/m) and 1Tb −14%; TrendForce (est.) now sees overall NAND contract prices −0–5% q/q in 1Q27 as lower Chinese CSP enterprise-SSD demand offsets North America (TrendForce / DRAMeXchange; MoneyToday, 2026-11-19)",
-   "url": "https://www.mt.co.kr/en/industry/2026/11/19/2026111916105559721",
    "kind": "news"
   }
  ]
