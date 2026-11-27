@@ -1,39 +1,93 @@
 {
  "ticker": "MU",
  "name": "Micron",
- "updated": "2026-11-27 07:41 SGT",
- "from": "2026-11-20",
- "to": "2026-11-27",
+ "updated": "2026-11-28 07:43 SGT",
+ "from": "2026-11-21",
+ "to": "2026-11-28",
  "items": [
   {
-   "date": "2026-11-27",
+   "date": "2026-11-28",
    "headline": "Ratings (buy/hold/sell): 26/1/0 → 26/2/0 — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "rating"
   },
   {
-   "date": "2026-11-27",
+   "date": "2026-11-28",
    "headline": "FY27 consensus EPS: $174.19 → $174.66 (+0.3%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-27",
+   "date": "2026-11-28",
    "headline": "FY28 consensus EPS: $212.33 → $216.17 (+1.8%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-27",
+   "date": "2026-11-28",
    "headline": "Mean price target: $1,624.42 → $1,573.52 (-3.1%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
   },
   {
-   "date": "2026-11-27",
+   "date": "2026-11-28",
    "headline": "Low price target: $1,200.00 → $775.00 (-35.4%) — Nasdaq.com / Zacks",
    "url": "https://www.nasdaq.com/market-activity/stocks/mu/analyst-research",
    "kind": "estimate"
+  },
+  {
+   "date": "2026-11-28",
+   "headline": "HBM customers: Google is pursuing direct purchases of HBM for its in-house TPUs instead of going through Broadcom, working with MediaTek on its next-generation TPU (DigiTimes report). Counterpoint estimates Broadcom's model adds a 15–20% intermediary margin to HBM costs and sees AI-ASIC HBM bit demand rising 35-fold from 2024 to 2028 (third-party est.); Korean suppliers see more direct customer access but also more buyer pricing power (The Asia Business Daily (citing DigiTimes, Counterpoint), 2026-11-28)",
+   "url": "https://view.asiae.co.kr/en/article/2026112711273967405",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "MU closed $646.95 on 2026-11-27, +8.8% vs $594.51 on 2026-11-20 (Nasdaq.com official closes)",
+   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "MU +7.60% to $646.95 on 27 Nov (half-day session, 1:00 pm ET close; range $607.27–$654.33, ~26.9M shares) from $601.25 on 25 Nov, as investors bought beaten-down AI chip names after Thanksgiving. SOX +4.7%, Nasdaq +2.31%, S&P 500 +1.60%; SanDisk +15.96%, Seagate +7.90%, Western Digital +7.22%, Nvidia +0.8%. MU ended after-hours at $645.66 (−0.20%, 4:59 pm ET). MU is still ~47% below its 25 Jun closing high of $1,213.56 (Reuters (via Investing.com); Nasdaq.com, 2026-11-27)",
+   "url": "https://www.investing.com/news/stock-market-news/wall-st-futures-surge-as-investors-return-from-holiday-5053052",
+   "kind": "price"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Pricing outlook (TrendForce, third-party est., 27 Nov): buyers and suppliers have been reworking 2027–28 plans since early 4Q26, slightly slowing DRAM buying. Base case: conventional DRAM contract price gains narrow through 2027, level off in 2H27 and decline across all products from 1Q28 as bit supply keeps growing strongly. Bear case (server OEM cuts, supply-chain destocking, neocloud consolidation, tighter BIS controls): declines start in 4Q27 and widen in 2028. Risks cited: post-midterm US data-centre policy, power limits, possible Nvidia cut-back in neocloud financing and BIS chip-access rules. No HBM figures given (TrendForce, 2026-11-27)",
+   "url": "https://www.trendforce.com/presscenter/news/20261127-13327.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Pricing risk (Bank of Korea, third-party est.): a BoK study released 26 Nov modelled 2028 HBM and conventional DRAM prices 51% below its baseline if slower AI investment, tighter financing and faster Chinese supply growth hit together. The baseline (Gartner) already has prices −23% y/y in 2028. Tighter financing was the largest single shock (−30% vs baseline in 2028; Chinese supply −20%, investment delays −16%). Scenario, not the central forecast; NAND not covered (AI Industry Today summary) (DIGITIMES (Bank of Korea study, 26 Nov), 2026-11-27)",
+   "url": "https://www.digitimes.com/news/a20261127VL213/memory-exports-financing-investment-2027-2028.html",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Competitors (27 Nov close, Seoul): KOSPI +4.34% to 4,915.68 on hopes the ₩10T market stabilisation fund will be expanded; foreigners net bought ₩1.13T, the most since 7 Sep. Samsung Electronics +4.55% to ₩179,100; SK hynix +5.41% to ₩1.11M on its ex-dividend day, after both opened lower (Yonhap; Korea Times, 2026-11-27)",
+   "url": "https://en.yna.co.kr/view/AEN20261127004852320",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Largest HBM customer / export policy: Singapore Deputy PM Gan Kim Yong said on 27 Nov that Singapore has not confirmed reports that Nvidia halted server shipments to Southeast Asia. Singapore is asking companies about the impact and reviewing its rules and monitoring so the country does not become a conduit for illegal chip trade (CNA, 2026-11-27)",
+   "url": "https://www.channelnewsasia.com/singapore/economic-nationalism-asean-partnership-nvidia-chips-dpm-gan-6585321",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Taiwan labour: after four hours at the 26 Nov mediation, Micron agreed to give the Taoyuan union the reward-plan briefing materials shown to employees since 22 Oct, under confidentiality. The union will submit its own proposal on 2 Dec, and the third mediation is set for the morning of 4 Dec (Taoyuan labour bureau) (ETtoday (Taoyuan city labour bureau), 2026-11-27)",
+   "url": "https://www.ettoday.net/news/20261127/3279573.htm",
+   "kind": "news"
+  },
+  {
+   "date": "2026-11-27",
+   "headline": "Spot pricing (TrendForce / DRAMeXchange, third-party, 27 Nov GMT+8): DDR5 16Gb $60.333 (−0.71%), DDR4 16Gb $76.625 (−1.13%), DDR4 8Gb $42.714 (−0.95%). Week on week (vs 20 Nov): DDR5 −0.55%, DDR4 16Gb −2.54%, DDR4 8Gb −2.37%. NAND wafer spot not updated since 16 Nov (TrendForce / DRAMeXchange, 2026-11-27)",
+   "url": "https://www.trendforce.com/price/dram/dram_spot",
+   "kind": "news"
   },
   {
    "date": "2026-11-27",
@@ -97,15 +151,15 @@
   },
   {
    "date": "2026-11-25",
-   "headline": "MU closed $601.25 on 2026-11-25, -14.7% vs $705.27 on 2026-11-18 (Nasdaq.com official closes)",
-   "url": "https://www.nasdaq.com/market-activity/stocks/mu/historical",
+   "headline": "MU fell 4.53% on 25 Nov to close at $601.25 (from $629.79; opened $574.96, range $548.13–$604.95, ~52M shares), having been down ~13% intraday before paring losses; it is down 15% from the 23 Nov close. Nvidia −3.91% (−9% intraday) as the Huang-return rally faded; PHLX Semiconductor index −0.65% (−7.96% intraday), Nasdaq Composite −0.62%, S&P 500 −0.25%, Dow +0.33%; the PCE price index rose 3.8% y/y (Aju Press). US markets are closed on 26 Nov (Thanksgiving) (Nasdaq.com; CNBC; Aju Press, 2026-11-25)",
+   "url": "https://www.cnbc.com/2026/11/25/nvidia-ai-stock-tech-selloff.html",
    "kind": "price"
   },
   {
    "date": "2026-11-25",
-   "headline": "MU fell 4.53% on 25 Nov to close at $601.25 (from $629.79; opened $574.96, range $548.13–$604.95, ~52M shares), having been down ~13% intraday before paring losses; it is down 15% from the 23 Nov close. Nvidia −3.91% (−9% intraday) as the Huang-return rally faded; PHLX Semiconductor index −0.65% (−7.96% intraday), Nasdaq Composite −0.62%, S&P 500 −0.25%, Dow +0.33%; the PCE price index rose 3.8% y/y (Aju Press). US markets are closed on 26 Nov (Thanksgiving) (Nasdaq.com; CNBC; Aju Press, 2026-11-25)",
-   "url": "https://www.cnbc.com/2026/11/25/nvidia-ai-stock-tech-selloff.html",
-   "kind": "price"
+   "headline": "Hyperscaler capex (Goldman Sachs, third-party est., 25 Nov): sees hyperscaler capex at ~$1.1T in 2027 and $1.2–1.3T in 2028, with memory ~44% of capex in 2027 falling to ~40% in 2028 as memory prices fall. If 2028 capex is flat, −10% or −20% vs 2027, memory spending would be $55B, $99B or $144B lower. Still constructive on 2027; cautious on 2028 (AI capex durability, weak phone/PC demand, more Chinese supply) (ETEnterpriseAI (ANI, Goldman Sachs note), 2026-11-25)",
+   "url": "https://enterpriseai.economictimes.indiatimes.com/news/industry/ai-spending-slowdown-could-hit-memory-companies-as-goldman-sachs-flags-2028-risks/136152235",
+   "kind": "news"
   },
   {
    "date": "2026-11-25",
@@ -261,72 +315,6 @@
    "date": "2026-11-21",
    "headline": "Largest HBM customer: The New York Times reported on 21 Nov that the SEC's inquiry into Nvidia's accounting is at an early stage and may end without charges; its focus is unconfirmed, and reports note Nvidia's 2025 switch to reporting regional sales by customer headquarters, which removed Singapore from its breakdown. Nvidia and the SEC have not commented; Bloomberg separately reports California's attorney general says his probe also covers potential criminal violations of state law (AFP (via France 24); The New York Times, 2026-11-21)",
    "url": "https://www.france24.com/en/live-news/20261121-nvidia-faces-us-accounting-probe-amid-deepening-turmoil-media",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "MU fell 13.89% on 20 Nov to close at $594.51 (from $690.44; opened $665.46, range $585.25–$669.00, ~59.4M shares per Nasdaq.com), its seventh straight decline, lowest close since 4 May 2026 and ~23.6% down on the week, now ~51% below its 25 Jun record, in a broad AI-chip sell-off (PHLX Semiconductor index −10.73%, Nasdaq Composite −5.28%, S&P 500 −3.70% and in correction territory; Nvidia −14%, SanDisk −16%, Western Digital −12%). MU last traded $610.60 (+2.7%) in after-hours (StockAnalysis, 7:59 pm ET) (Nasdaq.com historical; AP; StockAnalysis, 2026-11-20)",
-   "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-c10b797a17c2acf37924d834efebe135",
-   "kind": "price"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Competitors: SoftBank's Masayoshi Son approached Wall Street institutions about financing a possible ~$1 trillion buyout of SK hynix (The Information); SoftBank says the idea is 'no longer under active consideration', and SK hynix says it has no knowledge of it and that any foreign acquisition would need Korean government approval (Reuters (via CNA), citing The Information, 2026-11-20)",
-   "url": "https://www.channelnewsasia.com/business/softbanks-son-explored-1-trillion-buyout-sk-hynix-information-reports-6571306",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Largest HBM customer: Nvidia fell 14% to $125.53 on 20 Nov (−23% on the week, its worst since 2008) after Reuters reported that SEC enforcement staff are examining potential accounting issues at the company; the SEC declined to comment and an investigation does not establish wrongdoing. The stock is ~48% below its 6 Oct record despite the FQ3 beat and $130B FQ4 guide (Reuters (via Investing.com), 2026-11-20)",
-   "url": "https://www.investing.com/news/stock-market-news/nvidia-shares-fall-10-as-report-of-sec-accounting-probe-adds-to-pressure-5042464",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Demand outlook (TrendForce, third-party est., 20 Nov): Chinese CSPs have scaled back purchases of enterprise SSDs and some server DRAM; TrendForce keeps its overall 2027 DRAM demand outlook unchanged and says DRAM stays undersupplied but with price increases narrowing each quarter, while NAND tips into oversupply earlier than expected, slowing 2027 memory revenue growth (TrendForce (research summary), 2026-11-20)",
-   "url": "https://www.trendforce.com/research/download/RP261120IT",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Hyperscaler AI chips (third-party est.): analyst Ming-Chi Kuo says his survey shows Google cut planned 2027 shipments of the Broadcom-designed TPU 8i series by ~1M units (~20%), mostly the pricier 8i Max, while planning more MediaTek-designed TPU 8t units; he ties it to frontier-model compute priority and power limits rather than a pullback. Broadcom fell ~11%; neither company commented (Investing.com (Ming-Chi Kuo, TF International), 2026-11-20)",
-   "url": "https://www.investing.com/news/stock-market-news/google-reportedly-cuts-broadcomdesigned-tpu-plans-eyes-more-mediatek-chips-5042253",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Asia memory sell-off (20 Nov): KOSPI −5.21% with Samsung Electronics −7.01% and SK hynix −5.92% as Anthropic's debut failed to ease AI-spending worries (Yonhap); Kioxia fell 11.66% in Tokyo after guiding Oct–Dec revenue only ~1% q/q higher on flat shipments, while saying its 2027 capacity is largely sold out (GuruFocus) (Yonhap; GuruFocus, 2026-11-20)",
-   "url": "https://en.yna.co.kr/view/AEN20261120005651320",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Valuation debate: MarketWatch puts MU at 3.76x next-12-month EPS vs a two-year average of 9.10x; Futurum's Brendan Burke calls low memory P/Es 'a warning label, not a bargain sign' (though AI may make earnings more durable) and CreditSights' Andy Li says a cyclical view implies a 'dramatic price decline may well be in the cards'; Barron's called memory stocks 'agonizingly cheap' (Dow Jones (MarketWatch via Morningstar); Barron's, 2026-11-20)",
-   "url": "https://www.morningstar.com/news/marketwatch/20261120247/micron-and-sandisk-stocks-might-look-like-bargains-but-analysts-say-thats-actually-a-red-flag",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Competitor leadership: Samsung promoted Hwang Sang-joon, who led its DRAM and HBM development, to president and head of the memory business; co-CEO Jun Young-hyun keeps the wider chip division and will focus on foundry, and process chief Lee Jong-myeong becomes the chip division's CTO (Reuters (via StreetInsider), 2026-11-20)",
-   "url": "https://www.streetinsider.com/Reuters/Samsung+Electronics+appoints+new+head+for+its+memory+chip+business/27377796.html",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Competitors: SK hynix will convert ¥129B (~$810M) of Kioxia-linked convertible bonds into shares, becoming Kioxia's largest indirect shareholder at 14.1% (Toshiba 10.46%); it says it has no plans to buy more, sell, or expand its role in Kioxia's management (Yonhap, 2026-11-20)",
-   "url": "https://en.yna.co.kr/view/AEN20261120005051320",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Spot pricing (TrendForce / DRAMeXchange, third-party, 20 Nov GMT+8): DDR5 16Gb $60.667 (flat), DDR4 16Gb $78.625 (−0.16%), DDR4 8Gb $43.75 (−0.39%); DDRWatcher (est.) has DDR4 spot down 1.4% w/w (fifth weekly drop) and DDR5 +0.5% w/w, with no contract reset yet. VDURA says 30TB SSD prices are down 5–15% across the board, the first substantial cut since summer 2025 (TrendForce / DRAMeXchange; DDRWatcher; Blocks & Files, 2026-11-20)",
-   "url": "https://www.blocksandfiles.com/flash/2026/11/20/flash-prices-start-to-fall/5311258",
-   "kind": "news"
-  },
-  {
-   "date": "2026-11-20",
-   "headline": "Contract vs spot (KB Securities, third-party est., 20 Nov): KB sees 2027 DRAM demand +25% against supply +18%, with key customers receiving only ~70% of what they need, and forecasts Samsung/SK hynix contract DRAM ASPs +40% and NAND +30% in 2027; it says DRAM and NAND spot fell ~5% and ~20% in the past month while contract prices kept rising, putting the spot–contract gap above 20%, and calls chip-stock pessimism 'near its peak'. Samsung and SK hynix were down ~4% and ~5% in Korean pre-market trading after the US chip sell-off (Edaily (KB Securities estimate); Financial News, 2026-11-20)",
-   "url": "https://en.edaily.co.kr/news/eda202611205065/",
    "kind": "news"
   }
  ]
